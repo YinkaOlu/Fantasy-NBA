@@ -324,6 +324,9 @@ app.controller('fantasySelectionEngine', ['$scope', '$http',
         };
 
         $scope.buildFantasyTeam = function(){
+            var one_day = 1000*60*60*24;
+
+
 
             if($scope.startDate == null || $scope.endDate == null) {
                 if($scope.startDate == null)
@@ -376,8 +379,100 @@ app.controller('fantasySelectionEngine', ['$scope', '$http',
 
 
         $scope.getStats = function() {
+            $scope.stats = [];
+            //$scope.stats.fPoints = 0;
+            //$scope.stats.fAssists = 0;
+            //$scope.stats.fBlocks = 0;
+            //$scope.stats.fTRB = 0;
+            //$scope.stats.fFGPer = 0;
+            //$scope.stats.fThreePPer = 0;
+            //$scope.stats.fFTPer = 0;
+            //$scope.stats.fSteals = 0;
+            //$scope.stats.fTOV = 0;
+            //$scope.stats.fFouls = 0;
+
+            $scope.totalGamesCounter = 0;
+
             console.log('Running Stats Calculator');
-                console.log($scope.playerQueryGames)
+            console.log($scope.playerQueryGames);
+            console.log('------------');
+
+            $scope.totalsPerPlayer = [];
+
+            for(var p = 0; p < $scope.playerQueryGames.length ; p++){
+                console.log("Stats for: "+ $scope.playerQueryGames[p]+ '\n'+ $scope.playerQueryGames [p+1]);
+                 var gameArray = $scope.playerQueryGames [p+1];
+                console.log(gameArray);
+
+                $scope.stats[p] = {};
+                $scope.stats[p].fPoints = 0;
+                $scope.stats[p].fAssists = 0;
+                $scope.stats[p].fBlocks = 0;
+                $scope.stats[p].fTRB = 0;
+                $scope.stats[p].fFGPer = 0;
+                $scope.stats[p].fThreePPer = 0;
+                $scope.stats[p].fFTPer = 0;
+                $scope.stats[p].fSteals = 0;
+                $scope.stats[p].fTOV = 0;
+                $scope.stats[p].fFouls = 0;
+
+                var counter = 0;
+
+                    for(var g = 0; g < gameArray.length; g++) {
+                        console.log('Calculating total Points at: ' + g);
+
+
+
+                        $scope.stats[p].fPoints += + gameArray[g].PTS;
+                        $scope.stats[p].fAssists += + gameArray[g].AST;
+                        $scope.stats[p].fBlocks += + gameArray[g].BLK;
+                        $scope.stats[p].fSteals += + gameArray[g].STL;
+                        $scope.stats[p].fTOV += + gameArray[g].TOV;
+                        $scope.stats[p].fFouls += + gameArray[g].Fouls;
+
+
+                        $scope.stats[p].fTRB += (gameArray[g].DRB + gameArray[g].ORB);
+
+                        $scope.stats[p].fFGPer += (gameArray[g].FGM/gameArray[g].FGA);
+                        $scope.stats[p].fFTPer += (gameArray[g].FTM/gameArray[g].FTA);
+                        $scope.stats[p].fThreePPer += (gameArray[g].threes_made/gameArray[g].threes_attempted);
+
+                        ///$scope.stats.fPoints += + gameArray[g].PTS;
+                        //$scope.stats.fAssists += + gameArray[g].AST;
+                        //$scope.stats.fBlocks += + gameArray[g].BLK;
+                        //$scope.stats.fSteals += + gameArray[g].STL;
+                        //$scope.stats.fTOV += + gameArray[g].TOV;
+                        //$scope.stats.fFouls += + gameArray[g].Fouls;
+
+
+                        //$scope.stats.fTRB += (gameArray[g].DRB + gameArray[g].ORB);
+
+                        //$scope.stats.fFGPer += (gameArray[g].FGM/gameArray[g].FGA);
+                        //$scope.stats.fFTPer += (gameArray[g].FTM/gameArray[g].FTA);
+                        //$scope.stats.fThreePPer += (gameArray[g].threes_made/gameArray[g].threes_attempted);
+
+                        $scope.totalGamesCounter++;
+                        counter++
+                    }
+                $scope.stats[p].fFGPer = ($scope.stats[p].fFGPer)/counter;
+                $scope.stats[p].fFTPer = ($scope.stats[p].fFTPer)/counter;
+                $scope.stats[p].fThreePPer = ($scope.stats[p].fThreePPer)/counter;
+
+                p++;
+            }
+            console.log($scope.stats);
+        };
+
+        $scope.getTotalPTS = function(){
+            var teamTotalPTS = 0;
+            console.log($scope.stats.length);
+
+            for(var i = 0; i < $scope.stats.length; i++){
+                teamTotalPTS += $scope.stats[i].fPoints;
+                console.log(teamTotalPTS);
+            }
+
+            return teamTotalPTS;
         };
 
     }]);
