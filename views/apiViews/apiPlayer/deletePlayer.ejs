@@ -1,0 +1,50 @@
+<% include ../../templates/headTemp.ejs %>
+<% include ../../templates/navigationTemp.html %>
+
+<!-- Delete Player API engine -->
+<script language="javascript" type="text/javascript" src="/javascripts/angularApps/deletePlayer.js"></script>
+
+<div id="createTeam" ng-app="deletePlayerEngine">
+    <div ng-controller="deletePlayerController">
+
+        <div id="formOneContainer" class="col-md-6 col-sm-6 col-xs-6">
+            <form role="form" id="step1a" name="myForm3">
+                <div class="form-group">
+                    <div class="row"><label>Select team (select one):</label></div>
+                    <select size="9"  id="selectedTeamA" class="form-group">
+                        <option ng-repeat="team in currentTeams | orderBy: 'team_name'" value ='{{currentTeams.indexOf(team)}}' ng-click="selectTeamFunction(currentTeams.indexOf(team))">{{team.team_name}}</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+
+        <div id="formOneContainer" class="col-md-6 col-sm-6 col-xs-6">
+            <form role="form" id="step1a" name="myForm3">
+                <div class="form-group">
+                    <div class="row"><label>Select player (select one):</label></div>
+                    <select size="9"  id="selectedTeamA" class="form-group">
+                        <option ng-repeat="player in roster | orderBy: ['player_first_name','player_last_name']" value ='{{roster.indexOf(player)}}' ng-click="selectPlayerFunction(roster.indexOf(player))">{{player.player_first_name}} {{player.player_last_name}}</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            {{test}}
+            <form id="gameEntryForm">
+
+                <h2>Player First Name: </h2><input type="text" ng-model="player.player_first_name">
+                <h2>Player Last Name: </h2><input type="text" ng-model="player.player_last_name">
+                <h2>Player Jersey Number: </h2><input type="text" ng-model="player.player_number">
+                <h2>Player Position: </h2><input type="text" ng-model="player.player_position">
+                <br>
+                <button ng-click="deletePlayer()">Delete Player</button>
+                <br>
+                <a href="/playerform"> Back to Player CRUD PAGE</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Player API engine -->
+<script language="javascript" type="text/javascript" src="/javascripts/angularApps/deletePlayer.js"></script>

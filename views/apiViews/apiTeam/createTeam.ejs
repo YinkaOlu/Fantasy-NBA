@@ -1,0 +1,47 @@
+<% include ../../templates/headTemp.ejs %>
+<% include ../../templates/navigationTemp.html %>
+
+<!-- Create Team API engine -->
+<script language="javascript" type="text/javascript" src="/javascripts/angularApps/createTeam.js"></script>
+
+<div id="createTeam" ng-app="createTeamEngine">
+    <div ng-controller="createTeamController">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <form id="gameEntryForm">
+                <h2>Team Name: </h2><input type="text" ng-model="team.team_name">
+                <h2>Team Arena: </h2><input ng-model="team.arena">
+
+                <h2>City: </h2><input ng-model="team.city">
+                <h2>State: </h2><input ng-model="team.State">
+                <h2>Country: </h2><input ng-model="team.country">
+                <h2>Conference: </h2><input ng-model="team.conference">
+                <h2>Head Coach: </h2><input ng-model="team.head_coach">
+
+                <h2>GM: </h2><input ng-model="team.GM">
+                <h2>Owner: </h2><input ng-model="team.owner">
+
+                <h2>Playoff Appearances: </h2><input ng-model="team.playoff_appearances">
+                <h2>Finals Appearances: </h2><input ng-model="team.finals_appearances">
+                <h2>Historical Win Percentage: </h2><input ng-model="team.historical_win_percentage">
+                <h2>Championships: </h2><input ng-model="team.championships">
+
+                <h2>Primary Color: </h2><input ng-model="team.teamPrimaryColour">
+                <h2>Secondary Color: </h2><input ng-model="team.teamSecondaryColour">
+                <h2>Tertiary Colour: </h2><input ng-model="team.teamTertiaryColour">
+
+                <h2>Wins: </h2><input ng-model="team.currentSeason_wins">
+                <h2>Losses: </h2><input ng-model="team.currentSeason_losses">
+                <h2>Total Salary: </h2><input ng-model="team.total_Salary">
+                <br/>
+                <button ng-click="createTeam()">Create Team</button>
+                <br>
+                <a href="/teamform"> Back to TEAM CRUD PAGE</a>
+            </form>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="formTwoContainer">
+
+
+        </div>
+    </div>
+</div>

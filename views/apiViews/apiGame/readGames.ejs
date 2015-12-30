@@ -1,0 +1,50 @@
+<% include ../../templates/headTemp.ejs %>
+<% include ../../templates/navigationTemp.html %>
+
+
+<!-- Create Player -->
+<script language="javascript" type="text/javascript" src="/javascripts/angularApps/readGames.js"></script>
+<div id="createTeam" ng-app="readGamesEngine">
+    <div ng-controller="readGamesController">
+
+
+        <div id="formOneContainer" class="col-md-6 col-sm-6 col-xs-6">
+            <form role="form" id="step1a" name="myForm3">
+                <div class="form-group">
+                    <div class="row"><label>Select team (select one):</label></div>
+                    <select size="30"  id="selectedTeamA" class="form-group">
+                        <option ng-repeat="team in currentTeams | orderBy: 'team_name'" value ='{{currentTeams.indexOf(team)}}' ng-click="selectTeamFunction(currentTeams.indexOf(team))">{{team.team_name}}</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+
+        <div id="formOneContainer" class="col-md-6 col-sm-6 col-xs-6">
+            <form role="form" id="step1a" name="myForm3">
+                <div class="form-group">
+                    <div class="row"><label>Select player (select one):</label></div>
+                    <select size="10"  id="selectedTeamA" class="form-group">
+                        <option ng-repeat="player in roster | orderBy: 'player_last_name'" value ='{{roster.indexOf(player)}}' ng-click="selectPlayerFunction(roster.indexOf(player))">{{player.player_first_name}} {{player.player_last_name}}</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <form role="form" id="step1a" name="myForm3">
+                <div class="form-group">
+                    <div class="row"><label>Select Game (select one):</label></div>
+                    <select size="13"  id="selectedTeamA" class="form-group">
+                        <option ng-repeat="game in gamesPlayed | orderBy: 'game_Date'" value ='{{gamesPlayed.indexOf(game)}}' ng-click="selectGameFunction(gamesPlayed.indexOf(game))">{{game.player_Name}} {{game.game_Date}}</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+
+        <a href="/gameform"> Back to Game CRUD PAGE</a>
+    </div>
+</div>
+
+<!-- Create Player API engine -->
+<script language="javascript" type="text/javascript" src="/javascripts/angularApps/readGames.js"></script>

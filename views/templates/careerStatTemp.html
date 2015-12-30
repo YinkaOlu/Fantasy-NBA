@@ -1,0 +1,192 @@
+<!-- template from NBAapp -->
+<div id="results" class="row">
+
+
+    <!-- Basic Shooting Stats -->
+
+    <button type="button" class="btn btn-primary btn-block" id="ShootingStatBtn">Shooting Stats</button>
+    <div id="ShootingStatContainer">
+
+        <table id="shootTable" class="table table-hover">
+            <caption>Scoring Stats</caption>
+            <thead>
+            <tr>
+                <th>Category</th>
+                <th>Statistic</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Points Section -->
+            <tr>
+                <td class="col-md-6 col-sm-6 col-xs-6"> Total Career Points / Career Points per Game</td>
+                <td class="col-md-6 col-sm-6 col-xs-6">{{tPoints}} // {{PPG}}</td>
+            </tr>
+            <!-- FG Section -->
+            <tr>
+                <td class="col-md-6 col-sm-6 col-xs-6"> Total Field Goals Made // Attempted // FG% </td>
+                <td class="col-md-6 col-sm-6 col-xs-6">{{tFGM}} // {{tFGA}} // {{FGPer}} </td>
+            </tr>
+            <!-- 3Pt Section -->
+            <tr>
+                <td class="col-md-6 col-sm-6 col-xs-6"> Total 3-Pts Made // Attempted // 3PT% </td>
+                <td class="col-md-6 col-sm-6 col-xs-6">{{tThreePM}} // {{tThreePA}} // {{ThreePPer}} </td>
+            </tr>
+            <!-- 2Pt Section -->
+            <tr>
+                <td class="col-md-6 col-sm-6 col-xs-6"> Total 2-Pts Made // Attempted // 2PT% </td>
+                <td class="col-md-6 col-sm-6 col-xs-6">{{tTwoPM}} // {{tTwoPA}} // {{TwoPPer}} </td>
+            </tr>
+            <!-- eFGSection -->
+            <tr>
+                <td class="col-md-6 col-sm-6 col-xs-6"> Effective Field Goal Percentage </td>
+                <td class="col-md-6 col-sm-6 col-xs-6">{{eFGPer}} </td>
+            </tr>
+            <!-- FT Section -->
+            <tr>
+                <td class="col-md-6 col-sm-6 col-xs-6"> Total Free Throws Made // Attempted // FT% </td>
+                <td class="col-md-6 col-sm-6 col-xs-6">{{tFTM}} // {{tFTA}} // {{FTPer}} </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <!-- Shooting Breakdown -->
+
+    <button type="button" class="btn btn-primary btn-block" id="ShootBreakdownBtn">Shoot Breakdown</button>
+    <div id="ShootBreakdown"  class="row">
+        <div class="row"><h1>Percentage <br/> of Field Goal Attempt <br> by <br> Distance </h1></div>
+
+        <canvas  id="FGAPer" class="row" ></canvas>
+
+        <br/>
+        <br/>
+
+        <div class="row"><h1>Field Goal Percentage <br> by <br> Distance </h1></div>
+
+        <canvas  id="FGPer" class="row" ></canvas>
+        <br/>
+        <br/>
+    </div>
+
+
+    <!-- Rebounding Stats -->
+
+    <button type="button" class="btn btn-primary btn-block" id="ReboundingStatBtn">Rebounding Stats</button>
+    <div id="ReboundingStat">
+        <table class="table table-hover">
+            <caption>Rebounding Stats</caption>
+            <thead>
+            <tr>
+                <th>Category</th>
+                <th>Statistic</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <!-- Offensive Rebounds section -->
+            <tr>
+                <td class="col-md-6 col-sm-6 col-xs-6"> Total Offensive Rebounds / Career Offensive Rebounds per Game</td>
+                <td class="col-md-6 col-sm-6 col-xs-6">{{tORB}} // {{ORPG}}</td>
+            </tr>
+            <!-- Defensive Rebounds section -->
+            <tr>
+                <td class="col-md-6 col-sm-6 col-xs-6"> Total Defensive Rebounds / Career Defensive Rebounds per Game</td>
+                <td class="col-md-6 col-sm-6 col-xs-6">{{tDRB}} // {{DRPG}}</td>
+            </tr>
+            <!--  Rebounds section -->
+            <tr>
+                <td class="col-md-6 col-sm-6 col-xs-6"> Total Defensive Rebounds / Career Defensive Rebounds per Game</td>
+                <td class="col-md-6 col-sm-6 col-xs-6">{{tRB}} // {{RPG}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Assist Stats -->
+
+    <button type="button" class="btn btn-primary btn-block" id="AssistStatBtn">Assist Stats</button>
+    <div id="AssistStat">
+        <table class="table table-hover">
+            <caption>Assist Stats</caption>
+            <thead>
+            <tr>
+                <th>Category</th>
+                <th>Statistic</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Assists section -->
+            <tr>
+                <td class="col-md-6 col-sm-6 col-xs-6"> Total Career Assists / Career Assists per Game</td>
+                <td class="col-md-6 col-sm-6 col-xs-6">{{tAssists}} // {{APG}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Steal Stats -->
+
+    <button type="button" class="btn btn-primary btn-block" id="StealStatBtn">Steal Stats</button>
+    <div id="StealStat">
+        <table class="table table-hover">
+            <caption>Steal Stats</caption>
+            <thead>
+            <tr>
+                <th>Category</th>
+                <th>Statistic</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Steals section -->
+            <tr>
+                <td class="col-md-6 col-sm-6 col-xs-6"> Total Career Steals / Career Assists per Game</td>
+                <td class="col-md-6 col-sm-6 col-xs-6">{{tSteals}} // {{SPG}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Block Stats -->
+
+    <button type="button" class="btn btn-primary btn-block" id="BlockStatBtn">Block Stats</button>
+    <div id="BlockStat">
+        <table class="table table-hover">
+            <caption>Blocks Stats</caption>
+            <thead>
+            <tr>
+                <th>Category</th>
+                <th>Statistic</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Blocks section -->
+            <tr>
+                <td class="col-md-6 col-sm-6 col-xs-6"> Total Career Blocks / Career Blocks per Game</td>
+                <td class="col-md-6 col-sm-6 col-xs-6">{{tBlocks}} // {{BPG}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Turnover Stat -->
+    <button type="button" class="btn btn-primary btn-block" id="TurnoverStatBtn">Turnover Stats</button>
+    <div id="TurnoverStat">
+        <table class="table table-hover">
+            <caption>Turnover Stats</caption>
+            <thead>
+            <tr>
+                <th>Category</th>
+                <th>Statistic</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Turnover section -->
+            <tr>
+                <td class="col-md-6 col-sm-6 col-xs-6"> Total Career Turnovers / Career Turnover per Game</td>
+                <td class="col-md-6 col-sm-6 col-xs-6">{{tTurnovers}} // {{TPG}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

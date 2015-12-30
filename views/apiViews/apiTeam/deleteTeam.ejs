@@ -1,0 +1,21 @@
+<% include ../../templates/headTemp.ejs %>
+<% include ../../templates/navigationTemp.html %>
+<!-- Delete Team API engine -->
+<script language="javascript" type="text/javascript" src="/javascripts/angularApps/deleteTeam.js"></script>
+
+<div ng-app="deleteTeamEngine">
+    <div ng-controller="deleteTeamController">
+        <div id="formOneContainer" class="col-md-6 col-sm-6 col-xs-6">
+            <form role="form" id="step1a" name="myForm3">
+                <div class="form-group">
+                    <div class="row"><label>Select team (select one):</label></div>
+                    <select size="9"  id="selectedTeamA" class="form-group">
+                        <option ng-repeat="team in currentTeams | orderBy: 'team_name'" value ='{{currentTeams.indexOf(team)}}' ng-click="selectTeamFunction(currentTeams.indexOf(team))">{{team.team_name}}</option>
+                    </select>
+                </div>
+                <button ng-click="deleteTeam()"> Delete Team</button>
+            </form>
+            <a href="/teamform"> Back to TEAM CRUD PAGE</a>
+        </div>
+    </div>
+</div>

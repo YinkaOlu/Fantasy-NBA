@@ -1,0 +1,135 @@
+<% include ../templates/headTemp.ejs %>
+<% include ../templates/navigationTemp.html %>
+
+<!-- Fantasy Stat Angular App -->
+<!-- <script language="javascript" type="text/javascript" src="/javascripts/angularApps/fantasyTeamEngine.js"></script> -->
+
+<script language="javascript" type="text/javascript" src="/javascripts/angularApps/fantasySelectionEngine.js"></script>
+
+<div ng-app="fantasySelectionEngine" class="appContainer">
+    <div id="fantasyTeam" ng-controller="fantasySelectionEngine">
+        <h1><u>Build Your Fantasy Team</u></h1>
+
+
+        <div class="row" id="startingFiveContainer">
+            <div class="row"><h2> Your Starting 5 </h2></div>
+            <div class="row">
+                <div class="col-lg-1 col-md-1 col-sm-0 col-xs-0"></div>
+
+                <a href="#selectionMenu">
+                <div class="fantasyPosHolder col-lg-2 col-md-2 col-sm-6 col-xs-12" id="pointGuard" ng-click="selectPosition(0)">
+                    <img class="fantasyPosImg" ng-src="/images/{{ pointGuardImg }}.png">
+                    <h2>Point Guard (PG)</h2>
+                </div>
+                    </a>
+
+                 <a href="#selectionMenu">
+                <div class="fantasyPosHolder col-lg-2 col-md-2 col-sm-6 col-xs-12" id="shootingGuard" ng-click="selectPosition(1)">
+                    <img class="fantasyPosImg" ng-src="/images/{{ shootingGuardImg }}.png">
+                    <h2>Shooting Guard (SG)</h2>
+                </div>
+                     </a>
+                <a href="#selectionMenu">
+                <div class="fantasyPosHolder col-lg-2 col-md-2 col-sm-6 col-xs-12" id="smallForward" ng-click="selectPosition(2)">
+                    <img class="fantasyPosImg" ng-src="/images/{{ smallForwardImg }}.png">
+                    <h2>Small Forward</h2>
+                </div>
+                    </a>
+
+                <a href="#selectionMenu">
+                <div class="fantasyPosHolder col-lg-2 col-md-2 col-sm-6 col-xs-12" id="powerForward" ng-click="selectPosition(3)">
+                    <img class="fantasyPosImg" ng-src="/images/{{ powerForwardImg }}.png">
+                    <h2>Power Forward</h2>
+                </div>
+                    </a>
+
+                <a href="#selectionMenu">
+                <div class="fantasyPosHolder col-lg-2 col-md-2 col-sm-6 col-xs-12" id="center" ng-click="selectPosition(4)">
+                    <img class="fantasyPosImg" ng-src="/images/{{ centerImg }}.png">
+                    <h2>Center</h2>
+                </div>
+                </a>
+            </div>
+        </div>
+
+
+        <div class="row" id="benchContainer">
+            <div class="row"><h2> Your Bench </h2></div>
+            <div class="row">
+                <div class="col-lg-1 col-md-1 col-sm-0 col-xs-0"></div>
+                <a href="#selectionMenu">
+                <div class="fantasyPosHolder col-lg-2 col-md-2 col-sm-6 col-xs-12" id="flexGuard" ng-click="selectPosition(5)">
+                    <img class="fantasyPosImg" ng-src="/images/{{ flexGuardImg }}.png">
+                    <h2>Flex Guard (PG - SG)</h2>
+                </div>
+                    </a>
+
+                <a href="#selectionMenu">
+                <div class="fantasyPosHolder col-lg-2 col-md-2 col-sm-6 col-xs-12" id="flexForward" ng-click="selectPosition(6)">
+                    <img class="fantasyPosImg" ng-src="/images/{{ flexForwardImg }}.png">
+                    <h2>Flex Forward (SF - PF)</h2>
+                </div>
+                    </a>
+
+                <a href="#selectionMenu">
+                <div class="fantasyPosHolder col-lg-2 col-md-2 col-sm-6 col-xs-12" id="utilityOne" ng-click="selectPosition(7)">
+                    <img class="fantasyPosImg" ng-src="/images/{{ utilityOneImg }}.png">
+                    <h2>Any Position</h2>
+                </div>
+                    </a>
+
+                <a href="#selectionMenu">
+                <div class="fantasyPosHolder col-lg-2 col-md-2 col-sm-6 col-xs-12" id="utilityTwo" ng-click="selectPosition(8)">
+                    <img class="fantasyPosImg" ng-src="/images/{{ utilityTwoImg }}.png">
+                    <h2>Any Position</h2>
+                </div>
+                    </a>
+
+                <a href="#selectionMenu">
+                <div class="fantasyPosHolder col-lg-2 col-md-2 col-sm-6 col-xs-12" id="utilityThree" ng-click="selectPosition(9)">
+                    <img class="fantasyPosImg" ng-src="/images/{{ utilityThreeImg }}.png">
+                    <h2>Any Position</h2>
+                </div>
+                    </a>
+            </div>
+        </div>
+
+
+        <a name="selectionMenu">
+            <div id="fantasySelectPartial" class="row" ng-hide="hideSelectionForm">
+                <% include ../templates/fantasySelectionTemp.html %>
+            </div>
+        </a>
+
+        <br>
+
+        <div class="row" id="fantasyStatFinder">
+            <div id='startDate' class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <h1>Start Date</h1>
+                <input type='date' id='startDate' ng-model="startDate">
+            </div>
+
+            <div id='endDate'class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                <h1>End Date</h1>
+                <input type='date' id='endDate' ng-model="endDate">
+            </div>
+        </div>
+
+        <br>
+        <br>
+
+        <div class="row" id="buildTeam">
+            <button type="button" class="btn btn-primary btn-block" ng-click="buildFantasyTeam()">Build Fantasy Team</button>
+        </div>
+
+        <br>
+        <br>
+
+        <div id="fantasyTeamResults">
+            <% include ../templates/fantasyTeamResults.html %>
+        </div>
+
+
+
+    </div>
+</div>

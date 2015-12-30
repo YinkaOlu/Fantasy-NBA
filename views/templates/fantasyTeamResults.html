@@ -1,0 +1,81 @@
+
+<table class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="fantasyResultTable">
+    <thead>
+        <tr class="fantasyResultRow">
+            <td class="col-lg-2 col-md-2 col-sm-12 col-xs-12 fantasyResultElement">Category</td>
+            <td class="col-lg-2 col-md-2 col-sm-12 col-xs-12 fantasyResultElement">Combined Team Stats</td>
+            <td class="col-lg-8 col-md-8 col-sm-12 col-xs-12 fantasyResultElement">Diagram</td>
+        </tr>
+    </thead>
+
+    <tbody id="fantasyTableBody">
+        <tr class="fantasyResultRow">
+            <td class="col-lg-2 col-md-2 col-sm-12 col-xs-12 fantasyResultElement">Daily Fantasy Sports Points</td>
+            <td class="col-lg-2 col-md-2 col-sm-12 col-xs-12 fantasyResultElement"> {{ fDFS }}</td>
+            <td class="col-lg-8 col-md-8 col-sm-12 col-xs-12 fantasyResultElement">  </td>
+        </tr>
+        <tr class="fantasyResultRow">
+            <td class="col-lg-2 col-md-2 col-sm-12 col-xs-12 fantasyResultElement">Total Team Points per Game</td>
+            <td class="col-lg-2 col-md-2 col-sm-12 col-xs-12 fantasyResultElement"> {{ fPoints }}</td>
+            <td class="col-lg-8 col-md-8 col-sm-12 col-xs-12 fantasyResultElement"> <canvas id="PointsChart"></canvas> </td>
+        </tr>
+        <tr class="fantasyResultRow">
+            <td class="col-lg-2 col-md-2 col-sm-12 col-xs-12 fantasyResultElement">Total Team field Goal Percentage</td>
+            <td class="col-lg-2 col-md-2 col-sm-12 col-xs-12 fantasyResultElement"> {{ fFGPer }}</td>
+            <td class="col-lg-8 col-md-8 col-sm-12 col-xs-12 fantasyResultElement"> <canvas id="FGChart"></canvas> </td>
+        </tr>
+        <tr class="fantasyResultRow">
+            <td class="col-lg-2 col-md-2 col-sm-12 col-xs-12 fantasyResultElement">Total Team Three Point Percentage</td>
+            <td class="col-lg-2 col-md-2 col-sm-12 col-xs-12 fantasyResultElement"> {{ fThreePPer }}</td>
+            <td class="col-lg-8 col-md-8 col-sm-12 col-xs-12 fantasyResultElement"> <canvas id="threePChart"></canvas> </td>
+        </tr>
+        <tr class="fantasyResultRow">
+            <td class="col-lg-2 col-md-2 col-sm-12 col-xs-12 fantasyResultElement">Total Team Free Throw Percentage</td>
+            <td class="col-lg-2 col-md-2 col-sm-12 col-xs-12 fantasyResultElement"> {{ fFTPer }}</td>
+            <td class="col-lg-8 col-md-8 col-sm-12 col-xs-12 fantasyResultElement"> <canvas id="FTChart"></canvas> </td>
+        </tr>
+
+        <tr class="fantasyResultRow">
+            <td class="col-lg-2 col-md-2 col-sm-12 col-xs-12 fantasyResultElement">Total Team Assists</td>
+            <td class="col-lg-2 col-md-2 col-sm-12 col-xs-12 fantasyResultElement"> {{ fAssists }}</td>
+            <td class="col-lg-8 col-md-8 col-sm-12 col-xs-12 fantasyResultElement"> <canvas id="AssistChart"></canvas> </td>
+        </tr>
+
+        <tr class="fantasyResultRow">
+            <td class="col-lg-2 col-md-2 col-sm-12 col-xs-12 fantasyResultElement">Total Team Steals</td>
+            <td class="col-lg-2 col-md-2 col-sm-12 col-xs-12 fantasyResultElement"> {{ fSteals }}</td>
+            <td class="col-lg-8 col-md-8 col-sm-12 col-xs-12 fantasyResultElement"> <canvas id="StealChart"></canvas> </td>
+        </tr>
+
+        <tr class="fantasyResultRow">
+            <td class="col-lg-2 col-md-2 col-sm-12 col-xs-12 fantasyResultElement">Total Team Blocks</td>
+            <td class="col-lg-2 col-md-2 col-sm-12 col-xs-12 fantasyResultElement"> {{ fBlocks }}</td>
+            <td class="col-lg-8 col-md-8 col-sm-12 col-xs-12 fantasyResultElement"> <canvas id="BlockChart"></canvas> </td>
+        </tr>
+
+        <tr class="fantasyResultRow">
+            <td class="col-lg-2 col-md-2 col-sm-12 col-xs-12 fantasyResultElement">Total Team Rebounds</td>
+            <td class="col-lg-2 col-md-2 col-sm-12 col-xs-12 fantasyResultElement"> {{ fTRB }}</td>
+            <td class="col-lg-8 col-md-8 col-sm-12 col-xs-12 fantasyResultElement"> <canvas id="TRBChart"></canvas> </td>
+        </tr>
+
+        <tr class="fantasyResultRow">
+            <td class="col-lg-2 col-md-2 col-sm-12 col-xs-12 fantasyResultElement">Total Team Turnovers</td>
+            <td class="col-lg-2 col-md-2 col-sm-12 col-xs-12 fantasyResultElement"> {{ fTOV }}</td>
+            <td class="col-lg-8 col-md-8 col-sm-12 col-xs-12 fantasyResultElement"> <canvas id="TOVChart"></canvas> </td>
+        </tr>
+
+        <tr class="fantasyResultRow">
+            <td class="col-lg-2 col-md-2 col-sm-12 col-xs-12 fantasyResultElement">Total Team Fouls</td>
+            <td class="col-lg-2 col-md-2 col-sm-12 col-xs-12 fantasyResultElement"> {{ fFouls }}</td>
+            <td class="col-lg-8 col-md-8 col-sm-12 col-xs-12 fantasyResultElement"> <canvas id="FoulChart"></canvas> </td>
+        </tr>
+
+        <tr class="fantasyResultRow">
+            <td class="col-lg-2 col-md-2 col-sm-12 col-xs-12 fantasyResultElement">Total Team Plus-Minus Rating</td>
+            <td class="col-lg-2 col-md-2 col-sm-12 col-xs-12 fantasyResultElement"> {{ fTOV }}</td>
+            <td class="col-lg-8 col-md-8 col-sm-12 col-xs-12 fantasyResultElement"> - </td>
+        </tr>
+
+    </tbody>
+</table>

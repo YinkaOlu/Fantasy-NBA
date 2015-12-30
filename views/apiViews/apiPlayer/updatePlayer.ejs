@@ -1,0 +1,95 @@
+<% include ../../templates/headTemp.ejs %>
+<% include ../../templates/navigationTemp.html %>
+
+<!-- Update Player API engine -->
+<script language="javascript" type="text/javascript" src="/javascripts/angularApps/updateTeam.js"></script>
+
+<div id="createTeam" ng-app="updatePlayerEngine">
+    <div ng-controller="updatePlayerController">
+
+        <div id="formOneContainer" class="col-md-6 col-sm-6 col-xs-6">
+            <form role="form" id="step1a" name="myForm3">
+                <div class="form-group">
+                    <div class="row"><label>Select team (select one):</label></div>
+                    <select size="9"  id="selectedTeamA" class="form-group">
+                        <option ng-repeat="team in currentTeams | orderBy: 'team_name'" value ='{{currentTeams.indexOf(team)}}' ng-click="selectTeamFunction(currentTeams.indexOf(team))">{{team.team_name}}</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+
+        <div id="formOneContainer" class="col-md-6 col-sm-6 col-xs-6">
+            <form role="form" id="step1a" name="myForm3">
+                <div class="form-group">
+                    <div class="row"><label>Select player (select one):</label></div>
+                    <select size="9"  id="selectedTeamA" class="form-group">
+                        <option ng-repeat="player in roster| orderBy: 'player_first_name'" value ='{{roster.indexOf(player)}}' ng-click="selectPlayerFunction(roster.indexOf(player))">{{player.player_first_name}} {{player.player_last_name}}</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            {{test}}
+            <form id="gameEntryForm">
+
+                <h2>Player First Name: </h2><input type="text" ng-model="player.player_first_name">
+                <h2>Player Last Name: </h2><input type="text" ng-model="player.player_last_name">
+                <h2>Player Jersey Number: </h2><input type="text" ng-model="player.player_number">
+                <h2>Player Position: </h2><input type="text" ng-model="player.player_position">
+                <h2>Player NBA start date: </h2><input type="text" ng-model="player.player_NBA_start">
+                <h2>Player Draft Year: </h2><input type="text" ng-model="player.player_draft">
+                <h2>Pre-NBA Team: </h2><input type="text" ng-model="player.player_preNBA_team">
+                <h2>Player Birth-date: </h2><input type="text" ng-model="player.player_birthDate">
+                <h2>Player Height: </h2><input type="text" ng-model="player.player_height">
+                <h2>Player Weight: </h2><input type="text" ng-model="player.player_weight">
+                <h2>Player Salary: </h2><input type="text" ng-model="player.player_salary">
+                <h2>Player Contract: </h2><input type="text" ng-model="player.player_contract">
+                <h2>Years on Contract: </h2><input type="text" ng-model="player.years_on_contract">
+                <h2>Player Status: </h2>
+                <input type="radio" ng-model="player.player_status" value="starter">Starter
+                <input type="radio" ng-model="player.player_status" value="bench">Bench
+                <input type="radio" ng-model="player.player_status" value="freeAgent">Free Agent
+                <h2>Injured: </h2>
+                <input type="radio" ng-model="player.player_injured" ng-value="true">Healthy
+                <input type="radio" ng-model="player.player_injured" ng-value="false">Injured
+                <h2>Player Injury: </h2><input type="text" ng-model="player.player_injury">
+                <h2>Estimated Injury time: </h2><input type="text" ng-model="player.player_injury_time">
+                <h2>Player Traded: </h2>
+                <input type="radio" ng-model="player.player_traded" ng-value="true">Traded
+                <input type="radio" ng-model="player.player_traded" ng-value="false">Not Traded
+                <h2>Previous Team (prior team): </h2><input type="text" ng-model="player.player_previousTeam">
+                <h2>Been to Playoffs: </h2>
+                <input type="radio" ng-model="player.been_to_playOffs" ng-value="true">True
+                <input type="radio" ng-model="player.been_to_playOffs" ng-value="false">False
+                <h2>PlayOff Experience: </h2><input type="text" ng-model="player.playOff_experience">
+                <h2>PlayOff Appearances: </h2><input type="text" ng-model="player.playOff_appearances">
+                <!-- <h2>PlayOff Win Percentage: </h2><input type="text" ng-model="player.playOff_win_percentage"> -->
+                <h2>PlayOff Appearances: </h2><input type="text" ng-model="player.playOff_appearances">
+                <h2>Been to finals: </h2>
+                <input type="radio" ng-model="player.been_to_finals" ng-value="true">True
+                <input type="radio" ng-model="player.been_to_finals" ng-value="false">False
+                <h2>Finals Appearances: </h2><input type="text" ng-model="player.finals_appearances">
+                <h2>Finals Appearances: </h2><input type="text" ng-model="player.finals_appearances">
+                <h2>Championship: </h2><input type="text" ng-model="player.championships">
+                <h2>Finals MVP: </h2><input type="text" ng-model="player.finals_mvp">
+                <h2>Season MVP: </h2><input type="text" ng-model="player.season_mvp">
+                <h2>Rookie Season: </h2>
+                <input type="radio" ng-model="player.rookie_season" ng-value="true">True
+                <input type="radio" ng-model="player.rookie_season" ng-value="false">False
+                <h2>Retired?: </h2>
+                <input type="radio" ng-model="player.is_Retired" ng-value="true">True
+                <input type="radio" ng-model="player.is_Retired" ng-value="false">False
+
+
+                <br>
+                <button ng-click="updatePlayer()">Update Player</button>
+                <br>
+                <a href="/playerform"> Back to Player CRUD PAGE</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Create Player API engine -->
+<script language="javascript" type="text/javascript" src="/javascripts/angularApps/updatePlayer.js"></script>

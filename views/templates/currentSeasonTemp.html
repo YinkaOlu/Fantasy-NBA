@@ -1,0 +1,203 @@
+<!-- template from NBAapp -->
+<div id="results" class="row">
+
+
+    <!-- Basic Shooting Stats -->
+
+    <button type="button" class="btn btn-primary btn-block" id="ShootingStatBtn">Shooting Stats</button>
+    <div id="ShootingStatContainer">
+
+        <table id="shootTable" class="table table-hover">
+            <caption>Scoring Stats</caption>
+            <thead>
+            <tr>
+                <th>Category</th>
+                <th>Statistic</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Daily Fantasy Points Section -->
+            <tr>
+                <td class="col-md-6 col-sm-6 col-xs-6"> Daily Fantasy Points (Draft Kings) in Last {{ counter }} Games</td>
+                <td class="col-md-6 col-sm-6 col-xs-6">{{ DFS }}</td>
+            </tr>
+            <!-- Points Section -->
+            <tr>
+                <td class="col-md-6 col-sm-6 col-xs-6"> Points per Game in Last {{ counter }} Games</td>
+                <td class="col-md-6 col-sm-6 col-xs-6">{{PPG}}</td>
+            </tr>
+            <!-- FG Section -->
+            <tr>
+                <td class="col-md-6 col-sm-6 col-xs-6"> Field Goals Made per Game in Last {{ counter }} Games</td>
+                <td class="col-md-6 col-sm-6 col-xs-6">{{aFGM}} </td>
+            </tr>
+            <tr>
+                <td class="col-md-6 col-sm-6 col-xs-6"> Field Goals Percentage per Game in Last {{ counter }} Games</td>
+                <td class="col-md-6 col-sm-6 col-xs-6">{{aFGPer}} </td>
+            </tr>
+            <!-- 3Pt Section -->
+            <tr>
+                <td class="col-md-6 col-sm-6 col-xs-6"> Three Points Made per Game in Last {{ counter }} </td>
+                <td class="col-md-6 col-sm-6 col-xs-6">{{athreePM}} </td>
+            </tr>
+            <tr>
+                <td class="col-md-6 col-sm-6 col-xs-6"> Three Point Percetnage in Last {{ counter }} </td>
+                <td class="col-md-6 col-sm-6 col-xs-6">{{athreePPer}} </td>
+            </tr>
+            <!-- Freethrow Section -->
+            <tr>
+                <td class="col-md-6 col-sm-6 col-xs-6"> Freethrows made per Game in Last {{ counter }} </td>
+                <td class="col-md-6 col-sm-6 col-xs-6">{{aFTM}} </td>
+            </tr>
+            <tr>
+                <td class="col-md-6 col-sm-6 col-xs-6"> Freethrow Percentage in Last {{ counter }} </td>
+                <td class="col-md-6 col-sm-6 col-xs-6">{{aFTPer}} </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <!-- Rebounding Stats -->
+
+    <button type="button" class="btn btn-primary btn-block" id="ReboundingStatBtn">Rebounding Stats</button>
+    <div id="ReboundingStat">
+        <table class="table table-hover">
+            <caption>Rebounding Stats</caption>
+            <thead>
+            <tr>
+                <th>Category</th>
+                <th>Statistic</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <!-- Offensive Rebounds section -->
+            <tr>
+                <td class="col-md-6 col-sm-6 col-xs-6"> Offensive Rebounds per Game in Last {{ counter }} Games</td>
+                <td class="col-md-6 col-sm-6 col-xs-6">{{ORB}}</td>
+            </tr>
+            <!-- Defensive Rebounds section -->
+            <tr>
+                <td class="col-md-6 col-sm-6 col-xs-6"> Defensive Rebounds per Game in Last {{ counter }} Games</td>
+                <td class="col-md-6 col-sm-6 col-xs-6">{{DRB}}</td>
+            </tr>
+            <!--  Rebounds section -->
+            <tr>
+                <td class="col-md-6 col-sm-6 col-xs-6"> Total Rebounds per Game in Last {{ counter}} Games</td>
+                <td class="col-md-6 col-sm-6 col-xs-6">{{TRB}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Assist Stats -->
+
+    <button type="button" class="btn btn-primary btn-block" id="AssistStatBtn">Assist Stats</button>
+    <div id="AssistStat">
+        <table class="table table-hover">
+            <caption>Assist Stats</caption>
+            <thead>
+            <tr>
+                <th>Category</th>
+                <th>Statistic</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Assists section -->
+            <tr>
+                <td class="col-md-6 col-sm-6 col-xs-6"> Assists per Game in Last {{ counter }}</td>
+                <td class="col-md-6 col-sm-6 col-xs-6">{{APG}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Steal Stats -->
+
+    <button type="button" class="btn btn-primary btn-block" id="StealStatBtn">Steal Stats</button>
+    <div id="StealStat">
+        <table class="table table-hover">
+            <caption>Steal Stats</caption>
+            <thead>
+            <tr>
+                <th>Category</th>
+                <th>Statistic</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Steals section -->
+            <tr>
+                <td class="col-md-6 col-sm-6 col-xs-6"> Steals per Game in Last {{ counter }}</td>
+                <td class="col-md-6 col-sm-6 col-xs-6">{{SPG}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Block Stats -->
+
+    <button type="button" class="btn btn-primary btn-block" id="BlockStatBtn">Block Stats</button>
+    <div id="BlockStat">
+        <table class="table table-hover">
+            <caption>Blocks Stats</caption>
+            <thead>
+            <tr>
+                <th>Category</th>
+                <th>Statistic</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Blocks section -->
+            <tr>
+                <td class="col-md-6 col-sm-6 col-xs-6"> Blocks per Game in Last {{ counter }} Games</td>
+                <td class="col-md-6 col-sm-6 col-xs-6">{{BPG}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Turnover Stat -->
+    <button type="button" class="btn btn-primary btn-block" id="TurnoverStatBtn">Turnover Stats</button>
+    <div id="TurnoverStat">
+        <table class="table table-hover">
+            <caption>Turnover Stats</caption>
+            <thead>
+            <tr>
+                <th>Category</th>
+                <th>Statistic</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Turnover section -->
+            <tr>
+                <td class="col-md-6 col-sm-6 col-xs-6"> Turnover per Game in Last {{ counter }} Games</td>
+                <td class="col-md-6 col-sm-6 col-xs-6">{{TPG}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Foul Stat -->
+    <button type="button" class="btn btn-primary btn-block" id="FoulStatBtn">Turnover Stats</button>
+    <div id="FoulStat">
+        <table class="table table-hover">
+            <caption>Foul Stats</caption>
+            <thead>
+            <tr>
+                <th>Category</th>
+                <th>Statistic</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Foul section -->
+            <tr>
+                <td class="col-md-6 col-sm-6 col-xs-6"> Foul per Game in Last {{ counter }} Games</td>
+                <td class="col-md-6 col-sm-6 col-xs-6">{{FPG}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
