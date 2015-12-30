@@ -50,6 +50,12 @@ app.controller('fantasySelectionEngine', ['$scope', '$http',
 
         $scope.playersOnFantasyTeam = 0;
 
+        //Hide Stat Display
+        $scope.hideStats = true;
+
+        //Queried Game input Counter
+        $scope.queriedGameCounter = 0;
+
 //---------------------------------------------------------
 //---------------  Position Selection Section  --------------
 //---------------------------------------------------------
@@ -325,7 +331,10 @@ app.controller('fantasySelectionEngine', ['$scope', '$http',
                 else
                     console.log('Pick End Date')
             }
+
+            //----------- Start of Stat Building
             else{
+
                 console.log('Start Date: '+$scope.startDate+'\nEnd Date: '+ $scope.endDate);
                 console.log('Building Fantasy Team......');
 
@@ -334,7 +343,10 @@ app.controller('fantasySelectionEngine', ['$scope', '$http',
                 $scope.reqGamesQuery = {};
 
                 for(var i = 0; i<10; i++)
+                //Add Games with in range into $scope.playerQueryGames, position in array corresponds to player position ie. 0 = point guard, 1 = shooting guard
+                //Each position holds an array that contains games
                 {
+                        $scope.rangeGames = null;
                         $scope.reqGamesQuery.player_Name = $scope.fantasyRoster[i].player_first_name + ' ' + $scope.fantasyRoster[i].player_last_name;
                         $scope.reqGamesQuery.startDate = $scope.startDate;
                         $scope.reqGamesQuery.endDate = $scope.endDate;
@@ -342,20 +354,30 @@ app.controller('fantasySelectionEngine', ['$scope', '$http',
 
                         var testURL = '/api/queryGameByDates/' + $scope.reqGamesQuery.player_ID + "/" + $scope.reqGamesQuery.player_Name + "/" + $scope.reqGamesQuery.startDate + '/'+ $scope.reqGamesQuery.endDate;
 
+                    console.log('Counter at: '+i);
+                    $scope.queriedGameCounter = i;
+
+
                         $http.get(testURL).success(function(response){
                             $scope.rangeGames = response;
-                            $scope.playerQueryGames[i] = $scope.rangeGames;
-                        });
+                            var playerFromQuery = $scope.rangeGames[0].player_Name;
+                            $scope.playerQueryGames.push(playerFromQuery);
+                            $scope.playerQueryGames.push($scope.rangeGames);
+                        })
+
+
+                    if($scope.queriedGameCounter == 9){
+                        $scope.hideStats = false;
+                    }
                 }
             }
-
-
+            //--------------- End of Stat Building
         };
 
 
-
-
-
-
+        $scope.getStats = function() {
+            console.log('Running Stats Calculator');
+                console.log($scope.playerQueryGames)
+        };
 
     }]);
