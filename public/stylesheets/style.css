@@ -319,6 +319,7 @@ h1#buildTeamBtn{
 }
 
 canvas{
+    height: 100%;
     width: 100%;
 }
 

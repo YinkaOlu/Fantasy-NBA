@@ -53,6 +53,9 @@ app.controller('fantasySelectionEngine', ['$scope', '$http',
         //Hide Stat Display
         $scope.hideStats = true;
 
+        //Hide Results Display
+        $scope.hideResults = true;
+
         //Queried Game input Counter
         $scope.queriedGameCounter = 0;
 
@@ -487,199 +490,33 @@ app.controller('fantasySelectionEngine', ['$scope', '$http',
             console.log('Stat content');
             console.log($scope.stats);
 
-            //---------------------------------- Chart JS Set up ----------------------------------------//
-            //----------------------FGER Chart----------------------------------------------//
-            var FGPerdata = {
-                labels: [$scope.playerQueryGames[0], $scope.playerQueryGames[3], $scope.playerQueryGames[5], $scope.playerQueryGames[7], $scope.playerQueryGames[9], $scope.playerQueryGames[11], $scope.playerQueryGames[13], $scope.playerQueryGames[15], $scope.playerQueryGames[15], $scope.playerQueryGames[17]],
-                datasets: [
-                    {
-                        label: "Player FG Percentage Breakdown",
-                        fillColor: "rgba(38, 166, 91)",
-                        strokeColor: "rgba(151,187,205,0.8)",
-                        highlightFill: "rgba(207, 0, 15)",
-                        highlightStroke: "rgba(151,187,205,1)",
-                        data: [$scope.stats[0].fFGPer, $scope.stats[3].fFGPer, $scope.stats[5].fFGPer, $scope.stats[7].fFGPer, $scope.stats[9].fFGPer, $scope.stats[11].fFGPer, $scope.stats[13].fFGPer, $scope.stats[15].fFGPer, $scope.stats[17].fFGPer, $scope.stats[19].fFGPer]
-                    }
-                ]
+            $scope.hideResults = false;
 
-            };
+            //---------------------------------- Chart Set up ----------------------------------------//
+            //---------------------- Points Chart----------------------------------------------//
 
-            var FGPerBar = document.getElementById('FGChart').getContext('2d');
-            var FGPerChart = new Chart(FGPerBar).Bar(FGPerdata);
+            // Create the Points table.
+            var pointsData = new google.visualization.DataTable();
+            pointsData.addColumn('string', 'Player Name');
+            pointsData.addColumn('number', 'Points per Game');
 
-            //----------------------ThreePPer Chart----------------------------------------------//
-            var threePPerdata = {
-                labels: [$scope.playerQueryGames[0], $scope.playerQueryGames[3], $scope.playerQueryGames[5], $scope.playerQueryGames[7], $scope.playerQueryGames[9], $scope.playerQueryGames[11], $scope.playerQueryGames[13], $scope.playerQueryGames[15], $scope.playerQueryGames[15], $scope.playerQueryGames[17]],
-                datasets: [
-                    {
-                        label: "Player FG Percentage Breakdown",
-                        fillColor: "rgba(38, 166, 91)",
-                        strokeColor: "rgba(151,187,205,0.8)",
-                        highlightFill: "rgba(207, 0, 15)",
-                        highlightStroke: "rgba(151,187,205,1)",
-                        data: [$scope.stats[0].fThreePPer, $scope.stats[3].fThreePPer, $scope.stats[5].fThreePPer, $scope.stats[7].fThreePPer, $scope.stats[9].fThreePPer, $scope.stats[11].fThreePPer, $scope.stats[13].fThreePPer, $scope.stats[15].fThreePPer, $scope.stats[17].fThreePPer, $scope.stats[19].fThreePPer]
-                    }
-                ]
+            var statLength = Math.floor($scope.stats.length/2) + ($scope.stats.length % 2);
 
-            };
+            for(var i = 0; i < $scope.stats.length; i++){
+                pointsData.addRows([[$scope.playerQueryGames[i], $scope.stats[i].fPoints]]);
+                i++;
+            }
 
-            var threePPerBar = document.getElementById('threePChart').getContext('2d');
-            var threePPerChart  = new Chart(threePPerBar).Bar(threePPerdata);
+            // Set Points Chart options
+            var options = {'title':'Fantasy Team Scoring Breakdown',
+                'width':400,
+                'height':300};
 
-            //----------------------FTPer Chart----------------------------------------------//
-            var FTPerdata = {
-                labels: [$scope.playerQueryGames[0], $scope.playerQueryGames[3], $scope.playerQueryGames[5], $scope.playerQueryGames[7], $scope.playerQueryGames[9], $scope.playerQueryGames[11], $scope.playerQueryGames[13], $scope.playerQueryGames[15], $scope.playerQueryGames[15], $scope.playerQueryGames[17]],
-                datasets: [
-                    {
-                        label: "Player Free Throw Percentage Breakdown",
-                        fillColor: "rgba(38, 166, 91)",
-                        strokeColor: "rgba(151,187,205,0.8)",
-                        highlightFill: "rgba(207, 0, 15)",
-                        highlightStroke: "rgba(151,187,205,1)",
-                        data: [$scope.stats[0].fFTPer, $scope.stats[3].fFTPer, $scope.stats[5].fFTPer, $scope.stats[7].fFTPer, $scope.stats[9].fFTPer, $scope.stats[11].fFTPer, $scope.stats[13].fFTPer, $scope.stats[15].fFTPer, $scope.stats[17].fFTPer, $scope.stats[19].fFTPer]
-                    }
-                ]
-
-            };
-
-            var FTPerBar = document.getElementById('FTChart').getContext('2d');
-            var FTPerChart  = new Chart(FTPerBar).Bar(FTPerdata);
-
-            //----------------------Total Rebounds Chart----------------------------------------------//
-            var TRBdata = {
-                labels: [$scope.playerQueryGames[0], $scope.playerQueryGames[3], $scope.playerQueryGames[5], $scope.playerQueryGames[7], $scope.playerQueryGames[9], $scope.playerQueryGames[11], $scope.playerQueryGames[13], $scope.playerQueryGames[15], $scope.playerQueryGames[15], $scope.playerQueryGames[17]],
-                datasets: [
-                    {
-                        label: "Player Rebound Total Breakdown",
-                        fillColor: "rgba(38, 166, 91)",
-                        strokeColor: "rgba(151,187,205,0.8)",
-                        highlightFill: "rgba(207, 0, 15)",
-                        highlightStroke: "rgba(151,187,205,1)",
-                        data: [$scope.stats[0].fTRB, $scope.stats[3].fTRB, $scope.stats[5].fTRB, $scope.stats[7].fTRB, $scope.stats[9].fTRB, $scope.stats[11].fTRB, $scope.stats[13].fTRB, $scope.stats[15].fTRB, $scope.stats[17].fTRB, $scope.stats[19].fTRB]
-                    }
-                ]
-
-            };
-
-            var TRBPerBar = document.getElementById('TRBChart').getContext('2d');
-            var TRBChart  = new Chart(TRBPerBar).Bar(TRBdata);
-
-            //----------------------Total Assists Chart----------------------------------------------//
-            var Assistdata = {
-                labels: [$scope.playerQueryGames[0], $scope.playerQueryGames[3], $scope.playerQueryGames[5], $scope.playerQueryGames[7], $scope.playerQueryGames[9], $scope.playerQueryGames[11], $scope.playerQueryGames[13], $scope.playerQueryGames[15], $scope.playerQueryGames[15], $scope.playerQueryGames[17]],
-                datasets: [
-                    {
-                        label: "Player Total Assists Breakdown",
-                        fillColor: "rgba(38, 166, 91)",
-                        strokeColor: "rgba(151,187,205,0.8)",
-                        highlightFill: "rgba(207, 0, 15)",
-                        highlightStroke: "rgba(151,187,205,1)",
-                        data: [$scope.stats[0].fAssists, $scope.stats[3].fAssists, $scope.stats[5].fAssists, $scope.stats[7].fAssists, $scope.stats[9].fAssists, $scope.stats[11].fAssists, $scope.stats[13].fAssists, $scope.stats[15].fAssists, $scope.stats[17].fAssists, $scope.stats[19].fAssists]
-                    }
-                ]
-
-            };
-
-            var AssistBar = document.getElementById('AssistChart').getContext('2d');
-            var assistChart  = new Chart(AssistBar).Bar(Assistdata);
-
-            //----------------------Total Steals Chart----------------------------------------------//
-            var Stealdata = {
-                labels: [$scope.playerQueryGames[0], $scope.playerQueryGames[3], $scope.playerQueryGames[5], $scope.playerQueryGames[7], $scope.playerQueryGames[9], $scope.playerQueryGames[11], $scope.playerQueryGames[13], $scope.playerQueryGames[15], $scope.playerQueryGames[15], $scope.playerQueryGames[17]],
-                datasets: [
-                    {
-                        label: "Player Total Steals Breakdown",
-                        fillColor: "rgba(38, 166, 91)",
-                        strokeColor: "rgba(151,187,205,0.8)",
-                        highlightFill: "rgba(207, 0, 15)",
-                        highlightStroke: "rgba(151,187,205,1)",
-                        data: [$scope.stats[0].fSteals, $scope.stats[3].fSteals, $scope.stats[5].fSteals, $scope.stats[7].fSteals, $scope.stats[9].fSteals, $scope.stats[11].fSteals, $scope.stats[13].fSteals, $scope.stats[15].fSteals, $scope.stats[17].fSteals, $scope.stats[19].fSteals]
-                    }
-                ]
-
-            };
-
-            var StealBar = document.getElementById('StealChart').getContext('2d');
-            var stealChart  = new Chart(StealBar).Bar(Stealdata);
-
-            //----------------------Total Block Chart----------------------------------------------//
-            var Blocksdata = {
-                labels: [$scope.playerQueryGames[0], $scope.playerQueryGames[3], $scope.playerQueryGames[5], $scope.playerQueryGames[7], $scope.playerQueryGames[9], $scope.playerQueryGames[11], $scope.playerQueryGames[13], $scope.playerQueryGames[15], $scope.playerQueryGames[15], $scope.playerQueryGames[17]],
-                datasets: [
-                    {
-                        label: "Player Block Total Breakdown",
-                        fillColor: "rgba(38, 166, 91)",
-                        strokeColor: "rgba(151,187,205,0.8)",
-                        highlightFill: "rgba(207, 0, 15)",
-                        highlightStroke: "rgba(151,187,205,1)",
-                        data: [$scope.stats[0].fBlocks, $scope.stats[3].fBlocks, $scope.stats[5].fBlocks, $scope.stats[7].fBlocks, $scope.stats[9].fBlocks, $scope.stats[11].fBlocks, $scope.stats[13].fBlocks, $scope.stats[15].fBlocks, $scope.stats[17].fBlocks, $scope.stats[19].fBlocks]
-                    }
-                ]
-
-            };
-
-            var BlocksBar = document.getElementById('BlockChart').getContext('2d');
-            var blockChart  = new Chart(BlocksBar).Bar(Blocksdata);
-
-            //----------------------Total TOV Chart----------------------------------------------//
-            var TOVdata = {
-                labels: [$scope.playerQueryGames[0], $scope.playerQueryGames[3], $scope.playerQueryGames[5], $scope.playerQueryGames[7], $scope.playerQueryGames[9], $scope.playerQueryGames[11], $scope.playerQueryGames[13], $scope.playerQueryGames[15], $scope.playerQueryGames[15], $scope.playerQueryGames[17]],
-                datasets: [
-                    {
-                        label: "Player Turnover Total Breakdown",
-                        fillColor: "rgba(38, 166, 91)",
-                        strokeColor: "rgba(151,187,205,0.8)",
-                        highlightFill: "rgba(207, 0, 15)",
-                        highlightStroke: "rgba(151,187,205,1)",
-                        data: [$scope.stats[0].fTOV, $scope.stats[3].fTOV, $scope.stats[5].fTOV, $scope.stats[7].fTOV, $scope.stats[9].fTOV, $scope.stats[11].fTOV, $scope.stats[13].fTOV, $scope.stats[15].fTOV, $scope.stats[17].fTOV, $scope.stats[19].fTOV]
-                    }
-                ]
-
-            };
-
-            var TOVBar = document.getElementById('TOVChart').getContext('2d');
-            var TOVChart  = new Chart(TOVBar).Bar(TOVdata);
-
-            //----------------------Total fouls Chart----------------------------------------------//
-            var Fouldata = {
-                labels: [$scope.playerQueryGames[0], $scope.playerQueryGames[3], $scope.playerQueryGames[5], $scope.playerQueryGames[7], $scope.playerQueryGames[9], $scope.playerQueryGames[11], $scope.playerQueryGames[13], $scope.playerQueryGames[15], $scope.playerQueryGames[15], $scope.playerQueryGames[17]],
-                datasets: [
-                    {
-                        label: "Player Total Fouls Breakdown",
-                        fillColor: "rgba(38, 166, 91)",
-                        strokeColor: "rgba(151,187,205,0.8)",
-                        highlightFill: "rgba(207, 0, 15)",
-                        highlightStroke: "rgba(151,187,205,1)",
-                        data: [$scope.stats[0].fFouls, $scope.stats[3].fFouls, $scope.stats[5].fFouls, $scope.stats[7].fFouls, $scope.stats[9].fFouls, $scope.stats[11].fFouls, $scope.stats[13].fFouls, $scope.stats[15].fFouls, $scope.stats[17].fFouls, $scope.stats[19].fFouls]
-                    }
-                ]
-
-            };
-
-            var FoulBar = document.getElementById('FoulChart').getContext('2d');
-            var foulChart  = new Chart(FoulBar).Bar(Fouldata);
-
-            //----------------------Total Points Chart----------------------------------------------//
-            var Pointsdata = {
-                labels: [$scope.playerQueryGames[0], $scope.playerQueryGames[3], $scope.playerQueryGames[5], $scope.playerQueryGames[7], $scope.playerQueryGames[9], $scope.playerQueryGames[11], $scope.playerQueryGames[13], $scope.playerQueryGames[15], $scope.playerQueryGames[15], $scope.playerQueryGames[17]],
-                datasets: [
-                    {
-                        label: "Player Points Per Game Breakdown",
-                        fillColor: "rgba(38, 166, 91)",
-                        strokeColor: "rgba(151,187,205,0.8)",
-                        highlightFill: "rgba(207, 0, 15)",
-                        highlightStroke: "rgba(151,187,205,1)",
-                        data: [$scope.stats[0].fPoints, $scope.stats[3].fPoints, $scope.stats[5].fPoints, $scope.stats[7].fPoints, $scope.stats[9].fPoints, $scope.stats[11].fPoints, $scope.stats[13].fPoints, $scope.stats[15].fPoints, $scope.stats[17].fPoints, $scope.stats[19].fPoints]
-                    }
-                ]
-
-            };
-
-            var PointsBar = document.getElementById('PointsChart').getContext('2d');
-            var pointsChart  = new Chart(PointsBar).Bar(Pointsdata);
+            // Instantiate and draw Points chart
+            var chart = new google.visualization.PieChart(document.getElementById('PointsChart'));
+            chart.draw(pointsData, options);
 
         };
-
 //-----------------------------------------------------------------------------------
 //--------------- View Calculator Functions----------------------------------------
         //Return Total PTS of entire Team in Date Range

@@ -623,7 +623,7 @@ app.controller('fantasyTeamEngine', ['$scope', '$http',
 
             var FGPerBar = document.getElementById('FGChart').getContext('2d');
             var FGPerChart = new Chart(FGPerBar).Bar(FGPerdata);
-            
+
             //----------------------ThreePPer Chart----------------------------------------------//
             var threePPerdata = {
                 labels: [$scope.fantasyRoster[0].player_name, $scope.fantasyRoster[1].player_name, $scope.fantasyRoster[2].player_name, $scope.fantasyRoster[3].player_name, $scope.fantasyRoster[4].player_name, $scope.fantasyRoster[5].player_name, $scope.fantasyRoster[6].player_name, $scope.fantasyRoster[7].player_name, $scope.fantasyRoster[8].player_name, $scope.fantasyRoster[9].player_name],
