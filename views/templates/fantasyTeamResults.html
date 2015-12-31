@@ -14,64 +14,64 @@
             <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 fantasyResultElement">Points</td>
             <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 fantasyResultElement"> {{ totalPoint | number: 2 }}</td>
             <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 fantasyResultElement"> {{ getTotalPTS() | number: 2 }}</td>
-            <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6 fantasyResultElement"> <div id="PointsChart"></div> </td>
+            <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6 fantasyResultElement"> <div id="PointsChart" class="chartDIV"></div> </td>
         </tr>
         <tr class="fantasyResultRow">
             <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 fantasyResultElement">Field Goal Percentage</td>
             <td class="col-lg-2 col-md-2 col-sm-2 col-xs-4 fantasyResultElement"> {{ getTeamFGPer() | number:2 }}</td>
-            <td class="col-lg-8 col-md-8 col-sm-6 col-xs-6 fantasyResultElement"> <canvas id="FGChart"></canvas> </td>
+            <td class="col-lg-8 col-md-8 col-sm-6 col-xs-6 fantasyResultElement"> <div id="FGChart" class="chartDIV"></div> </td>
         </tr>
         <tr class="fantasyResultRow">
             <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 fantasyResultElement">Three Point Percentage</td>
             <td class="col-lg-2 col-md-2 col-sm-2 col-xs-4 fantasyResultElement"> {{ getTeamThreePPer() | number: 2}}</td>
-            <td class="col-lg-8 col-md-8 col-sm-8 col-xs-6 fantasyResultElement"> <canvas id="threePChart"></canvas> </td>
+            <td class="col-lg-8 col-md-8 col-sm-8 col-xs-6 fantasyResultElement"> <div id="threePChart" class="chartDIV"></div> </td>
         </tr>
         <tr class="fantasyResultRow">
             <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 fantasyResultElement">Total Team Free Throw Percentage</td>
             <td class="col-lg-2 col-md-2 col-sm-2 col-xs-4 fantasyResultElement"> {{ getTeamFTPer() | number: 2}}</td>
-            <td class="col-lg-8 col-md-8 col-sm-8 col-xs-6 fantasyResultElement"> <canvas id="FTChart"></canvas> </td>
+            <td class="col-lg-8 col-md-8 col-sm-8 col-xs-6 fantasyResultElement"> <div id="FTChart" class="chartDIV"></div> </td>
         </tr>
 
         <tr class="fantasyResultRow">
             <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 fantasyResultElement">Total Team Assists</td>
             <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 fantasyResultElement"> {{ totalAssists }}</td>
             <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 fantasyResultElement"> {{ getTeamAssists() | number: 2}}</td>
-            <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6 fantasyResultElement"> <canvas id="AssistChart"></canvas> </td>
+            <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6 fantasyResultElement"> <div id="AssistChart" class="chartDIV"></div> </td>
         </tr>
 
         <tr class="fantasyResultRow">
             <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 fantasyResultElement">Total Team Steals</td>
             <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 fantasyResultElement"> {{ totalSteals }}</td>
             <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 fantasyResultElement"> {{ getTeamSteals() | number: 2}}</td>
-            <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6 fantasyResultElement"> <canvas id="StealChart"></canvas> </td>
+            <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6 fantasyResultElement"> <div id="StealChart" class="chartDIV"></div> </td>
         </tr>
 
         <tr class="fantasyResultRow">
             <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 fantasyResultElement">Total Team Blocks</td>
             <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 fantasyResultElement"> {{ totalBlocks }}</td>
             <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 fantasyResultElement"> {{ getTeamBlocks() | number: 2}}</td>
-            <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6 fantasyResultElement"> <canvas id="BlockChart"></canvas> </td>
+            <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6 fantasyResultElement"> <div id="BlockChart" class="chartDIV"></div> </td>
         </tr>
 
         <tr class="fantasyResultRow">
             <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 fantasyResultElement">Total Team Rebounds</td>
             <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 fantasyResultElement"> {{ totalTRB }}</td>
             <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 fantasyResultElement"> {{ getTeamTRB() | number: 2}}</td>
-            <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6 fantasyResultElement"> <canvas id="TRBChart"></canvas> </td>
+            <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6 fantasyResultElement"> <div id="TRBChart" class="chartDIV"></div> </td>
         </tr>
 
         <tr class="fantasyResultRow">
             <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 fantasyResultElement">Team Turnovers</td>
             <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 fantasyResultElement"> {{ totalTOV }}</td>
             <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 fantasyResultElement"> {{ getTeamTOV() | number: 2}}</td>
-            <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6 fantasyResultElement"> <canvas id="TOVChart"></canvas> </td>
+            <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6 fantasyResultElement"> <div id="TOVChart" class="chartDIV"></div> </td>
         </tr>
 
         <tr class="fantasyResultRow">
             <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 fantasyResultElement">Team Fouls</td>
             <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 fantasyResultElement"> {{ totalFouls }}</td>
             <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 fantasyResultElement"> {{ getTeamFouls()  | number: 2}}</td>
-            <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6 fantasyResultElement"> <canvas id="FoulChart"></canvas> </td>
+            <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6 fantasyResultElement"> <div id="FoulChart" class="chartDIV"></div> </td>
         </tr>
 
     </tbody>

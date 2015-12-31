@@ -489,34 +489,13 @@ app.controller('fantasySelectionEngine', ['$scope', '$http',
             }
             console.log('Stat content');
             console.log($scope.stats);
+            //Create Charts
+            //$scope.buildPointsChart();
+            $scope.buildChart();
 
             $scope.hideResults = false;
-
-            //---------------------------------- Chart Set up ----------------------------------------//
-            //---------------------- Points Chart----------------------------------------------//
-
-            // Create the Points table.
-            var pointsData = new google.visualization.DataTable();
-            pointsData.addColumn('string', 'Player Name');
-            pointsData.addColumn('number', 'Points per Game');
-
-            var statLength = Math.floor($scope.stats.length/2) + ($scope.stats.length % 2);
-
-            for(var i = 0; i < $scope.stats.length; i++){
-                pointsData.addRows([[$scope.playerQueryGames[i], $scope.stats[i].fPoints]]);
-                i++;
-            }
-
-            // Set Points Chart options
-            var options = {'title':'Fantasy Team Scoring Breakdown',
-                'width':400,
-                'height':300};
-
-            // Instantiate and draw Points chart
-            var chart = new google.visualization.PieChart(document.getElementById('PointsChart'));
-            chart.draw(pointsData, options);
-
         };
+
 //-----------------------------------------------------------------------------------
 //--------------- View Calculator Functions----------------------------------------
         //Return Total PTS of entire Team in Date Range
@@ -666,5 +645,205 @@ app.controller('fantasySelectionEngine', ['$scope', '$http',
             return (teamFouls/statLength);
         };
 
+        //-------------------------------------------------------------------------//
+        //-------------------------------------------------------------------------
+        //---------------------------------- Chart Set up ----------------------------------------//
+        //---------------------- Points Chart----------------------------------------------//
+        // Create the Points table.
+        $scope.buildChart = function () {
+            //Points Chart
+            var pointsData = new google.visualization.DataTable();
+
+            pointsData.addColumn('string', 'Player Name');
+            pointsData.addColumn('number', 'Points');
+
+            for (var i = 0; i < $scope.stats.length; i++) {
+                pointsData.addRows([[$scope.playerQueryGames[i], $scope.stats[i].fPoints]]);
+                i++;
+            }
+
+            // Set Points Chart options
+            var options = {
+                'title': 'Fantasy Team Scoring Breakdown'
+            };
+
+            // Instantiate and draw Points chart
+            var chart = new google.visualization.ColumnChart(document.getElementById('PointsChart'));
+            chart.draw(pointsData, options);
+         //-----------------------------------------------------
+            //Field Goal Chart
+            var FGData = new google.visualization.DataTable();
+            FGData.addColumn('string', 'Player Name');
+            FGData.addColumn('number', 'FT Percentage');
+
+            for (var i = 0; i < $scope.stats.length; i++) {
+                FGData.addRows([[$scope.playerQueryGames[i], $scope.stats[i].fFGPer]]);
+                i++;
+            }
+
+            // Set Points Chart options
+            var FGOptions = {
+                'title': 'Fantasy Team FG % Breakdown'
+            };
+
+            // Instantiate and draw Points chart
+            var chartFG = new google.visualization.ColumnChart(document.getElementById('FGChart'));
+            chartFG.draw(FGData, FGOptions);
+        //-----------------------------------------------------
+            //Three Pointer Chart
+            var threePData = new google.visualization.DataTable();
+            threePData.addColumn('string', 'Player Name');
+            threePData.addColumn('number', '3P Percentage');
+
+            for (var i = 0; i < $scope.stats.length; i++) {
+                threePData.addRows([[$scope.playerQueryGames[i], $scope.stats[i].fThreePPer]]);
+                i++;
+            }
+
+            // Set Points Chart options
+            var threePOptions = {
+                'title': 'Fantasy Team Three-Point % Breakdown'
+            };
+
+            // Instantiate and draw Points chart
+            var chartThreeP = new google.visualization.ColumnChart(document.getElementById('threePChart'));
+            chartThreeP.draw(threePData, threePOptions);
+        //-----------------------------------------------------
+            //Free Throw Chart
+            var FTData = new google.visualization.DataTable();
+            FTData.addColumn('string', 'Player Name');
+            FTData.addColumn('number', 'Free Throw Percentage');
+
+            for (var i = 0; i < $scope.stats.length; i++) {
+                FTData.addRows([[$scope.playerQueryGames[i], $scope.stats[i].fFTPer]]);
+                i++;
+            }
+
+            // Set Points Chart options
+            var FTOptions = {
+                'title': 'Fantasy Team Free Throw % Breakdown'
+            };
+
+            // Instantiate and draw Points chart
+            var chartFT = new google.visualization.ColumnChart(document.getElementById('FTChart'));
+            chartFT.draw(FTData, FTOptions);
+         //-----------------------------------------------------
+            //Assists Chart
+            var assistData = new google.visualization.DataTable();
+            assistData.addColumn('string', 'Player Name');
+            assistData.addColumn('number', 'Assists');
+
+            for (var i = 0; i < $scope.stats.length; i++) {
+                assistData.addRows([[$scope.playerQueryGames[i], $scope.stats[i].fAssists]]);
+                i++;
+            }
+
+            // Set Points Chart options
+            var AssistsOptions = {
+                'title': 'Fantasy Team Assists Breakdown'
+            };
+
+            // Instantiate and draw Points chart
+            var chartAssists = new google.visualization.ColumnChart(document.getElementById('AssistChart'));
+            chartAssists.draw(assistData, AssistsOptions);
+         //-----------------------------------------------------
+            //Steals Chart
+            var stealsData = new google.visualization.DataTable();
+            stealsData.addColumn('string', 'Player Name');
+            stealsData.addColumn('number', 'Steals');
+
+            for (var i = 0; i < $scope.stats.length; i++) {
+                stealsData.addRows([[$scope.playerQueryGames[i], $scope.stats[i].fSteals]]);
+                i++;
+            }
+
+            // Set Points Chart options
+            var StealsOptions = {
+                'title': 'Fantasy Team Steals Breakdown'
+            };
+
+            // Instantiate and draw Points chart
+            var chartSteal = new google.visualization.ColumnChart(document.getElementById('StealChart'));
+            chartSteal.draw(stealsData, StealsOptions);
+         //-----------------------------------------------------
+            //Blocks Chart
+            var blocksData = new google.visualization.DataTable();
+            blocksData.addColumn('string', 'Player Name');
+            blocksData.addColumn('number', 'Blocks');
+
+            for (var i = 0; i < $scope.stats.length; i++) {
+                blocksData.addRows([[$scope.playerQueryGames[i], $scope.stats[i].fBlocks]]);
+                i++;
+            }
+
+            // Set Points Chart options
+            var BlocksOptions = {
+                'title': 'Fantasy Team Blocks Breakdown'
+            };
+
+            // Instantiate and draw Points chart
+            var chartBlock = new google.visualization.ColumnChart(document.getElementById('BlockChart'));
+            chartBlock.draw(blocksData, BlocksOptions);
+        //-----------------------------------------------------
+            //Rebounds Chart
+            var reboundsData = new google.visualization.DataTable();
+            reboundsData.addColumn('string', 'Player Name');
+            reboundsData.addColumn('number', 'Rebounds');
+
+            for (var i = 0; i < $scope.stats.length; i++) {
+                reboundsData.addRows([[$scope.playerQueryGames[i], $scope.stats[i].fTRB]]);
+                i++;
+            }
+
+            // Set Points Chart options
+            var ReboundsOptions = {
+                'title': 'Fantasy Team Rebounds Breakdown'
+            };
+
+            // Instantiate and draw Points chart
+            var chartTRB = new google.visualization.ColumnChart(document.getElementById('TRBChart'));
+            chartTRB.draw(reboundsData, ReboundsOptions);
+
+        //-----------------------------------------------------
+            //TOV Chart
+            var TOVData = new google.visualization.DataTable();
+            TOVData.addColumn('string', 'Player Name');
+            TOVData.addColumn('number', 'TurnOver');
+
+            for (var i = 0; i < $scope.stats.length; i++) {
+                TOVData.addRows([[$scope.playerQueryGames[i], $scope.stats[i].fTOV]]);
+                i++;
+            }
+
+            // Set Points Chart options
+            var TOVOptions = {
+                'title': 'Fantasy Team TOV Breakdown'
+            };
+
+            // Instantiate and draw Points chart
+            var chartTOV = new google.visualization.ColumnChart(document.getElementById('TOVChart'));
+            chartTOV.draw(TOVData, TOVOptions);
+
+
+    //-----------------------------------------------------
+        //Fouls Chart
+        var FoulData = new google.visualization.DataTable();
+        FoulData.addColumn('string', 'Player Name');
+        FoulData.addColumn('number', 'Fouls');
+
+        for (var i = 0; i < $scope.stats.length; i++) {
+            FoulData.addRows([[$scope.playerQueryGames[i], $scope.stats[i].fFouls]]);
+            i++;
+        }
+
+        // Set Points Chart options
+        var FoulOptions = {
+            'title': 'Fantasy Team Foul Breakdown'
+        };
+
+        // Instantiate and draw Points chart
+        var chartFoul = new google.visualization.ColumnChart(document.getElementById('FoulChart'));
+        chartFoul.draw(FoulData, FoulOptions);
+    };
 
     }]);

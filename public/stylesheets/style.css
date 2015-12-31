@@ -326,3 +326,7 @@ canvas{
 .CRUDDiv{
     height: 25%;
 }
+
+.chartDIV{
+    width: 100%
+}
