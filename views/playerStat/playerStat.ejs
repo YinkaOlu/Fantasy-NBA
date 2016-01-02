@@ -84,40 +84,17 @@
                         </tr>
                         </tbody>
                     </table>
-<!--
-                <a href="#results">
-                    <div class="row">
-                        <div id="lastTenDays" class="filterStats col-lg-3 col-md-3 col-sm-6 col-xs-12" ng-style="{'background-color':teamPrimaryColour,'color':teamSecondaryColour }" ng-click="previousGames(2)">
-                            <h1>Last 10 Days</h1>
-                        </div>
-                        <div id="currentSeason" class="filterStats col-lg-3 col-md-3 col-sm-6 col-xs-12" ng-style="{'background-color':teamSecondaryColour,'color':teamPrimaryColour }" ng-click="previousGames('season')">
-                            <h1>Current Season Stats</h1>
-                        </div>
-                        <div id="pastSeasons" class="filterStats col-lg-3 col-md-3 col-sm-6 col-xs-12" ng-style="{'background-color':teamPrimaryColour,'color':teamSecondaryColour }" ng-click="previousSeasonStats(1)">
-                            <h1>Previous Seasons</h1>
-                        </div>
-                        <div id="careerStats" class="filterStats col-lg-3 col-md-3 col-sm-6 col-xs-12" ng-style="{'background-color':teamSecondaryColour,'color':teamPrimaryColour }" ng-click="careerStats()">
-                            <h1>Career Stats</h1>
-                        </div>
-                    </div>
-                </a>
--->
+
+                <button type="button" class="btn btn-primary btn-block" ng-click="displayResults()">Get Season Stats</button>
 
             </div>
         </a>
 
         <div class="row"><h1></h1></div>
         <div class="row"><h1></h1></div>
-        <div class="row" ng-style="{'background-image': url('http://i.huffpost.com/gen/2671426/images/o-LEBRON-JAMES-facebook.jpg')}"></div>
 
-        <a name="results">
-            <div id="careerResults">
-                <% include ../templates/careerStatTemp.html %>
-            </div>
-
-            <div id="currentResults">
-                <% include ../templates/currentSeasonTemp.html %>
-            </div>
+        <a name="results" ng-hide="hideResults">
+            <% include ../templates/currentSeasonStats.html %>
         </a>
 
 

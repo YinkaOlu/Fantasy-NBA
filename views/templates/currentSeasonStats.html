@@ -1,0 +1,76 @@
+<div>
+    <h1>Current Season Stats</h1>
+
+    <div id="statsChart" class="chartDIV"></div>
+
+    <table class="col-lg-12 col-md-12 col-sm-12 col-xs-12 table-striped" id="playerResultTable">
+        <thead>
+        <tr class="playerResultRow">
+            <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 playerResultElement">Category</td>
+            <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 playerResultElement">Per Game Stats</td>
+            <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6 playerResultElement">Charts</td>
+        </tr>
+        </thead>
+
+        <tbody id="playerTableBody">
+        <tr class="playerResultRow">
+            <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 playerResultElement">Points</td>
+            <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 playerResultElement"> {{ PPG | number: 1 }}</td>
+            <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6 playerResultElement"> <div id="PointsChart" class="chartDIV"></div> </td>
+        </tr>
+        <tr class="playerResultRow">
+            <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 playerResultElement">Field Goal Percentage</td>
+            <td class="col-lg-2 col-md-2 col-sm-2 col-xs-4 playerResultElement"> {{ FGPer | number:3 }}</td>
+            <td class="col-lg-8 col-md-8 col-sm-6 col-xs-6 playerResultElement"> <div id="FGChart" class="chartDIV"></div> </td>
+        </tr>
+        <tr class="playerResultRow">
+            <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 playerResultElement">Three Point Percentage</td>
+            <td class="col-lg-2 col-md-2 col-sm-2 col-xs-4 playerResultElement"> {{ threePPer | number: 3}}</td>
+            <td class="col-lg-8 col-md-8 col-sm-8 col-xs-6 playerResultElement"> <div id="threePChart" class="chartDIV"></div> </td>
+        </tr>
+        <tr class="playerResultRow">
+            <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 playerResultElement">Free Throw Percentage</td>
+            <td class="col-lg-2 col-md-2 col-sm-2 col-xs-4 playerResultElement"> {{ FTPer | number: 3}}</td>
+            <td class="col-lg-8 col-md-8 col-sm-8 col-xs-6 playerResultElement"> <div id="FTChart" class="chartDIV"></div> </td>
+        </tr>
+
+        <tr class="playerResultRow">
+            <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 playerResultElement">Total Team Assists</td>
+            <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 playerResultElement"> {{ APG | number: 1}}</td>
+            <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6 playerResultElement"> <div id="AssistChart" class="chartDIV"></div> </td>
+        </tr>
+
+        <tr class="playerResultRow">
+            <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 playerResultElement">Total Team Steals</td>
+            <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 playerResultElement"> {{ Steals | number: 1}}</td>
+            <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6 playerResultElement"> <div id="StealChart" class="chartDIV"></div> </td>
+        </tr>
+
+        <tr class="playerResultRow">
+            <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 playerResultElement">Total Team Blocks</td>
+            <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 playerResultElement"> {{ BPG | number: 1}}</td>
+            <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6 playerResultElement"> <div id="BlockChart" class="chartDIV"></div> </td>
+        </tr>
+
+        <tr class="playerResultRow">
+            <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 playerResultElement">Total Team Rebounds</td>
+            <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 playerResultElement"> {{ RPG | number: 1}}</td>
+            <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6 playerResultElement"> <div id="TRBChart" class="chartDIV"></div> </td>
+        </tr>
+
+        <tr class="playerResultRow">
+            <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 playerResultElement">Team Turnovers</td>
+            <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 playerResultElement"> {{ TOV | number: 1}}</td>
+            <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6 playerResultElement"> <div id="TOVChart" class="chartDIV"></div> </td>
+        </tr>
+
+        <tr class="playerResultRow">
+            <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 playerResultElement">Team Fouls</td>
+            <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2 playerResultElement"> {{ Fouls | number: 1}}</td>
+            <td class="col-lg-6 col-md-6 col-sm-6 col-xs-6 playerResultElement"> <div id="FoulChart" class="chartDIV"></div> </td>
+        </tr>
+
+        </tbody>
+    </table>
+
+</div>
