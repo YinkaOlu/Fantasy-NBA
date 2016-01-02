@@ -2,11 +2,11 @@
 <% include ../templates/navigationTemp.html %>
 
 <!-- Player Stat Angular App -->
-<script language="javascript" type="text/javascript" src="/javascripts/angularApps/playerStatEngine.js"></script>
+<script language="javascript" type="text/javascript" src="/javascripts/angularApps/playerStatApp.js"></script>
 
 
-<div ng-app = 'playerStatEngine' class="appContainer">
-    <div ng-controller ='playerStatApp' id="controllerHolder">
+<div ng-app = 'playerStatApp' class="appContainer">
+    <div ng-controller ='playerStatCtrl' id="controllerHolder">
         <h1  class="row demo1" id="decisionTitle" >Choose Team:</h1>
         <!-- team logos -->
 
@@ -35,8 +35,8 @@
                         <img class = "playerImg" ng-src="/images/profilePics/{{ player.player_first_name }} {{ player.player_last_name }}.png">
                     </div>
                     <div class="playerinfoHolder">
-                        <p class="playerInfo">{{ player.player_name }} <br/> {{player.player_number}} <br /> {{player.position}}</p>
-                        <img class ="playerTeamLogo" ng-src="/images/logos/{{ selectedTeam.teamLogo }}">
+                        <p class="playerInfo">{{ player.player_first_name }} {{ player.player_last_name }} <br/> {{player.player_number}} <br /> {{player.player_position}}</p>
+                        <img class ="playerTeamLogo" ng-src="/images/logos/{{ selectedTeam.team_name }}.png">
                     </div>
                 </div>
             </a>
@@ -59,28 +59,28 @@
                                 <img id="profilePic" ng-src="/images/profilePics/{{ player.player_first_name }} {{ player.player_last_name }}.png">
                             </td>
                             <td>
-                                <h3><b>Player Name:</b> {{ selectedPlayer.player_name }}</h3>
+                                <h3><b>Player Name:</b> {{ player.player_first_name }} {{ player.player_last_name }}</h3>
                             </td>
                             <td>
-                                <h3><b>Birth Date:</b> {{ selectedPlayer.birth_date}}</h3>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h3><b>Current Team:</b> {{ selectedPlayer.current_team}}</h3>
+                                <h3><b>Birth Date:</b> {{ player.player_birthDate }}</h3>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <h3><b>Player Position:</b> {{ selectedPlayer.position}}</h3>
-                            </td>
-                            <td>
-                                <h3><b>Height(inches):</b> {{ selectedPlayer.height_inches}}</h3>
+                                <h3><b>Current Team:</b> {{ selectedTeam.team_name }}</h3>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <h3><b>Draft Year:</b> {{ selectedPlayer.draft_year }}</h3>
+                                <h3><b>Player Position:</b> {{ player.player_position}}</h3>
+                            </td>
+                            <td>
+                                <h3><b>Height(inches):</b> {{ player.player_height}}</h3>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <h3><b>Draft Year:</b> {{ player.player_draft }}</h3>
                             </td>
                         </tr>
                         </tbody>
