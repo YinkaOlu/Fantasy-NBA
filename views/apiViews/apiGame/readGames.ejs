@@ -36,7 +36,7 @@
                 <div class="form-group">
                     <div class="row"><label>Select Game (select one):</label></div>
                     <select size="13"  id="selectedTeamA" class="form-group">
-                        <option ng-repeat="game in gamesPlayed | orderBy: 'game_Date'" value ='{{gamesPlayed.indexOf(game)}}' ng-click="selectGameFunction(gamesPlayed.indexOf(game))">{{game.player_Name}} {{game.game_Date}}</option>
+                        <option ng-repeat="game in gamesPlayed | orderBy: 'game_Date' " value ='{{gamesPlayed.indexOf(game) }}' ng-click="selectGameFunction(gamesPlayed.indexOf(game))">{{game.player_Name}} || {{game.game_Date | date : 'fullDate'}}</option>
                     </select>
                 </div>
             </form>
