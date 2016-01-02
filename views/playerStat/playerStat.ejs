@@ -31,7 +31,6 @@
             <a href="#playerStats">
                 <div class="teamRosterHolder col-xs-6 col-sm-6 col-md-3 col-lg-3" ng-repeat="player in roster | orderBy: 'player_last_name'" ng-click="selectPlayerFunction(roster.indexOf(player))">
                     <div class="playerprofileHolder" >
-					<h2>Test</h2>
                         <img class = "playerImg" ng-src="/images/profilePics/{{ player.player_first_name }} {{ player.player_last_name }}.png">
                     </div>
                     <div class="playerinfoHolder">
@@ -62,7 +61,7 @@
                                 <h3><b>Player Name:</b> {{ player.player_first_name }} {{ player.player_last_name }}</h3>
                             </td>
                             <td>
-                                <h3><b>Birth Date:</b> {{ player.player_birthDate }}</h3>
+                                <h3><b>Birth Date:</b> {{ player.player_birthDate | date : 'fullDate'}}</h3>
                             </td>
                         </tr>
                         <tr>
