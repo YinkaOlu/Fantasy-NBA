@@ -28,29 +28,54 @@ app.controller('playerStatCtrl', ['$scope', '$http',
             $scope.playerID = $scope.player._id;
             console.log($scope.playerID);
             console.log($scope.player.player_first_name);
-            var playerURL = '/api/findGames/' + $scope.playerID;
-            $http.get(playerURL).success(function(response) {
-                $scope.gamesPlayed = response;
-            })
+
         };
 
         $scope.displayResults = function(){
 
             //Get All Games played by player
-            $scope.playerID = $scope.player._id;
-            console.log($scope.playerID);
-            console.log($scope.player.player_first_name);
             var playerURL = '/api/findGames/' + $scope.playerID;
             $http.get(playerURL).success(function(response) {
                 $scope.gamesPlayed = response;
-            });
-            //Calculate Season Stats
-            $scope.seasonStats();
 
-            // Build Charts
-            $scope.buildGraphs();
-            //Display Results
-            $scope.hideResults = false;
+                //Calculate Season Stats
+                $scope.seasonStats();
+
+                // Build Points Charts
+                $scope.pointsGraph();
+
+                // Build FG Chart
+                $scope.FGGraph();
+
+                // Three Point Chart
+                $scope.ThreePGraph();
+
+                // Free Throw Chart
+                $scope.FTGraph();
+
+                // Assistd Chart
+                $scope.AssistGraph();
+
+                // Rebounds Chart
+                $scope.ReboundsGraph();
+
+                // Blocks Chart
+                $scope.BlockGraph();
+
+                // Steals Chart
+                $scope.StealGraph();
+
+                // TOV Chart
+                $scope.TOVGraph();
+
+                //Fouls Chart
+                $scope.FoulGraph();
+
+                //Display Results
+                $scope.hideResults = false;
+            });
+
+
         };
 
         $scope.seasonStats = function(){
@@ -122,9 +147,285 @@ app.controller('playerStatCtrl', ['$scope', '$http',
 
         };
 
-        $scope.buildGraphs = function(){
+        $scope.pointsGraph = function(){
+            var amountOfGames = $scope.gamesPlayed.length;
+        //Points Chart
+                    var data = new google.visualization.DataTable();
 
+                    data.addColumn('string', 'Game Date');
+                    data.addColumn('number', 'Points');
+
+                    for (var i = 0; i < amountOfGames; i++) {
+                        $scope.gameDay = 'G-'+i;
+                        data.addRows([[$scope.gameDay, $scope.gamesPlayed[i].PTS]]);
+                       // i++;
+                    }
+
+                    // Set Points Chart options
+                    var options = {
+                        'title': 'Points Per Game',
+                        curveType: 'function',
+                        animation: {startup: true}
+                    };
+
+                    // Instantiate and draw Points chart
+                    var chart = new google.visualization.AreaChart(document.getElementById('PointsChart'));
+                    chart.draw(data, options);
         };
+
+        $scope.FGGraph = function(){
+            var amountOfGames = $scope.gamesPlayed.length;
+            //Points Chart
+            var data = new google.visualization.DataTable();
+
+            data.addColumn('string', 'Game Date');
+            data.addColumn('number', 'FG %');
+
+            for (var i = 0; i < amountOfGames; i++) {
+                if($scope.gamesPlayed[i].FGA > 0) {
+                    $scope.gameDay = 'G-' + i;
+                    data.addRows([[$scope.gameDay, ($scope.gamesPlayed[i].FGM / $scope.gamesPlayed[i].FGA)]]);
+                }
+                else{
+                    $scope.gameDay = 'G-' + i;
+                    data.addRows([[$scope.gameDay, 0]]);
+                }
+                // i++;
+            }
+
+            // Set Points Chart options
+            var options = {
+                'title': 'Field Goals Per Game',
+                curveType: 'function',
+                animation: {startup: true}
+            };
+
+            // Instantiate and draw Points chart
+            var chart = new google.visualization.AreaChart(document.getElementById('FGChart'));
+            chart.draw(data, options);
+        };
+
+        $scope.ThreePGraph = function(){
+            var amountOfGames = $scope.gamesPlayed.length;
+            //Points Chart
+            var data = new google.visualization.DataTable();
+
+            data.addColumn('string', 'Game Date');
+            data.addColumn('number', 'FG %');
+
+            for (var i = 0; i < amountOfGames; i++) {
+                if($scope.gamesPlayed[i].threes_attempted > 0) {
+                    $scope.gameDay = 'G-' + i;
+                    data.addRows([[$scope.gameDay, ($scope.gamesPlayed[i].threes_made / $scope.gamesPlayed[i].threes_attempted)]]);
+                }
+                else{
+                    $scope.gameDay = 'G-' + i;
+                    data.addRows([[$scope.gameDay, 0]]);
+                }
+                // i++;
+            }
+
+            // Set Points Chart options
+            var options = {
+                'title': 'Three Point Percentage Per Game',
+                curveType: 'function',
+                animation: {startup: true}
+            };
+
+            // Instantiate and draw Points chart
+            var chart = new google.visualization.AreaChart(document.getElementById('threePChart'));
+            chart.draw(data, options);
+        };
+
+        $scope.FTGraph = function(){
+            var amountOfGames = $scope.gamesPlayed.length;
+            //Points Chart
+            var data = new google.visualization.DataTable();
+
+            data.addColumn('string', 'Game Date');
+            data.addColumn('number', 'FG %');
+
+            for (var i = 0; i < amountOfGames; i++) {
+                if($scope.gamesPlayed[i].FTA > 0) {
+                    $scope.gameDay = 'G-' + i;
+                    data.addRows([[$scope.gameDay, ($scope.gamesPlayed[i].FTM / $scope.gamesPlayed[i].FTA)]]);
+                }
+                else{
+                    $scope.gameDay = 'G-' + i;
+                    data.addRows([[$scope.gameDay, 0]]);
+                }
+                // i++;
+            }
+
+            // Set Points Chart options
+            var options = {
+                'title': 'Three Point Percentage Per Game',
+                curveType: 'function',
+                animation: {startup: true}
+            };
+
+            // Instantiate and draw Points chart
+            var chart = new google.visualization.AreaChart(document.getElementById('FTChart'));
+            chart.draw(data, options);
+        };
+
+        $scope.AssistGraph = function(){
+            var amountOfGames = $scope.gamesPlayed.length;
+            //Points Chart
+            var data = new google.visualization.DataTable();
+
+            data.addColumn('string', 'Game Date');
+            data.addColumn('number', 'FG %');
+
+            for (var i = 0; i < amountOfGames; i++) {
+                $scope.gameDay = 'G-'+i;
+                data.addRows([[$scope.gameDay, ($scope.gamesPlayed[i].AST)]]);
+                // i++;
+            }
+
+            // Set Points Chart options
+            var options = {
+                'title': 'Three Point Percentage Per Game',
+                curveType: 'function',
+                animation: {startup: true}
+            };
+
+            // Instantiate and draw Points chart
+            var chart = new google.visualization.AreaChart(document.getElementById('AssistChart'));
+            chart.draw(data, options);
+        };
+
+        $scope.StealGraph = function(){
+            var amountOfGames = $scope.gamesPlayed.length;
+            //Points Chart
+            var data = new google.visualization.DataTable();
+
+            data.addColumn('string', 'Game Date');
+            data.addColumn('number', 'FG %');
+
+            for (var i = 0; i < amountOfGames; i++) {
+                $scope.gameDay = 'G-'+i;
+                data.addRows([[$scope.gameDay, ($scope.gamesPlayed[i].STL)]]);
+                // i++;
+            }
+
+            // Set Points Chart options
+            var options = {
+                'title': 'Steals Per Game',
+                curveType: 'function',
+                animation: {startup: true}
+            };
+
+            // Instantiate and draw Points chart
+            var chart = new google.visualization.AreaChart(document.getElementById('StealChart'));
+            chart.draw(data, options);
+        };
+
+        $scope.BlockGraph = function(){
+            var amountOfGames = $scope.gamesPlayed.length;
+            //Points Chart
+            var data = new google.visualization.DataTable();
+
+            data.addColumn('string', 'Game Date');
+            data.addColumn('number', 'Blocks');
+
+            for (var i = 0; i < amountOfGames; i++) {
+                $scope.gameDay = 'G-'+i;
+                data.addRows([[$scope.gameDay, ($scope.gamesPlayed[i].BLK)]]);
+                // i++;
+            }
+
+            // Set Points Chart options
+            var options = {
+                'title': 'Blockss Per Game',
+                curveType: 'function',
+                animation: {startup: true}
+            };
+
+            // Instantiate and draw Points chart
+            var chart = new google.visualization.AreaChart(document.getElementById('BlockChart'));
+            chart.draw(data, options);
+        };
+
+        $scope.ReboundsGraph = function(){
+            var amountOfGames = $scope.gamesPlayed.length;
+            //Points Chart
+            var data = new google.visualization.DataTable();
+
+            data.addColumn('string', 'Game Date');
+            data.addColumn('number', 'Offensive Rebounds');
+            data.addColumn('number', 'Defensive Rebounds');
+
+            for (var i = 0; i < amountOfGames; i++) {
+                $scope.gameDay = 'G-'+i;
+                data.addRows([[$scope.gameDay, ($scope.gamesPlayed[i].ORB), $scope.gamesPlayed[i].DRB]]);
+                // i++;
+            }
+
+            // Set Points Chart options
+            var options = {
+                'title': 'Rebounds Per Game',
+                curveType: 'function',
+                animation: {startup: true}
+            };
+
+            // Instantiate and draw Points chart
+            var chart = new google.visualization.AreaChart(document.getElementById('TRBChart'));
+            chart.draw(data, options);
+        };
+
+        $scope.TOVGraph = function(){
+            var amountOfGames = $scope.gamesPlayed.length;
+            //Points Chart
+            var data = new google.visualization.DataTable();
+
+            data.addColumn('string', 'Game Date');
+            data.addColumn('number', 'Turnovers');
+
+            for (var i = 0; i < amountOfGames; i++) {
+                $scope.gameDay = 'G-'+i;
+                data.addRows([[$scope.gameDay, ($scope.gamesPlayed[i].TOV)]]);
+                // i++;
+            }
+
+            // Set Points Chart options
+            var options = {
+                'title': 'Steals Per Game',
+                curveType: 'function',
+                animation: {startup: true}
+            };
+
+            // Instantiate and draw Points chart
+            var chart = new google.visualization.AreaChart(document.getElementById('TOVChart'));
+            chart.draw(data, options);
+        };
+
+        $scope.FoulGraph = function(){
+            var amountOfGames = $scope.gamesPlayed.length;
+            //Points Chart
+            var data = new google.visualization.DataTable();
+
+            data.addColumn('string', 'Game Date');
+            data.addColumn('number', 'Fouls');
+
+            for (var i = 0; i < amountOfGames; i++) {
+                $scope.gameDay = 'G-'+i;
+                data.addRows([[$scope.gameDay, ($scope.gamesPlayed[i].Fouls)]]);
+                // i++;
+            }
+
+            // Set Points Chart options
+            var options = {
+                'title': 'Fouls Per Game',
+                curveType: 'function',
+                animation: {startup: true}
+            };
+
+            // Instantiate and draw Points chart
+            var chart = new google.visualization.AreaChart(document.getElementById('FoulChart'));
+            chart.draw(data, options);
+        };
+
 
 
     }]);
