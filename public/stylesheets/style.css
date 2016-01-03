@@ -1,6 +1,6 @@
 html, body{
   height: 100%;
-    font-family: 'Quattrocento Sans', sans-serif;
+    font-family: 'Montserrat', sans-serif;
 
 }
 /**/
@@ -64,9 +64,7 @@ h2{
     line-height: 80%;
     font-size: 2vh;
 }
-.divOverImage{
-    align-self: center;
-}
+
 .CRUDDiv{
     height: 25%;
 }
