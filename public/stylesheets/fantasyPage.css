@@ -1,0 +1,25 @@
+/*Setting Size for default/pic of fantasy position*/
+.fantasyPosImg{
+    max-height: 100%;
+    max-width: 100%;
+}
+
+#fantasySelectPartial{
+    height: 40%;
+    width: 100%;
+}
+
+#fantasySelectDiv{
+    background-color: #17B287;
+    height: 100%;
+    width: 100%;
+}
+#fantasyTeam{
+    height: 100%;
+    width: 100%;
+}
+
+.selectedFantasyPos{
+    background-color: #17B287;
+}
+
