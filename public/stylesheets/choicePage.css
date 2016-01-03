@@ -37,6 +37,8 @@
     display: flex;
     justify-content: center;
     font-family: 'Montserrat', sans-serif;
+    text-align: right;
+    padding: 5%;
 }
 
 #statCheck{
@@ -46,8 +48,11 @@
     margin: 0%;
     height: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     font-family: 'Montserrat', sans-serif;
+    text-align: left;
+    padding: 5%;
+
 }
 
 #choicePageContainer{
