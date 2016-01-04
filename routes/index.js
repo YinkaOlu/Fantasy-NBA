@@ -7,6 +7,17 @@ var ObjectId = require('mongodb').ObjectID;
 var url = 'mongodb://localhost:27017/nbaDB';
 var path = require('path');
 
+/* GET home page. */
+router.get('/', function(req, res, next) {
+    res.render('splashPage', { title: 'Opening Splash Page' });
+});
+
+/* GET API Home page. */
+router.get('/apiHome', function(req, res, next) {
+    res.render('apiViews/apiHome', { title: 'Admin Page' });
+});
+
+
 //------------------Routes for Team API Pages ----------------------------------------
 //-------------------------------------------------------------------------------------
     /* GET CRUD Team page. */
@@ -99,194 +110,6 @@ router.get('/deleteGame', function(req, res, next) {
 //--------------------------------------------------------------
 //---------------------------------------------------------------
 //--------------------------------------------------------------
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('splashPage', { title: 'Opening Splash Page' });
-});
-
-
-//Respond to nba-current NBA db request
-router.get('/currentNBAdb', function(req, res) {
-  console.log('request to current DB');
-  var db = req.db;
-  var currentNBA;
-
-  currentNBA = db.get('currentNBA');
-
-
-  console.log('Preparing to send ordered time');
-  currentNBA.find({},{}, function(e,docs){
-    res.json(docs);
-    console.log('sent data');
-  });
-  console.log('finish HTTP Response, end of get function');
-});
-
-
-//-----------------------------------------------------
-//----------Add Game Function--------------------------
-//-----------------------------------------------------
-
-var insertGame = function(newGame, db, callback) {
-  console.log('Running insertGame Function');
-  db.collection('currentNBA').updateOne(
-      {"team_name" : newGame.teamName, "roster.player_name": newGame.playerName},
-
-      {$push: {'roster.$.currentSeasonGames': newGame}},
-
-      function(err, result) {
-        assert.equal(err, null);
-        console.log("Inserted a Game");
-        callback(result);
-      });
-};
-//--------------Post HTTP for Adding Games -----------------------------------------
-
-router.post('/addGameDB', function(req, res){
-
-  console.log('Recieve Game addition request. Following is received Game');
-  console.log(req.body);
-//-------------------
-  MongoClient.connect(url, function(err, db) {
-    console.log('MongoClient Connect')
-    assert.equal(null, err);
-    console.log('MongoClient intiate insertGame Function');
-    insertGame(req.body, db, function() {
-      db.close();
-    });
-  });
-  //----------------------------
-  console.log('Game Addition Successful passed');
-
-});
-
-router.get('/insertGame', function(req, res, next) {
-  res.render('insertNewGame/insertNewGame', { title: 'Add Game' });
-});
-
-//-------------------------------------------------------------
-//------------------------------------------------------------/
-//-------------------Player Addition--------------------------
-//------------------------------------------------------------
-
-router.get('/insertPlayer', function(req, res, next) {
-  res.render('insertNewPlayer/insertNewPlayer', { title: 'Add Player' });
-});
-
-
-//----------------------------------
-//----------Add Player Function---------------------------------
-var insertPlayer = function(newPlayer, db, callback) {
-
-  db.collection('currentNBA').updateOne(
-      {"team_name" : newPlayer.teamName},
-
-      {$push: {'roster': newPlayer}},
-
-      function(err, result) {
-        assert.equal(err, null);
-        console.log("Inserted game from: "+newPlayer.playerName+" into the nbaDB team: "+ newPlayer.teamName);
-        callback(result);
-      });
-};
-//--------------Post HTTP for Adding Games -----------------------------------------
-
-router.post('/addPlayerDB', function(req, res){
-
-  console.log('got player data');
-  console.log(req.body);
-//-------------------
-  MongoClient.connect(url, function(err, db) {
-    assert.equal(null, err);
-    insertPlayer(req.body, db, function() {
-      db.close();
-    });
-  });
-  //----------------------------
-  console.log('Insertion passed');
-  alert("Game Added");
-
-});
-
-//-----------------------------------------------------------------------------
-//---------------------------  Edit Game  --------------------------------------
-//------------------------------------------------------------------------------
-router.get('/editGame', function(req, res, next) {
-  res.render('editGames/editGames', { title: 'Edit Player' });
-});
-
-//----------------------------------
-//----------remove Game Function---------------------------------
-var removeGame = function(oldGame, db, callback) {
-  console.log('Run removeGame function');
-  console.log(oldGame.playerName);
-
-  db.collection('currentNBA').updateOne(
-      {"team_name" : oldGame.teamName, "roster.player_name": oldGame.playerName},
-
-      {$pull: {'roster.$.currentSeasonGames': {'game_Date': oldGame.game_Date}}},
-      function(err, result) {
-        assert.equal(err, null);
-        console.log("Removed Game");
-        callback(result);
-      });
-};
-
-//--------------Post HTTP for removing Games -----------------------------------------
-
-router.post('/removeGameDB', function(req, res){
-console.log('Receive HTTP request to remove game: Following is received game');
-
-  console.log(req.body);
-//-------------------
-  MongoClient.connect(url, function(err, db) {
-    assert.equal(null, err);
-    console.log('MongoClient initiate removeGame function');
-    removeGame(req.body, db, function() {
-      db.close();
-    });
-  });
-  //----------------------------
-  console.log('Removal passed');
-
-
-});
-
-//----------------------------------
-//----------Edit Game Function---------------------------------
-var editGame = function(newGame, db, callback) {
-  console.log('Running insertGame Function');
-  db.collection('currentNBA').updateOne(
-      {"team_name" : newGame.teamName, "roster.player_name": newGame.playerName},
-
-      {$push: {'currentSeasonGames': newGame}},
-
-      function(err, result) {
-        assert.equal(err, null);
-        console.log("Inserted a Game");
-        callback(result);
-      });
-};
-//--------------Post HTTP for Adding Games -----------------------------------------
-
-router.post('/editGameDB', function(req, res){
-
-  console.log('Recieve Game addition request. Following is received Game');
-  console.log(req.body);
-//-------------------
-  MongoClient.connect(url, function(err, db) {
-    console.log('MongoClient Connect');
-    assert.equal(null, err);
-    console.log('MongoClient intiate insertGame Function');
-    editGame(req.body, db, function() {
-      db.close();
-    });
-  });
-  //----------------------------
-  console.log('Game Addition Successful passed');
-
-});
-
 
 
 

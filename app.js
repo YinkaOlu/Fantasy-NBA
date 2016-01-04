@@ -11,6 +11,17 @@ var playerStat = require('./routes/playerStatServer');
 var fantasyTeamRoute = require('./routes/fantasyTeamServer');
 var choicePageRoute = require('./routes/choicePageServer');
 
+var passport = require('passport');
+var TwitterStrategy = require('passport-twitter');
+var GoogleStrategy = require('passport-google');
+var FacebookStrategy = require('passport-facebook');
+
+var flash    = require('connect-flash');
+var session      = require('express-session');
+
+//We will be creating these two files shortly
+// var config = require('./config.js'), //config file contains all tokens and other private info
+//    funct = require('./functions.js'); //funct file contains our helper functions for our Passport and database work
 
 //Add MongoDB
 var mongo = require('mongodb');
@@ -38,7 +49,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
 
 
 
