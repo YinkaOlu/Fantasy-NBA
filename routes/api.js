@@ -518,4 +518,17 @@ router.route('/saveFantasyTeam')
 
     });
 
+router.route('/fantasyTeam/:user_id')
+    .get(function(req, res) {
+        console.log('Got Request to find fantasy Team for user: ' + req.params.user_id);
+        fantasyModel.find({owner: req.params.user_id}, function(err, teams) {
+            if (err)
+                res.send(err);
+            console.log(teams);
+            res.json(teams);
+        })
+
+});
+
+
 module.exports = router;
