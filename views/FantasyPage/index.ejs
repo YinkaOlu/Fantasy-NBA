@@ -13,6 +13,11 @@
                     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
                     <span class="ui-helper-clearfix"></span>
                 </form>
+                <form class="form-signin" action="/fantasyTeam/login" method="post">
+                    <input type="hidden" name="username" class="form-control" value="Guest" >
+                    <input type="hidden" name="password" class="form-control" value="Guest">
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Guest Sign In</button>
+                </form>
             </div>
             <a href="/fantasyTeam/signup" class="text-center new-account">Create Account</a>
             <div class="message">

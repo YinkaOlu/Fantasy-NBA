@@ -19,7 +19,8 @@ var isAuthenticated = function (req, res, next) {
 }
 /* GET home page. */
 router.get('/home', isAuthenticated, function(req, res, next) {
-    res.render('FantasyPage/fantasyPage', { title: 'Fantasy Page' });
+    console.log(req);
+    res.render('FantasyPage/fantasyPage', { user: req.user });
 });
 
 
@@ -27,7 +28,7 @@ router.get('/home', isAuthenticated, function(req, res, next) {
 /* Handle Login POST */
 router.post('/login', passport.authenticate('login', {
     successRedirect: '/FantasyTeam/home',
-    failureRedirect: '/FantasyTeam/index',
+    failureRedirect: '/FantasyTeam/',
     failureFlash : true
 }));
 
