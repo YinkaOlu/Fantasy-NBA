@@ -325,6 +325,21 @@ app.controller('fantasySelectionEngine', ['$scope', '$http',
             $scope.hideSelectionForm = true;
             console.log('End of player Addition function');
         };
+        $scope.saveTeam = function(){
+            //HTTP Call to server, Retrieve User Info
+            $http.get('/fantasyTeam/userID').success(function(response){
+                //Store DB as variable $scope.currentTeams
+                $scope.currentUser = response;
+
+                var teamToSave = {};
+                teamToSave.userID = $scope.currentUser;
+                teamToSave.roster = $scope.fantasyRoster;
+
+                $http.post('/api/saveFantasyTeam', teamToSave);
+            });
+
+        };
+
 
         $scope.buildFantasyTeam = function(){
             var one_day = 1000*60*60*24;

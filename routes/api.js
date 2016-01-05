@@ -27,6 +27,9 @@ var shootingSeasonModel = require('../models/shootingSeason');
 //create team model from team Schema
 var teamModel = require('../models/team');
 
+//
+var fantasyModel = require('../models/fantasyTeam');
+
 
 
 router.use(function(req, res, next) {
@@ -489,6 +492,29 @@ router.route('/game/:game_id')
             res.json({ message: 'Successfully deleted' });
         });
         console.log('game Deleted');
+    });
+
+router.route('/saveFantasyTeam')
+    .post(function(req, res) {
+        console.log('Got Save Request');
+        console.log(req.body);
+        var newFantasyTeam = new fantasyModel();
+
+        newFantasyTeam.owner = req.body.userID;
+        newFantasyTeam.roster = req.body.roster;
+
+        console.log('New Team: ');
+        console.log(newFantasyTeam);
+
+        // save the new game and check for errors
+        newFantasyTeam.save(function(err) {
+            if (err)
+                res.send(err);
+
+            res.json({ message: 'New game created!' });
+        });
+
+
     });
 
 module.exports = router;

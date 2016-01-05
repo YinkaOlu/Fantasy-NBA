@@ -6,6 +6,9 @@ var router = express.Router();
 var passport = require('passport');
 var flash    = require('connect-flash');
 
+//create team model from team Schema
+var userModel = require('../models/user');
+
 /* GET login page. */
 router.get('/', function(req, res) {
     // Display the Login page with any flash message, if any
@@ -23,6 +26,10 @@ router.get('/home', isAuthenticated, function(req, res, next) {
     res.render('FantasyPage/fantasyPage', { user: req.user });
 });
 
+router.get('/userID', function(req, res){
+    console.log('Retrieving User ID');
+    res.json(req.user._id);
+});
 
 
 /* Handle Login POST */

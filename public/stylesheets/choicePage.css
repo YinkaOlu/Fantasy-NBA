@@ -29,8 +29,10 @@
 
 
 #fantasyTeamImg{
+    background-color: #34495E;
     background-image: url("../images/backgroundImages/leftBackground.png");
     background-size: auto 100%;
+    background-repeat: no-repeat;
 
     margin: 0%;
     height: 100%;
@@ -42,9 +44,11 @@
 }
 
 #statCheck{
+    background-color: #366B69;
     background-image: url("../images/backgroundImages/rightBackground.png");
     background-size: auto 100%;
     background-position: right center;
+    background-repeat: no-repeat;
     margin: 0%;
     height: 100%;
     display: flex;
