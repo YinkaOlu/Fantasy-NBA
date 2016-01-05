@@ -10,6 +10,7 @@ var api = require('./routes/api');
 var playerStat = require('./routes/playerStatServer');
 var fantasyTeamRoute = require('./routes/fantasyTeamServer');
 var choicePageRoute = require('./routes/choicePageServer');
+var userProfile = require('./routes/userServer');
 
 var passport = require('passport');
 
@@ -76,7 +77,7 @@ app.use('/api', api);
 
 //----------------------------------------------------------
 
-
+app.use('/userProfile', userProfile);
 
 
 

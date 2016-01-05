@@ -103,9 +103,6 @@ router.get('/updateGame', function(req, res, next) {
 router.get('/deleteGame', function(req, res, next) {
     res.render('apiViews/apiGame/deleteGame', { title: 'Delete Game Page' });
 });
-
-
-
 //--------------------------------------------------------------
 //---------------------------------------------------------------
 //--------------------------------------------------------------

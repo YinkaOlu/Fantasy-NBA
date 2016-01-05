@@ -1,0 +1,9 @@
+<% include ../templates/headTemp.ejs %>
+<% include ../templates/navigationTemp.html %>
+
+<h1>User Profile</h1>
+
+<div id="profileDiv" align = 'left'>
+    <u><h1> Welcome <b><%= user.username %></b></h1></u>
+    <h2><a href="/userProfile/signout" class="text-center new-account">Signout</a></h2>
+</div>
