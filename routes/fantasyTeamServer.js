@@ -12,10 +12,17 @@ router.get('/', function(req, res) {
     res.render('FantasyPage/index', { message: req.flash('message') });
 });
 
+var isAuthenticated = function (req, res, next) {
+    if (req.isAuthenticated())
+        return next();
+    res.redirect('/FantasyTeam');
+}
 /* GET home page. */
-router.get('/home', function(req, res, next) {
+router.get('/home', isAuthenticated, function(req, res, next) {
     res.render('FantasyPage/fantasyPage', { title: 'Fantasy Page' });
 });
+
+
 
 /* Handle Login POST */
 router.post('/login', passport.authenticate('login', {
@@ -23,6 +30,11 @@ router.post('/login', passport.authenticate('login', {
     failureRedirect: '/FantasyTeam/index',
     failureFlash : true
 }));
+
+router.get('/signout', function(req, res) {
+    req.logout();
+    res.redirect('/FantasyTeam');
+});
 
 /* GET Registration Page */
 router.get('/signup', function(req, res){

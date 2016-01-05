@@ -50,6 +50,8 @@ app.use(session({secret: 'mySecretKey',
   saveUninitialized: true,
   resave: true}));
 
+
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
