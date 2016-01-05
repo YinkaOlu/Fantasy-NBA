@@ -3,6 +3,8 @@
 
 <script language="javascript" type="text/javascript" src="/javascripts/angularApps/profilePageManager.js"></script>
 
+<link rel="stylesheet" href='/stylesheets/profilePage.css'>
+
 <div ng-app="profilePageManager">
     <div ng-controller="profilePageManager">
         <h1>User Profile</h1>
@@ -22,12 +24,11 @@
         </div>
 
         <div ng-hide="hideFantasyRoster">
-            <h1>Fantasy Team Roster</h1>
-            <div ng-repeat="player in selectedRoster">
+            <h1>Team: <b>{{selectedTeam.team_name}}</b> Roster</h1>
+            <div ng-repeat="player in selectedRoster" class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                <img class="playerImg" ng-src="/images/profilePics/{{ player.player_first_name }} {{ player.player_last_name }}.png">
                 <h3>{{ player.player_first_name }} {{ player.player_last_name }}</h3>
                 <p>{{player.player_position}}</p>
-                <p>{{ player.player_team}}</p>
-                <br>
             </div>
         </div>
     </div>

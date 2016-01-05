@@ -12,7 +12,6 @@ app.controller('profilePageManager', ['$scope', '$http',
             //Store DB as variable $scope.currentTeams
              var currentUserID = response;
 
-            alert('User: '+ currentUserID);
             var url = '/api/fantasyTeam/'+ currentUserID;
 
             $http.get(url).success(function(response) {
@@ -24,10 +23,16 @@ app.controller('profilePageManager', ['$scope', '$http',
         });
 
         $scope.viewRoster = function(teamNum){
-            alert('Testing');
+            //Reset
+            $scope.selectedTeam = {};
+            $scope.selectedRoster = {};
+            $scope.hideFantasyRoster = true;
+            // Implement
+
             $scope.selectedTeam = $scope.userTeams[teamNum];
-            $scope.selectedRoster = $scope.selectedTeam.roster;
-            $scope.hideFantasyRoster = false;
+                $scope.selectedRoster = $scope.selectedTeam.roster;
+                $scope.hideFantasyRoster = false;
+            
         }
 
 
