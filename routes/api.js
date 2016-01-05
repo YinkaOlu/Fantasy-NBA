@@ -500,6 +500,7 @@ router.route('/saveFantasyTeam')
         console.log(req.body);
         var newFantasyTeam = new fantasyModel();
 
+        newFantasyTeam.team_name = req.body.fantasyTeamName;
         newFantasyTeam.owner = req.body.userID;
         newFantasyTeam.roster = req.body.roster;
 

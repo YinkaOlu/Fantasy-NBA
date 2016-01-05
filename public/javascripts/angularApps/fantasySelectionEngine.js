@@ -332,6 +332,7 @@ app.controller('fantasySelectionEngine', ['$scope', '$http',
                 $scope.currentUser = response;
 
                 var teamToSave = {};
+                teamToSave.fantasyTeamName = $scope.fantasyTeamName;
                 teamToSave.userID = $scope.currentUser;
                 teamToSave.roster = $scope.fantasyRoster;
 

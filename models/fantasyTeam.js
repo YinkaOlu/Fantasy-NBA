@@ -9,7 +9,8 @@ var fantasySchema = new Schema ({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Owner'
     },
-    roster: {}
+    roster: {},
+    team_name: String
 });
 
 module.exports = mongoose.model("fantasyTeam", fantasySchema);
