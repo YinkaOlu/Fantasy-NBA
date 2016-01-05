@@ -12,12 +12,9 @@ var fantasyTeamRoute = require('./routes/fantasyTeamServer');
 var choicePageRoute = require('./routes/choicePageServer');
 
 var passport = require('passport');
-var TwitterStrategy = require('passport-twitter');
-var GoogleStrategy = require('passport-google');
-var FacebookStrategy = require('passport-facebook');
 
 var flash    = require('connect-flash');
-var session      = require('express-session');
+var session  = require('express-session');
 
 //We will be creating these two files shortly
 // var config = require('./config.js'), //config file contains all tokens and other private info
@@ -49,6 +46,18 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({secret: 'mySecretKey',
+  saveUninitialized: true,
+  resave: true}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+
+var LocalStrategy = require('passport-local').Strategy;
+
+var initPassport = require('./passport/init');
+initPassport(passport);
 
 
 
