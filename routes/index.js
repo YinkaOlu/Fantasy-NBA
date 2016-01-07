@@ -13,7 +13,12 @@ router.get('/', function(req, res, next) {
 
 /* GET API Home page. */
 router.get('/apiHome', function(req, res, next) {
-    res.render('apiViews/apiHome', { title: 'Admin Page' });
+    if(req.user.role == 'administrator') {
+        res.render('apiViews/apiHome', {title: 'Admin Page'});
+    }
+    else{
+        res.render('ChoicePage/choicePage', { title: 'Choice Page' });
+    }
 });
 
 
