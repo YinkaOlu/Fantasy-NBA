@@ -32,7 +32,7 @@ app.controller('profilePageManager', ['$scope', '$http',
             $scope.selectedTeam = $scope.userTeams[teamNum];
                 $scope.selectedRoster = $scope.selectedTeam.roster;
                 $scope.hideFantasyRoster = false;
-            
+
         }
 
 

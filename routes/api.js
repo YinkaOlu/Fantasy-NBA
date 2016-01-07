@@ -30,6 +30,8 @@ var teamModel = require('../models/team');
 //
 var fantasyModel = require('../models/fantasyTeam');
 
+var userModel = require('../models/user');
+
 
 
 router.use(function(req, res, next) {
@@ -529,6 +531,81 @@ router.route('/fantasyTeam/:user_id')
         })
 
 });
+
+
+router.route('/user')
+    .get(function(req, res) {
+        console.log('Got Request for all Users');
+        userModel.find(function(err, users) {
+            if (err)
+                res.send(err);
+
+            res.json(users);
+            console.log(users);
+        });
+    })
+    .post(function(req, res) {
+        console.log('Got Create User Request');
+        console.log(req.body);
+        var newUser = new userModel();
+
+        newUser.username = req.body.username;
+        newUser.email = req.body.email;
+        newUser.role = req.body.role;
+        newUser.password = req.body.password;
+
+        console.log('New User: ');
+        console.log(newUser);
+
+        // save the new game and check for errors
+        newUser.save(function(err) {
+            if (err)
+                res.send(err);
+
+            res.json({ message: 'New User created!' });
+        });
+
+
+    });
+
+router.route('/user/:user_id')
+    .put(function(req, res) {
+        console.log("Got Edit Request for User");
+        // use our game model to find the game we want
+        userModel.findById(req.params.user_id, function(err, user) {
+
+            if (err)
+                res.send(err);
+            user.username = req.body.username;
+            user.email = req.body.email;
+            user.role = req.body.role;
+
+
+            console.log('Edited the User to: ');
+            console.log(user);
+            // save the game
+            user.save(function(err) {
+                if (err)
+                    res.send(err);
+                console.log(user);
+                res.json({ message: 'User updated!' });
+            });
+
+        });
+    })
+    .delete(function(req, res) {
+        console.log('Delete Request Recieved');
+        console.log('Removing '+ req.params.user_id);
+        userModel.remove({
+            _id: req.params.user_id
+        }, function(err, bear) {
+            if (err)
+                res.send(err);
+
+            res.json({ message: 'Successfully deleted' });
+        });
+        console.log('User Deleted');
+    });
 
 
 module.exports = router;

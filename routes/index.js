@@ -21,6 +21,12 @@ router.get('/apiHome', function(req, res, next) {
     }
 });
 
+//------------------Routes for User API Pages ----------------------------------------
+//-------------------------------------------------------------------------------------
+/* GET CRUD Team page. */
+router.get('/userForm', function(req, res, next) {
+    res.render('apiViews/apiUser/userCRUD', { title: 'User CRUD Page' });
+});
 
 //------------------Routes for Team API Pages ----------------------------------------
 //-------------------------------------------------------------------------------------
