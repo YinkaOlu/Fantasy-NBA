@@ -588,7 +588,7 @@ app.controller('fantasySelectionEngine', ['$scope', '$http',
                 console.log('*-*-'+teamAssists);
                 i++;
             }
-            return (teamAssists/statLength);
+            return (teamAssists);
         };
 
         //Return Total Steals per game of entire Team in Date Range
@@ -602,7 +602,7 @@ app.controller('fantasySelectionEngine', ['$scope', '$http',
                 console.log('*-*-'+teamSteals);
                 i++;
             }
-            return (teamSteals/statLength);
+            return (teamSteals);
         };
 
         //Return Total Blocks per game of entire Team in Date Range
@@ -616,7 +616,7 @@ app.controller('fantasySelectionEngine', ['$scope', '$http',
                 console.log('*-*-'+teamBlocks);
                 i++;
             }
-            return (teamBlocks/statLength);
+            return (teamBlocks);
         };
 
         //Return Total Blocks per game of entire Team in Date Range
@@ -630,7 +630,7 @@ app.controller('fantasySelectionEngine', ['$scope', '$http',
                 console.log('*-*-'+teamTRB);
                 i++;
             }
-            return (teamTRB/statLength);
+            return (teamTRB);
         };
 
         //Return Total TOVs per game of entire Team in Date Range
@@ -644,7 +644,7 @@ app.controller('fantasySelectionEngine', ['$scope', '$http',
                 console.log('*-*-'+teamTOV);
                 i++;
             }
-            return (teamTOV/statLength);
+            return (teamTOV);
         };
 
         //Return Total Fouls per game of entire Team in Date Range
@@ -658,7 +658,7 @@ app.controller('fantasySelectionEngine', ['$scope', '$http',
                 console.log('*-*-'+teamFouls);
                 i++;
             }
-            return (teamFouls/statLength);
+            return (teamFouls);
         };
 
         //-------------------------------------------------------------------------//

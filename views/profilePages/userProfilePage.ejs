@@ -34,6 +34,30 @@
                 <h3>{{ player.player_first_name }} {{ player.player_last_name }}</h3>
                 <p>{{player.player_position}}</p>
             </div>
+
+            <div class="row" id="fantasyStatFinder">
+                <div id='startDate' class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <h1>Start Date</h1>
+                    <input type='date' id='startDate' ng-model="startDate">
+                </div>
+
+                <div id='endDate'class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <h1>End Date</h1>
+                    <input type='date' id='endDate' ng-model="endDate">
+                </div>
+            </div>
+
+            <div class="row" id="buildTeam">
+                <button type="button" class="btn btn-primary btn-block" ng-click="getStats()" >Get Stats</button>
+            </div>
+            <div class="row" id="buildTeam">
+                <button type="button" class="btn btn-primary btn-block" ng-click="buildStats()" >Display Stats</button>
+            </div>
         </div>
+
+        <div id="fantasyTeamResults" ng-hide="hideResults">
+            <% include ../templates/fantasyTeamResults.html %>
+        </div>
+
     </div>
 </div>
