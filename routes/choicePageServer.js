@@ -6,7 +6,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('choicePage/choicePage', { title: 'Choice Page' });
+    res.render('ChoicePage/choicePage', { title: 'Choice Page' });
 });
 
 
