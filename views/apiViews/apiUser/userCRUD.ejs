@@ -14,6 +14,7 @@
                 <input type="radio" ng-model="user.role" value="basic"> Basic
                 <input type="radio" ng-model="user.role" value="administrator"> Admin
                 <input type="radio" ng-model="user.role" value="manager"> Manager
+                <input type="radio" ng-model="user.role" value="guest"> Guest
             </div>
             <button class="btn btn-sm btn-danger" ng-click="deleteUser(users.indexOf(user))">Delete User</button>
             <button class="btn btn-sm btn-success" ng-click="updateUser(users.indexOf(user))">Save Edit</button>
