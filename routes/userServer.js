@@ -20,7 +20,12 @@ var isAuthenticated = function (req, res, next) {
 /* GET home page. */
 router.get('/home', isAuthenticated, function(req, res, next) {
     console.log(req);
-    res.render('profilePages/userProfilePage', { user: req.user });
+    if(req.user.role != 'guest'){
+        res.render('profilePages/userProfilePage', { user: req.user });
+    }
+    else{
+        res.redirect('/choicePage');
+    }
 });
 
 router.get('/userID', function(req, res){

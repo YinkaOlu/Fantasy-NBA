@@ -28,6 +28,7 @@ app.controller('playerStatCtrl', ['$scope', '$http',
             $scope.playerID = $scope.player._id;
             console.log($scope.playerID);
             console.log($scope.player.player_first_name);
+            $scope.height = ''+Math.floor($scope.player.player_height/12)+' ft '+($scope.player.player_height%12)+' inches';
 
         };
 
