@@ -23,7 +23,7 @@ var session  = require('express-session');
 
 //Add MongoDB
 var mongo = require('mongodb');
-var monk = require('monk');
+//var monk = require('monk');
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://130.211.133.232:27017/nba', function(){
