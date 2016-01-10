@@ -26,27 +26,27 @@
                 <a href="#selectionMenu">
                 <div class="fantasyPosHolder col-lg-2 col-md-2 col-sm-6 col-xs-12" id="pointGuard" ng-click="selectPosition(0)">
                     <img class="fantasyPosImg" ng-src="/images/{{ pointGuardImg }}.png">
-                    <h2>Point Guard (PG)</h2>
+                    <h2>Point Guard <br>(PG)</h2>
                 </div>
                     </a>
 
                  <a href="#selectionMenu">
                 <div class="fantasyPosHolder col-lg-2 col-md-2 col-sm-6 col-xs-12" id="shootingGuard" ng-click="selectPosition(1)">
                     <img class="fantasyPosImg" ng-src="/images/{{ shootingGuardImg }}.png">
-                    <h2>Shooting Guard (SG)</h2>
+                    <h2>Shooting Guard <br>(SG)</h2>
                 </div>
                      </a>
                 <a href="#selectionMenu">
                 <div class="fantasyPosHolder col-lg-2 col-md-2 col-sm-6 col-xs-12" id="smallForward" ng-click="selectPosition(2)">
                     <img class="fantasyPosImg" ng-src="/images/{{ smallForwardImg }}.png">
-                    <h2>Small Forward</h2>
+                    <h2>Small Forward <br>(SF)</h2>
                 </div>
                     </a>
 
                 <a href="#selectionMenu">
                 <div class="fantasyPosHolder col-lg-2 col-md-2 col-sm-6 col-xs-12" id="powerForward" ng-click="selectPosition(3)">
                     <img class="fantasyPosImg" ng-src="/images/{{ powerForwardImg }}.png">
-                    <h2>Power Forward</h2>
+                    <h2>Power Forward <br>(PF)</h2>
                 </div>
                     </a>
 
@@ -67,14 +67,14 @@
                 <a href="#selectionMenu">
                 <div class="fantasyPosHolder col-lg-2 col-md-2 col-sm-6 col-xs-12" id="flexGuard" ng-click="selectPosition(5)">
                     <img class="fantasyPosImg" ng-src="/images/{{ flexGuardImg }}.png">
-                    <h2>Flex Guard (PG - SG)</h2>
+                    <h2>Flex Guard <br>(PG - SG)</h2>
                 </div>
                     </a>
 
                 <a href="#selectionMenu">
                 <div class="fantasyPosHolder col-lg-2 col-md-2 col-sm-6 col-xs-12" id="flexForward" ng-click="selectPosition(6)">
                     <img class="fantasyPosImg" ng-src="/images/{{ flexForwardImg }}.png">
-                    <h2>Flex Forward (SF - PF)</h2>
+                    <h2>Flex Forward <br>(SF - PF)</h2>
                 </div>
                     </a>
 
@@ -126,19 +126,29 @@
         <br>
 
         <div class="row" id="buildTeam">
-            <button type="button" class="btn btn-primary btn-block" ng-click="buildFantasyTeam()">Build Fantasy Team</button>
+            <button type="button" class="btn btn-primary btn-block" ng-click="buildFantasyTeam()" ng-hide="hideBuildBtn">Build Fantasy Team</button>
         </div>
 
-        <div class="row" id="saveTeam">
+        <div class="row" id="saveTeam" ng-hide="hideSaveBtn">
             <input type="text" ng-model="fantasyTeamName"  placeholder="Your Team Name" required >
             <button type="button" class='btn-success btn-medium' ng-click="saveTeam()">Save Fantasy Team</button>
         </div>
 
         <br>
         <div class="row" id="buildTeam">
-            <button type="button" class="btn btn-primary btn-block" ng-click="getStats()" ng-hide="hideStats">Get Stats</button>
+            <button type="button" class="btn btn-primary btn-block" ng-click="getStats()" ng-hide="hideStatsBtn">Get Stats</button>
         </div>
         <br>
+
+        <div class="row" id="buildTeam">
+            <button type="button" class="btn btn-primary btn-block" ng-click="getStats()" ng-hide="hideUpdateStatsBtn">Update Stats</button>
+        </div>
+        <br>
+
+        <div ng-hide="hideWarning">
+            <p><em>Please select a start / end Date</em></p>
+
+        </div>
 
         <div id="fantasyTeamResults" ng-hide="hideResults">
             <% include ../templates/fantasyTeamResults.html %>

@@ -14,6 +14,12 @@ app.controller('fantasySelectionEngine', ['$scope', '$http',
         //-------------------------------------------------
         //-------------------------------------------------
 
+        $scope.hideWarning = true;
+        $scope.hideBuildBtn = false;
+        $scope.hideSaveBtn = true;
+        $scope.hideStatsBtn = true;
+        $scope.hideUpdateStatsBtn = true;
+
 //---------------------------------------------------------
 //-----------  SET DEFAULT SET-UP of FANTASY PAGE ---------
 //---------------------------------------------------------
@@ -348,6 +354,7 @@ app.controller('fantasySelectionEngine', ['$scope', '$http',
 
 
             if($scope.startDate == null || $scope.endDate == null) {
+                $scope.hideWarning = false;
                 if($scope.startDate == null)
                     console.log('Pick Start Date');
                 else
@@ -356,6 +363,10 @@ app.controller('fantasySelectionEngine', ['$scope', '$http',
 
             //----------- Start of Stat Building
             else{
+                $scope.hideWarning = true;
+                $scope.hideBuildBtn = true;
+                $scope.hideStatsBtn = false;
+                $scope.hideSaveBtn = false;
 
                 console.log('Start Date: '+$scope.startDate+'\nEnd Date: '+ $scope.endDate);
                 console.log('Building Fantasy Team......');
@@ -510,6 +521,9 @@ app.controller('fantasySelectionEngine', ['$scope', '$http',
             $scope.buildChart();
 
             $scope.hideResults = false;
+            $scope.hideUpdateStatsBtn = false;
+            $scope.hideStatsBtn = true;
+
         };
 
 //-----------------------------------------------------------------------------------

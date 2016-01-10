@@ -15,6 +15,10 @@ app.controller('profilePageManager', ['$scope', '$http',
         $scope.hideResults = true;
         $scope.stats = [];
 
+        $scope.hideGetStatsBtn = false;
+        $scope.hideUpdateStatsBtn = true;
+        $scope.hideDisplayStatsBtn = true;
+
         //HTTP Call , Retrieve User ID
         $http.get('/fantasyTeam/userID').success(function(response) {
             //Store DB as variable $scope.currentTeams
@@ -79,10 +83,16 @@ app.controller('profilePageManager', ['$scope', '$http',
                 });
 
             }
+            $scope.hideDisplayStatsBtn = false;
+            $scope.hideGetStatsBtn = true;
+            $scope.hideUpdateStatsBtn = true;
+            $scope.hideResults = true;
 
         };
             //**************************************************************************************
             $scope.buildStats = function(){
+                $scope.hideDisplayStatsBtn = true;
+                $scope.hideUpdateStatsBtn = false;
             $scope.stats = [];
             //$scope.stats.fPoints = 0;
             //$scope.stats.fAssists = 0;
