@@ -7,7 +7,8 @@ app.controller('createGameController', ['$scope', '$http',
     function($scope, $http) {
 
         $scope.game = {};
-        $scope.tempDate = '';
+        $scope.tempDate = Date.now();
+        $scope.tempDate = new Date($scope.tempDate);
 
         $http.get('/api/team').success(function(response){
             //Store DB as variable $scope.currentTeams

@@ -38,7 +38,7 @@ app.controller('userCRUDApp', ['$scope', '$http',
 
         $scope.createUser = function(){
             console.log('****************Creating User*************** ');
-             $http.post('/api/user', $scope.newUser);
+             $http.post('/fantasyTeam/signup', $scope.newUser);
 
             window.location.href=window.location.href;
         };

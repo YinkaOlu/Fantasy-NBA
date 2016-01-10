@@ -57,7 +57,7 @@ app.controller('profilePageManager', ['$scope', '$http',
 
             $scope.reqGamesQuery = {};
 
-            for(var i = 0; i<10; i++)
+            for(var i = 0; i<$scope.selectedRoster.length; i++)
                 //Add Games with in range into $scope.playerQueryGames, position in array corresponds to player position ie. 0 = point guard, 1 = shooting guard
                 //Each position holds an array that contains games
             {

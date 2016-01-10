@@ -107,8 +107,11 @@
                 <% include ../templates/fantasySelectionTemp.html %>
             </div>
         </a>
-
         <br>
+
+        <div ng-hide="hideWarning">
+            <p><em>Please select a start / end Date</em></p>
+        </div>
 
         <div class="row" id="fantasyStatFinder">
             <div id='startDate' class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -146,10 +149,7 @@
         </div>
         <br>
 
-        <div ng-hide="hideWarning">
-            <p><em>Please select a start / end Date</em></p>
 
-        </div>
 
         <div id="fantasyTeamResults" ng-hide="hideResults">
             <% include ../templates/fantasyTeamResults.html %>
