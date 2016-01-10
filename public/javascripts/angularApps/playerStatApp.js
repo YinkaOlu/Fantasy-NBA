@@ -5,6 +5,8 @@ var app = angular.module('playerStatApp',[]);
 
 app.controller('playerStatCtrl', ['$scope', '$http',
     function($scope, $http){
+
+        $scope.hidePersonalView = true;
         $http.get('/api/team').success(function(response){
             //Store DB as variable $scope.currentTeams
             $scope.currentTeams = response;
@@ -23,6 +25,7 @@ app.controller('playerStatCtrl', ['$scope', '$http',
             });
 
             $scope.hideResults = true;
+            $scope.hidePersonalView = true;
         };
 
         $scope.selectPlayerFunction = function(playerPos){
@@ -32,6 +35,7 @@ app.controller('playerStatCtrl', ['$scope', '$http',
             console.log($scope.player.player_first_name);
             $scope.height = ''+Math.floor($scope.player.player_height/12)+' ft '+($scope.player.player_height%12)+' inches';
             $scope.hideResults = true;
+            $scope.hidePersonalView = false;
         };
 
         $scope.displayResults = function(){
