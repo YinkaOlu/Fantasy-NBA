@@ -26,7 +26,7 @@ var mongo = require('mongodb');
 var monk = require('monk');
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/nba', function(){
+mongoose.connect('mongodb://130.211.133.232:27017/nba', function(){
   console.log('connected to database!')
 });
 
