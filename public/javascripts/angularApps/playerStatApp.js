@@ -21,6 +21,8 @@ app.controller('playerStatCtrl', ['$scope', '$http',
             $http.get(teamURL).success(function(response){
                 $scope.roster = response;
             });
+
+            $scope.hideResults = true;
         };
 
         $scope.selectPlayerFunction = function(playerPos){
@@ -29,7 +31,7 @@ app.controller('playerStatCtrl', ['$scope', '$http',
             console.log($scope.playerID);
             console.log($scope.player.player_first_name);
             $scope.height = ''+Math.floor($scope.player.player_height/12)+' ft '+($scope.player.player_height%12)+' inches';
-
+            $scope.hideResults = true;
         };
 
         $scope.displayResults = function(){
