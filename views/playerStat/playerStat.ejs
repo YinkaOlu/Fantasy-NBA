@@ -8,6 +8,8 @@
 
 <div ng-app = 'playerStatApp' class="appContainer">
     <div ng-controller ='playerStatCtrl' id="controllerHolder">
+        <md-content>
+        <md-button md-no-ink class="md-primary">Primary (md-noink)</md-button>
         <h1  class="row demo1" id="decisionTitle" >Choose Team:</h1>
         <!-- team logos -->
 
@@ -30,18 +32,21 @@
         <div id="teamRoster" ng-style="{'background-color':teamPrimaryColour}" >
             <h1  class="row" ng-style="{'color':teamSecondaryColour}" id="decisionTitle">Choose Player:</h1>
             <a href="#playerStats">
-                <div class="teamRosterHolder col-xs-6 col-sm-6 col-md-3 col-lg-3" ng-repeat="player in roster | orderBy: 'player_last_name'" ng-click="selectPlayerFunction(roster.indexOf(player))">
-                    <div class="playerprofileHolder" >
-                        <img class = "playerImg" ng-src="/images/profilePics/{{ player.player_first_name }} {{ player.player_last_name }}.png">
-                    </div>
-                    <div class="playerinfoHolder">
-                        <p class="playerInfo">{{ player.player_first_name }} {{ player.player_last_name }} <br/> {{player.player_number}} <br /> {{player.player_position}}</p>
-                        <img class ="playerTeamLogo" ng-src="/images/logos/{{ selectedTeam.team_name }}.png">
-                    </div>
-                </div>
-            </a>
+                <md-card class="teamRosterHolder" ng-repeat="player in roster | orderBy: 'player_last_name'" ng-click="selectPlayerFunction(roster.indexOf(player))">
+                    <md-card-avatar>
+                        <img class = "md-card-image playerImg" ng-src="/images/profilePics/{{ player.player_first_name }} {{ player.player_last_name }}.png">
+                    </md-card-avatar>
 
-        </div>
+                    <md-card-content>
+                           <h3 class="md-headline">{{ player.player_first_name }} {{ player.player_last_name }}</h3>
+                            <h4 class="md-subhead">{{player.player_number}} || {{player.player_position}}</h4>
+                            <h4 class="md-subhead">{{ player.player_first_name }} {{ player.player_last_name }} || {{player.player_number}}</h4>
+                            <img class ="md-media-sm" ng-src="/images/logos/{{ selectedTeam.team_name }}.png">
+
+                    </md-card-content>
+                </md-card>
+            </a>
+            </div>
         </a>
 
 
@@ -99,14 +104,13 @@
         </a>
 
 
-
-
+            </md-content>
     </div>
 </div>
 
     <div class="row">
         <p>Fantasy App Tracker</p>
-    </div>
+
     <div class="row">
         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <!-- Bottom Add -->
@@ -118,4 +122,5 @@
         <script>
             (adsbygoogle = window.adsbygoogle || []).push({});
         </script>
+    </div>
     </div>
