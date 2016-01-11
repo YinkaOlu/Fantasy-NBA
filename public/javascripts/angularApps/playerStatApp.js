@@ -1,7 +1,7 @@
 /**
  * Created by yolu on 12/31/2015.
  */
-var app = angular.module('playerStatApp',[]);
+var app = angular.module('playerStatApp',['ngMaterial']);
 
 app.controller('playerStatCtrl', ['$scope', '$http',
     function($scope, $http){

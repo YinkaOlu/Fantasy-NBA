@@ -3,7 +3,7 @@
  */
 
 
-var app = angular.module('createPlayerEngine', []);
+var app = angular.module('createPlayerEngine', ['ngMaterial']);
 
 app.controller('createPlayerController', ['$scope', '$http',
     function($scope, $http) {

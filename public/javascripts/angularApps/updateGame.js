@@ -1,7 +1,7 @@
 /**
  * updated by yinka_000 on 2015-12-07.
  */
-var app = angular.module('updateGameEngine', []);
+var app = angular.module('updateGameEngine', ['ngMaterial']);
 
 app.controller('updateGameController', ['$scope', '$http',
     function($scope, $http) {

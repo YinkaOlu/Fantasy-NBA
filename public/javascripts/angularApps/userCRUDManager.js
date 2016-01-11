@@ -1,7 +1,7 @@
 /**
  * Created by yinka_000 on 2016-01-06.
  */
-var app = angular.module('userCRUDApp',[]);
+var app = angular.module('userCRUDApp',['ngMaterial']);
 
 app.controller('userCRUDApp', ['$scope', '$http',
     function($scope, $http) {

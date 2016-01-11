@@ -1,7 +1,7 @@
 /**
  * Created by yinka_000 on 2015-12-06.
  */
-var app = angular.module('updateTeamsEngine', []);
+var app = angular.module('updateTeamsEngine', ['ngMaterial']);
 
 app.controller('updateTeamsController', ['$scope', '$http',
     function($scope, $http) {

@@ -1,7 +1,7 @@
 /**
  * Created by Yinka on 2015-12-06.
  */
-var app = angular.module('readTeamsEngine', []);
+var app = angular.module('readTeamsEngine', ['ngMaterial']);
 
 app.controller('readTeamsController', ['$scope', '$http',
     function($scope, $http) {

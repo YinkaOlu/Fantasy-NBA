@@ -1,7 +1,7 @@
 /**
  * Created by yinka_000 on 2016-01-05.
  */
-var app = angular.module('profilePageManager',[]);
+var app = angular.module('profilePageManager',['ngMaterial']);
 
 app.controller('profilePageManager', ['$scope', '$http',
     function($scope, $http) {

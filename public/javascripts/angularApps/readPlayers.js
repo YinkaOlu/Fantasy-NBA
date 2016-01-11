@@ -1,7 +1,7 @@
 /**
  * Created by Yinka on 2015-12-06.
  */
-var app = angular.module('readPlayersEngine', []);
+var app = angular.module('readPlayersEngine', ['ngMaterial']);
 
 app.controller('readPlayersController', ['$scope', '$http',
     function($scope, $http) {

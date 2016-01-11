@@ -1,7 +1,7 @@
 /**
  * Created by yinka_000 on 2015-12-07.
  */
-var app = angular.module('createGameEngine', []);
+var app = angular.module('createGameEngine', ['ngMaterial']);
 
 app.controller('createGameController', ['$scope', '$http',
     function($scope, $http) {

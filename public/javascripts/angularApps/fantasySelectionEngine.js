@@ -1,7 +1,7 @@
 /**
  * Created by yolu on 12/29/2015.
  */
-var app = angular.module('fantasySelectionEngine',[]);
+var app = angular.module('fantasySelectionEngine',['ngMaterial']);
 
 app.controller('fantasySelectionEngine', ['$scope', '$http',
     function($scope, $http) {
