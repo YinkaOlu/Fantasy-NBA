@@ -54,7 +54,7 @@
 }
 
 /*Holds individual images*/
-.teamRosterHolder{
+/*.teamRosterHolder{
     float: left;
     height: 25%;
     width: 18%;
@@ -65,7 +65,8 @@
 
 }
 
-/* individual img tag*/
+
+
 .playerImg {
     max-height: 100%;
     max-width: 100%;
@@ -77,9 +78,8 @@
     position: relative;
     top: 50%;
     transform: translateY(-50%);
-
-
 }
+
 .basicInfo {
     max-height: 100%;
     max-width: 100%;
@@ -125,3 +125,4 @@
 {
     background-color: white;
 }
+*/

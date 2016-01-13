@@ -9,13 +9,13 @@
 <div ng-app = 'playerStatApp' class="appContainer">
     <div ng-controller ='playerStatCtrl' id="controllerHolder">
         <md-content>
-        <md-button md-no-ink class="md-primary">Primary (md-noink)</md-button>
+
         <h1  class="row demo1" id="decisionTitle" >Choose Team:</h1>
         <!-- team logos -->
 
         <div id="teamLogos">
             <a href="#roster">
-                <div  class="teamLogoHolder col-xs-6 col-sm-4 col-md-3 col-lg-2" ng-repeat="team in currentTeams | orderBy: 'team_name' " ng-click="selectTeamFunction(currentTeams.indexOf(team))">
+                <div class="teamLogoHolder col-xs-6 col-sm-4 col-md-3 col-lg-2" ng-repeat="team in currentTeams | orderBy: 'team_name' " ng-click="selectTeamFunction(currentTeams.indexOf(team))">
                    <img class = "logoImg" ng-src="/images/logos/{{ team.team_name }}.png"  >
                 </div>
             </a>
@@ -32,19 +32,24 @@
         <div id="teamRoster" ng-style="{'background-color':teamPrimaryColour}" >
             <h1  class="row" ng-style="{'color':teamSecondaryColour}" id="decisionTitle">Choose Player:</h1>
             <a href="#playerStats">
-                <md-card class="teamRosterHolder" ng-repeat="player in roster | orderBy: 'player_last_name'" ng-click="selectPlayerFunction(roster.indexOf(player))">
-                    <md-card-avatar>
-                        <img class = "md-card-image playerImg" ng-src="/images/profilePics/{{ player.player_first_name }} {{ player.player_last_name }}.png">
-                    </md-card-avatar>
 
-                    <md-card-content>
-                           <h3 class="md-headline">{{ player.player_first_name }} {{ player.player_last_name }}</h3>
-                            <h4 class="md-subhead">{{player.player_number}} || {{player.player_position}}</h4>
-                            <h4 class="md-subhead">{{ player.player_first_name }} {{ player.player_last_name }} || {{player.player_number}}</h4>
+                <md-card id="playerContainer" flex="50" flex-xs="100" layout="column" class="teamRosterHolder" ng-repeat="player in roster | orderBy: 'player_last_name'" ng-click="selectPlayerFunction(roster.indexOf(player))">
+                    <md-card-header>
+                        <md-card-avatar>
                             <img class ="md-media-sm" ng-src="/images/logos/{{ selectedTeam.team_name }}.png">
+                        </md-card-avatar>
+                        <md-card-header-text>
+                            <span class="md-title">{{ player.player_first_name }} {{ player.player_last_name }}</span>
+                            <span class="md-subhead">{{player.player_number}} || {{player.player_position}}</span>
+                        </md-card-header-text>
+                    </md-card-header>
 
-                    </md-card-content>
-                </md-card>
+                    <img class="md-card-image" ng-src="/images/profilePics/{{ player.player_first_name }} {{ player.player_last_name }}.png">
+
+
+
+                </md-card >
+
             </a>
             </div>
         </a>
