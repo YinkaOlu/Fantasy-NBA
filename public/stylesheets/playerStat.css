@@ -52,6 +52,9 @@
     width: 100%;
 
 }
+.cardProfile{
+    max-height: 50%;
+}
 
 /*Holds individual images*/
 /*.teamRosterHolder{

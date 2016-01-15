@@ -5,10 +5,10 @@
 <script language="javascript" type="text/javascript" src="/javascripts/angularApps/playerStatApp.js"></script>
 
 <link rel="stylesheet" href='/stylesheets/playerStat.css'>
-
+<md-content>
 <div ng-app = 'playerStatApp' class="appContainer">
     <div ng-controller ='playerStatCtrl' id="controllerHolder">
-        <md-content>
+
 
         <h1  class="row demo1" id="decisionTitle" >Choose Team:</h1>
         <!-- team logos -->
@@ -32,8 +32,8 @@
         <div id="teamRoster" ng-style="{'background-color':teamPrimaryColour}" >
             <h1  class="row" ng-style="{'color':teamSecondaryColour}" id="decisionTitle">Choose Player:</h1>
             <a href="#playerStats">
-
-                <md-card id="playerContainer" flex="50" flex-xs="100" layout="column" class="teamRosterHolder" ng-repeat="player in roster | orderBy: 'player_last_name'" ng-click="selectPlayerFunction(roster.indexOf(player))">
+            <div flex="50" flex-xs="100" layout="column" id="playerContainer" class="teamRosterHolder" ng-repeat="player in roster | orderBy: 'player_last_name'" ng-click="selectPlayerFunction(roster.indexOf(player))">
+                <md-card>
                     <md-card-header>
                         <md-card-avatar>
                             <img class ="md-media-sm" ng-src="/images/logos/{{ selectedTeam.team_name }}.png">
@@ -43,12 +43,10 @@
                             <span class="md-subhead">{{player.player_number}} || {{player.player_position}}</span>
                         </md-card-header-text>
                     </md-card-header>
-
-                    <img class="md-card-image" ng-src="/images/profilePics/{{ player.player_first_name }} {{ player.player_last_name }}.png">
-
-
-
+                    <img class="md-card-image cardProfile" ng-src="/images/profilePics/{{ player.player_first_name }} {{ player.player_last_name }}.png">
                 </md-card >
+            </div>
+
 
             </a>
             </div>
@@ -109,7 +107,7 @@
         </a>
 
 
-            </md-content>
+
     </div>
 </div>
 
@@ -129,3 +127,4 @@
         </script>
     </div>
     </div>
+</md-content>
