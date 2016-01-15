@@ -1,24 +1,31 @@
 /*-----------Select Team Section--------------*/
 /*Holds All team logos*/
 #teamLogos{
-    height: 60%;
-    padding: 1%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    /*height: 60%;*/
+    /*padding: 1%;*/
 }
 
 /*Holds individual images*/
 .teamLogoHolder{
-    -webkit-box-shadow: 6px 1.5px 12px 0px rgba(209,207,209,1);
+    /*
+        -webkit-box-shadow: 6px 1.5px 12px 0px rgba(209,207,209,1);
     -moz-box-shadow: 6px 1.5px 12px 0px rgba(209,207,209,1);
     box-shadow: 6px 1.5px 12px 0px rgba(209,207,209,1);
     height: 40%;
-    padding: 3%;
-    margin: 1%;
+
     background-color: white;
     border-radius: 50%;
+    */
+    padding: 5%;
+    margin: 1%;
 
 }
 .teamLogoHolder:hover{
-    padding: 2.5%;
+    padding: 1%;
 
 }
 
@@ -37,27 +44,29 @@
     margin-right: auto;
 }
 .logoImg:hover{
-    border-radius: 50%;
+    /*border-radius: 80%;*/
     opacity: 0.7;
 }
 
-
+#teamRoster{
+    display: flex;
+    flex-wrap: wrap;
+}
 
 
 
 /*--------- Select Player Section-------------------*/
 /*Holds All selected Team roster*/
+
+
+
+/*Holds individual images*/
+/*.teamRosterHolder{
 #teamRoster{
     height: 150%;
     width: 100%;
 
 }
-.cardProfile{
-    max-height: 50%;
-}
-
-/*Holds individual images*/
-/*.teamRosterHolder{
     float: left;
     height: 25%;
     width: 18%;

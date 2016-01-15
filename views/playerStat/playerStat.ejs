@@ -14,25 +14,15 @@
         <!-- team logos -->
 
         <div id="teamLogos">
-            <a href="#roster">
-                <div class="teamLogoHolder col-xs-6 col-sm-4 col-md-3 col-lg-2" ng-repeat="team in currentTeams | orderBy: 'team_name' " ng-click="selectTeamFunction(currentTeams.indexOf(team))">
+                <div class="teamLogoHolder col-lg-3 col-md-3 col-sm-6 col-xs-12" ng-repeat="team in currentTeams | orderBy: 'team_name' " ng-click="selectTeamFunction(currentTeams.indexOf(team))">
                    <img class = "logoImg" ng-src="/images/logos/{{ team.team_name }}.png"  >
                 </div>
-            </a>
         </div>
-
-
-        <div class="row"><h1></h1></div>
-        <div class="row"><h1></h1></div>
-        <div class="row" id="insertNodeOne"><h1></h1></div>
-
+        <br>
         <!-- Roster Profile -->
-
-        <a id="roster">
+        <h1  class="row" ng-style="{'color':teamSecondaryColour}" id="decisionTitle">Choose Player:</h1>
         <div id="teamRoster" ng-style="{'background-color':teamPrimaryColour}" >
-            <h1  class="row" ng-style="{'color':teamSecondaryColour}" id="decisionTitle">Choose Player:</h1>
-            <a href="#playerStats">
-            <div flex="50" flex-xs="100" layout="column" id="playerContainer" class="teamRosterHolder" ng-repeat="player in roster | orderBy: 'player_last_name'" ng-click="selectPlayerFunction(roster.indexOf(player))">
+      <div   id="playerContainer" class="teamRosterHolder" ng-repeat="player in roster | orderBy: 'player_last_name'" ng-click="selectPlayerFunction(roster.indexOf(player))">
                 <md-card>
                     <md-card-header>
                         <md-card-avatar>
@@ -46,11 +36,8 @@
                     <img class="md-card-image cardProfile" ng-src="/images/profilePics/{{ player.player_first_name }} {{ player.player_last_name }}.png">
                 </md-card >
             </div>
+        </div>
 
-
-            </a>
-            </div>
-        </a>
 
 
         <div class="row"><h1></h1></div>
