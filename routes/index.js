@@ -8,7 +8,7 @@ var path = require('path');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('splashPage', { title: 'Opening Splash Page' });
+    res.render('ChoicePage/choicePage', { title: 'Opening Splash Page' });
 });
 
 /* GET API Home page. */
