@@ -69,6 +69,23 @@
 
 }
 
+.playerResultRow{
+    display: flex;
+}
+
+#playerResultTable{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+.resultsCard{
+flex-grow: 1;
+    display: flex;
+}
+.chartDIV{
+    flex-grow: 1;
+}
+
 
 /*--------- Select Player Section-------------------*/
 /*Holds All selected Team roster*/
