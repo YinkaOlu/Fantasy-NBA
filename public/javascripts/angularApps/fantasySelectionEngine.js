@@ -19,7 +19,10 @@ app.controller('fantasySelectionEngine', ['$scope', '$http',
         $scope.hideSaveBtn = true;
         $scope.hideStatsBtn = true;
         $scope.hideUpdateStatsBtn = true;
-
+        $scope.disableStatsBtn = true;
+//-------------------------
+        $scope.hideTeam = false;
+        $scope.disableBuildBtn = true;
 //---------------------------------------------------------
 //-----------  SET DEFAULT SET-UP of FANTASY PAGE ---------
 //---------------------------------------------------------
@@ -39,6 +42,7 @@ app.controller('fantasySelectionEngine', ['$scope', '$http',
 
         //Create Array to hold selected player of fantasy team
         $scope.fantasyRoster = ['','','','','','','','','',''];
+
 
         //Set default position selected to default
         $scope.currentPosition = 'default';
@@ -83,8 +87,57 @@ app.controller('fantasySelectionEngine', ['$scope', '$http',
 
             //Hide addPlayerBtn
             $scope.hideAddPlayerBtn = true;
+
+            $scope.hideTeam = true;
         };
 
+        $scope.removePlayer = function(posNum){
+            switch (posNum){
+                case 0:
+                    $scope.fantasyRoster[0] = '';
+                    $scope.pointGuardImg = 'fantasyAssets/default';
+                    break;
+                case 1:
+                    $scope.fantasyRoster[1] = '';
+                    $scope.shootingGuardImg = 'fantasyAssets/default';
+                    break;
+                case 2:
+                    $scope.fantasyRoster[2] = '';
+                    $scope.smallForwardImg = 'fantasyAssets/default';
+
+                    break;
+                case 3:
+                    $scope.fantasyRoster[3] = '';
+                    $scope.powerForwardImg = 'fantasyAssets/default';
+
+                    break;
+                case 4:
+                    $scope.fantasyRoster[4] = '';
+                    $scope.centerImg = 'fantasyAssets/default';
+                    break;
+                case 5:
+                    $scope.fantasyRoster[5] = '';
+                    $scope.flexGuardImg = 'fantasyAssets/default';
+                    break;
+                case 6:
+                    $scope.fantasyRoster[6] = '';
+                    $scope.flexForwardImg = 'fantasyAssets/default';
+                    break;
+                case 7:
+                    $scope.fantasyRoster[7] = '';
+                    $scope.utilityOneImg = 'fantasyAssets/default';
+                    break;
+                case 8:
+                    $scope.fantasyRoster[8] = '';
+                    $scope.utilityTwoImg = 'fantasyAssets/default';
+                    break;
+                case 9:
+                    $scope.fantasyRoster[9] = '';
+                    $scope.utilityThreeImg = 'fantasyAssets/default';
+                    break;
+            }
+
+        };
 //---------------------------------------------------------
 //---------------  Team / Filtered Roster Selection Section
 //---------------------------------------------------------
@@ -330,6 +383,9 @@ app.controller('fantasySelectionEngine', ['$scope', '$http',
             //Hide Selection Form
             $scope.hideSelectionForm = true;
             console.log('End of player Addition function');
+
+            $scope.hideTeam = false;
+            $scope.disableBuildBtn = false;
         };
         $scope.saveTeam = function(){
             //HTTP Call to server, Retrieve User Info
@@ -349,6 +405,7 @@ app.controller('fantasySelectionEngine', ['$scope', '$http',
 
 
         $scope.buildFantasyTeam = function(){
+
             var one_day = 1000*60*60*24;
 
 
@@ -363,6 +420,7 @@ app.controller('fantasySelectionEngine', ['$scope', '$http',
 
             //----------- Start of Stat Building
             else{
+                $scope.disableStatsBtn = false;
                 $scope.hideWarning = true;
                 $scope.hideBuildBtn = true;
                 $scope.hideStatsBtn = false;
@@ -409,6 +467,7 @@ app.controller('fantasySelectionEngine', ['$scope', '$http',
 
 
         $scope.getStats = function() {
+
             $scope.stats = [];
             //$scope.stats.fPoints = 0;
             //$scope.stats.fAssists = 0;

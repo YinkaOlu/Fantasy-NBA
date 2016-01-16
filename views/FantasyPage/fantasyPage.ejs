@@ -15,138 +15,305 @@
 
 <div ng-app="fantasySelectionEngine" class="appContainer">
     <div id="fantasyTeam" ng-controller="fantasySelectionEngine">
-        <h1><u>Build Your Fantasy Team</u></h1>
-
-
-        <div class="row" id="startingFiveContainer">
-            <div class="row"><h2> Your Starting 5 </h2></div>
-            <div class="row">
-                <div class="col-lg-1 col-md-1 col-sm-0 col-xs-0"></div>
-
-                <a href="#selectionMenu">
-                <div class="fantasyPosHolder col-lg-2 col-md-2 col-sm-6 col-xs-12" id="pointGuard" ng-click="selectPosition(0)">
-                    <img class="fantasyPosImg" ng-src="/images/{{ pointGuardImg }}.png">
-                    <h2>Point Guard <br>(PG)</h2>
-                </div>
-                    </a>
-
-                 <a href="#selectionMenu">
-                <div class="fantasyPosHolder col-lg-2 col-md-2 col-sm-6 col-xs-12" id="shootingGuard" ng-click="selectPosition(1)">
-                    <img class="fantasyPosImg" ng-src="/images/{{ shootingGuardImg }}.png">
-                    <h2>Shooting Guard <br>(SG)</h2>
-                </div>
-                     </a>
-                <a href="#selectionMenu">
-                <div class="fantasyPosHolder col-lg-2 col-md-2 col-sm-6 col-xs-12" id="smallForward" ng-click="selectPosition(2)">
-                    <img class="fantasyPosImg" ng-src="/images/{{ smallForwardImg }}.png">
-                    <h2>Small Forward <br>(SF)</h2>
-                </div>
-                    </a>
-
-                <a href="#selectionMenu">
-                <div class="fantasyPosHolder col-lg-2 col-md-2 col-sm-6 col-xs-12" id="powerForward" ng-click="selectPosition(3)">
-                    <img class="fantasyPosImg" ng-src="/images/{{ powerForwardImg }}.png">
-                    <h2>Power Forward <br>(PF)</h2>
-                </div>
-                    </a>
-
-                <a href="#selectionMenu">
-                <div class="fantasyPosHolder col-lg-2 col-md-2 col-sm-6 col-xs-12" id="center" ng-click="selectPosition(4)">
-                    <img class="fantasyPosImg" ng-src="/images/{{ centerImg }}.png">
-                    <h2>Center</h2>
-                </div>
-                </a>
-            </div>
-        </div>
-
-
-        <div class="row" id="benchContainer">
-            <div class="row"><h2> Your Bench </h2></div>
-            <div class="row">
-                <div class="col-lg-1 col-md-1 col-sm-0 col-xs-0"></div>
-                <a href="#selectionMenu">
-                <div class="fantasyPosHolder col-lg-2 col-md-2 col-sm-6 col-xs-12" id="flexGuard" ng-click="selectPosition(5)">
-                    <img class="fantasyPosImg" ng-src="/images/{{ flexGuardImg }}.png">
-                    <h2>Flex Guard <br>(PG - SG)</h2>
-                </div>
-                    </a>
-
-                <a href="#selectionMenu">
-                <div class="fantasyPosHolder col-lg-2 col-md-2 col-sm-6 col-xs-12" id="flexForward" ng-click="selectPosition(6)">
-                    <img class="fantasyPosImg" ng-src="/images/{{ flexForwardImg }}.png">
-                    <h2>Flex Forward <br>(SF - PF)</h2>
-                </div>
-                    </a>
-
-                <a href="#selectionMenu">
-                <div class="fantasyPosHolder col-lg-2 col-md-2 col-sm-6 col-xs-12" id="utilityOne" ng-click="selectPosition(7)">
-                    <img class="fantasyPosImg" ng-src="/images/{{ utilityOneImg }}.png">
-                    <h2>Any Position</h2>
-                </div>
-                    </a>
-
-                <a href="#selectionMenu">
-                <div class="fantasyPosHolder col-lg-2 col-md-2 col-sm-6 col-xs-12" id="utilityTwo" ng-click="selectPosition(8)">
-                    <img class="fantasyPosImg" ng-src="/images/{{ utilityTwoImg }}.png">
-                    <h2>Any Position</h2>
-                </div>
-                    </a>
-
-                <a href="#selectionMenu">
-                <div class="fantasyPosHolder col-lg-2 col-md-2 col-sm-6 col-xs-12" id="utilityThree" ng-click="selectPosition(9)">
-                    <img class="fantasyPosImg" ng-src="/images/{{ utilityThreeImg }}.png">
-                    <h2>Any Position</h2>
-                </div>
-                    </a>
-            </div>
-        </div>
-
-
-        <a name="selectionMenu">
-            <div id="fantasySelectPartial" class="row" ng-hide="hideSelectionForm">
-                <% include ../templates/fantasySelectionTemp.html %>
-            </div>
-        </a>
-        <br>
-
         <div ng-hide="hideWarning">
             <p><em>Please select a start / end Date</em></p>
         </div>
 
-        <div class="row" id="fantasyStatFinder">
-            <div id='startDate' class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <md-card id="fantasyDateFinder">
+            <div id='startDate'>
                 <h1>Start Date</h1>
-                <input type='date' id='startDate' ng-model="startDate">
+                <md-datepicker md-placeholder="Enter Start date" id='startDate' ng-model="startDate"></md-datepicker>
             </div>
 
-            <div id='endDate'class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div id='endDate'>
                 <h1>End Date</h1>
-                <input type='date' id='endDate' ng-model="endDate">
+                <md-datepicker md-placeholder="Enter End date" id='endDate' ng-model="endDate"></md-datepicker>
             </div>
+            <md-card-actions layout="column" layout-align="end center">
+                <md-button ng-click="buildFantasyTeam()" ng-disabled="disableBuildBtn">
+                    Build Fantasy Team
+                </md-button>
+                <% if(user.role != 'guest'){ %>
+                <md-button ng-click="saveTeam()" ng-disabled="disableBuildBtn">
+                    Save Fantasy Team
+                </md-button>
+                <%}%>
+                <md-button ng-click="getStats()" ng-disabled="disableStatsBtn">
+                    Get Stats
+                </md-button>
+            </md-card-actions>
+        </md-card>
+
+        <h1><u>Build Your Fantasy Team</u></h1>
+        <div class="row"><h2> Your Starting 5 </h2></div>
+        <div class="row" id="startingFiveContainer" ng-hide="hideTeam">
+
+
+
+                <!--<div class="col-lg-1 col-md-1 col-sm-0 col-xs-0"></div>-->
+
+<!--Point Guard Holder-->
+
+                <div class="fantasyPosHolder" id="pointGuard" >
+                    <md-card class="teamCard"  md-ink-ripple>
+                        <md-card-header-text>
+                            <span class="md-title"><h2>Point Guard <br>(PG)</h2></span>
+                        </md-card-header-text>
+                        <br>
+                        <img class="fantasyPosImg" ng-src="/images/{{ pointGuardImg }}.png">
+                        <p>{{fantasyRoster[0].player_first_name}} {{fantasyRoster[0].player_last_name}}</p>
+                        <p>{{fantasyRoster[0].player_position}}</p>
+
+                        <md-card-actions layout="column" layout-align="end center">
+                            <md-button ng-click="selectPosition(0)">
+                                Add
+                            </md-button>
+                            <md-button ng-click="removePlayer(0)">
+                                Delete
+                            </md-button>
+                        </md-card-actions>
+
+                    </md-card>
+                </div>
+
+
+<!--Shooting Guard Holder-->
+
+                <div class="fantasyPosHolder" id="shootingGuard" ng-click="selectPosition(1)">
+                    <md-card class="teamCard"  md-ink-ripple>
+                        <md-card-header-text>
+                            <span class="md-title"><h2>Shooting Guard <br>(SG)</h2></span>
+                        </md-card-header-text>
+                        <br>
+                        <img class="fantasyPosImg" ng-src="/images/{{ shootingGuardImg }}.png">
+                        <p>{{fantasyRoster[1].player_first_name}} {{fantasyRoster[1].player_last_name}}</p>
+                        <p>{{fantasyRoster[1].player_position}}</p>
+
+                        <md-card-actions layout="column" layout-align="end center">
+                            <md-button ng-click="selectPosition(1)">
+                                Add
+                            </md-button>
+                            <md-button ng-click="removePlayer(1)">
+                                Delete
+                            </md-button>
+                        </md-card-actions>
+
+                    </md-card>
+                </div>
+
+
+                <!--Small Forward Holder-->
+
+                    <div class="fantasyPosHolder" id="smallForward" ng-click="selectPosition(2)">
+                        <md-card class="teamCard"  md-ink-ripple>
+                            <md-card-header-text>
+                                <span class="md-title"><h2>Small Forward <br>(SF)</h2></span>
+                            </md-card-header-text>
+                            <br>
+                            <img class="fantasyPosImg" ng-src="/images/{{ smallForwardImg }}.png">
+                            <p>{{fantasyRoster[2].player_first_name}} {{fantasyRoster[2].player_last_name}}</p>
+                            <p>{{fantasyRoster[2].player_position}}</p>
+
+                            <md-card-actions layout="column" layout-align="end center">
+                                <md-button ng-click="selectPosition(2)">
+                                    Add
+                                </md-button>
+                                <md-button ng-click="removePlayer(2)">
+                                    Delete
+                                </md-button>
+                            </md-card-actions>
+
+                        </md-card>
+                    </div>
+
+
+                <!--Power Forward Holder-->
+
+                    <div class="fantasyPosHolder" id="powerForward" ng-click="selectPosition(3)">
+                        <md-card class="teamCard"  md-ink-ripple>
+                            <md-card-header-text>
+                                <span class="md-title"><h2>Power Forward <br>(PF)</h2></span>
+                            </md-card-header-text>
+                            <br>
+                            <img class="fantasyPosImg" ng-src="/images/{{ powerForwardImg }}.png">
+                            <p>{{fantasyRoster[3].player_first_name}} {{fantasyRoster[3].player_last_name}}</p>
+                            <p>{{fantasyRoster[3].player_position}}</p>
+
+                            <md-card-actions layout="column" layout-align="end center">
+                                <md-button ng-click="selectPosition(3)">
+                                    Add
+                                </md-button>
+                                <md-button ng-click="removePlayer(3)">
+                                    Delete
+                                </md-button>
+                            </md-card-actions>
+
+                        </md-card>
+                    </div>
+
+
+                <!--Center Holder-->
+
+                    <div class="fantasyPosHolder" id="center" ng-click="selectPosition(4)">
+                        <md-card class="teamCard"  md-ink-ripple>
+                            <md-card-header-text>
+                                <span class="md-title"><h2>Center</h2></span>
+                            </md-card-header-text>
+                            <br>
+                            <img class="fantasyPosImg" ng-src="/images/{{ centerImg }}.png">
+                            <p>{{fantasyRoster[4].player_first_name}} {{fantasyRoster[4].player_last_name}}</p>
+                            <p>{{fantasyRoster[4].player_position}}</p>
+
+                            <md-card-actions layout="column" layout-align="end center">
+                                <md-button ng-click="selectPosition(4)">
+                                    Add
+                                </md-button>
+                                <md-button ng-click="removePlayer(4)">
+                                    Delete
+                                </md-button>
+                            </md-card-actions>
+
+                        </md-card>
+                    </div>
+
+
+        </div>
+        <md-divider md-inset></md-divider>
+
+        <div class="row"><h2> Your Bench </h2></div>
+        <div class="row" id="benchContainer" ng-hide="hideTeam">
+
+<!--Flex Guard-->
+
+                    <div class="fantasyPosHolder" id="center" ng-click="selectPosition(5)">
+                        <md-card class="teamCard"  md-ink-ripple>
+                            <md-card-header-text>
+                                <span class="md-title"><h2>Flex Guard <br>(PG - SG)</h2></span>
+                            </md-card-header-text>
+                            <br>
+                            <img class="fantasyPosImg" ng-src="/images/{{ flexGuardImg }}.png">
+                            <p>{{fantasyRoster[5].player_first_name}} {{fantasyRoster[5].player_last_name}}</p>
+                            <p>{{fantasyRoster[5].player_position}}</p>
+
+                            <md-card-actions layout="column" layout-align="end center">
+                                <md-button ng-click="selectPosition(5)">
+                                    Add
+                                </md-button>
+                                <md-button ng-click="removePlayer(5)">
+                                    Delete
+                                </md-button>
+                            </md-card-actions>
+
+                        </md-card>
+                    </div>
+
+
+                <!--Flex Forward-->
+
+                    <div class="fantasyPosHolder" id="center" ng-click="selectPosition(6)">
+                        <md-card class="teamCard"  md-ink-ripple>
+                            <md-card-header-text>
+                                <span class="md-title"><h2>Flex Forward <br>(SF - PF)</h2></span>
+                            </md-card-header-text>
+                            <br>
+                            <img class="fantasyPosImg" ng-src="/images/{{ flexForwardImg }}.png">
+                            <p>{{fantasyRoster[6].player_first_name}} {{fantasyRoster[6].player_last_name}}</p>
+                            <p>{{fantasyRoster[6].player_position}}</p>
+
+                            <md-card-actions layout="column" layout-align="end center">
+                                <md-button ng-click="selectPosition(6)">
+                                    Add
+                                </md-button>
+                                <md-button ng-click="removePlayer(6)">
+                                    Delete
+                                </md-button>
+                            </md-card-actions>
+
+                        </md-card>
+                    </div>
+
+
+                <!--Utility 1-->
+
+                    <div class="fantasyPosHolder" id="center" ng-click="selectPosition(7)">
+                        <md-card class="teamCard"  md-ink-ripple>
+                            <md-card-header-text>
+                                <span class="md-title"><h2>Any Position</h2></span>
+                            </md-card-header-text>
+                            <br>
+                            <img class="fantasyPosImg" ng-src="/images/{{ utilityOneImg }}.png">
+                            <p>{{fantasyRoster[7].player_first_name}} {{fantasyRoster[7].player_last_name}}</p>
+                            <p>{{fantasyRoster[7].player_position}}</p>
+
+                            <md-card-actions layout="column" layout-align="end center">
+                                <md-button ng-click="selectPosition(7)">
+                                    Add
+                                </md-button>
+                                <md-button ng-click="removePlayer(7)">
+                                    Delete
+                                </md-button>
+                            </md-card-actions>
+
+                        </md-card>
+                    </div>
+
+
+                <!--Utility 2-->
+
+                    <div class="fantasyPosHolder" id="center" ng-click="selectPosition(8)">
+                        <md-card class="teamCard"  md-ink-ripple>
+                            <md-card-header-text>
+                                <span class="md-title"><h2>Any Position</h2></span>
+                            </md-card-header-text>
+                            <br>
+                            <img class="fantasyPosImg" ng-src="/images/{{ utilityTwoImg }}.png">
+                            <p>{{fantasyRoster[8].player_first_name}} {{fantasyRoster[8].player_last_name}}</p>
+                            <p>{{fantasyRoster[8].player_position}}</p>
+
+                            <md-card-actions layout="column" layout-align="end center">
+                                <md-button ng-click="selectPosition(8)">
+                                    Add
+                                </md-button>
+                                <md-button ng-click="removePlayer(8)">
+                                    Delete
+                                </md-button>
+                            </md-card-actions>
+
+                        </md-card>
+                    </div>
+
+
+                <!--Utility 3-->
+
+                    <div class="fantasyPosHolder" id="center" ng-click="selectPosition(9)">
+                        <md-card class="teamCard"  md-ink-ripple>
+                            <md-card-header-text>
+                                <span class="md-title"><h2>Any Position</h2></span>
+                            </md-card-header-text>
+                            <br>
+                            <img class="fantasyPosImg" ng-src="/images/{{ utilityThreeImg }}.png">
+                            <p>{{fantasyRoster[9].player_first_name}} {{fantasyRoster[9].player_last_name}}</p>
+                            <p>{{fantasyRoster[9].player_position}}</p>
+
+                            <md-card-actions layout="column" layout-align="end center">
+                                <md-button ng-click="selectPosition(9)">
+                                    Add
+                                </md-button>
+                                <md-button ng-click="removePlayer(9)">
+                                    Delete
+                                </md-button>
+                            </md-card-actions>
+
+                        </md-card>
+                    </div>
         </div>
 
-        <br>
-        <br>
+        <md-divider md-inset ></md-divider>
 
-        <div class="row" id="buildTeam">
-            <button type="button" class="btn btn-primary btn-block" ng-click="buildFantasyTeam()" ng-hide="hideBuildBtn">Build Fantasy Team</button>
-        </div>
-        <% if(user.role != 'guest'){ %>
-            <div class="row" id="saveTeam" ng-hide="hideSaveBtn">
-                <input type="text" ng-model="fantasyTeamName"  placeholder="Your Team Name" required >
-                <button type="button" class='btn-success btn-medium' ng-click="saveTeam()">Save Fantasy Team</button>
+            <div id="fantasySelectPartial" class="row" ng-hide="hideSelectionForm">
+                <% include ../templates/fantasySelectionTemp.html %>
             </div>
-        <%}%>
-
         <br>
-        <div class="row" id="buildTeam">
-            <button type="button" class="btn btn-primary btn-block" ng-click="getStats()" ng-hide="hideStatsBtn">Get Stats</button>
-        </div>
-        <br>
-
-        <div class="row" id="buildTeam">
-            <button type="button" class="btn btn-primary btn-block" ng-click="getStats()" ng-hide="hideUpdateStatsBtn">Update Stats</button>
-        </div>
         <br>
 
 
@@ -160,19 +327,3 @@
     </div>
 </div>
 
-
-    <div class="row">
-        <p>Fantasy App Tracker</p>
-    </div>
-    <div class="row">
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!-- Bottom Add -->
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-7625328914292919"
-             data-ad-slot="2711335985"
-             data-ad-format="auto"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>

@@ -27,3 +27,26 @@
 padding-left: 10%;
 }
 
+#startingFiveContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#benchContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+#fantasyDateFinder{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-grow: 1;
+}
+.fantasyPosImg{
+    /*max-width: 20%;*/
+}
+
