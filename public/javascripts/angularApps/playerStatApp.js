@@ -6,6 +6,9 @@ var app = angular.module('playerStatApp',['ngMaterial']);
 app.controller('playerStatCtrl', ['$scope', '$http',
     function($scope, $http){
 
+        $scope.hideTeams = false;
+        $scope.hideRoster = true;
+
         $scope.hidePersonalView = true;
         $http.get('/api/team').success(function(response){
             //Store DB as variable $scope.currentTeams
@@ -26,6 +29,9 @@ app.controller('playerStatCtrl', ['$scope', '$http',
 
             $scope.hideResults = true;
             $scope.hidePersonalView = true;
+            $scope.hideTeams = true;
+            $scope.hideRoster = false;
+
         };
 
         $scope.selectPlayerFunction = function(playerPos){
@@ -36,6 +42,53 @@ app.controller('playerStatCtrl', ['$scope', '$http',
             $scope.height = ''+Math.floor($scope.player.player_height/12)+' ft '+($scope.player.player_height%12)+' inches';
             $scope.hideResults = true;
             $scope.hidePersonalView = false;
+            $scope.hideRoster = true;
+        };
+
+        $scope.getHeight = function(playerPos){
+            var player = $scope.roster[playerPos];
+            var height = ''+Math.floor(player.player_height/12)+' ft '+(player.player_height%12)+' inches';
+            return height;
+        };
+
+        $scope.getDraftYear = function(playerPos){
+            var player = $scope.roster[playerPos];
+            var draftYear;
+            if(player.player_draft != null && player.player_draft != '')
+                draftYear = player.player_draft;
+            else{
+                draftYear = 'Undrafted';
+            }
+            return draftYear;
+        };
+
+        $scope.getPlayerStatus = function(playerPos){
+            var player = $scope.roster[playerPos];
+            var status = player.player_status;
+            return status;
+        };
+
+        $scope.backToTeams = function(){
+            $scope.hideTeams = false;
+            $scope.hideRoster = true;
+        };
+
+        $scope.backToRoster = function(){
+            $scope.hideResults = true;
+            $scope.hideRoster = false;
+        };
+
+        $scope.directResults = function(playerPos){
+            $scope.player = $scope.roster[playerPos];
+            $scope.playerID = $scope.player._id;
+            $scope.displayResults();
+            $scope.displayResults();
+            $scope.hideRoster = true;
+        };
+
+        $scope.dblDisplay = function(){
+            $scope.displayResults();
+            $scope.displayResults();
         };
 
         $scope.displayResults = function(){
@@ -81,7 +134,6 @@ app.controller('playerStatCtrl', ['$scope', '$http',
                 //Display Results
                 $scope.hideResults = false;
             });
-
 
         };
 

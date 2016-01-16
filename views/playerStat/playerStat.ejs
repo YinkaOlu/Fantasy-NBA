@@ -5,25 +5,34 @@
 <script language="javascript" type="text/javascript" src="/javascripts/angularApps/playerStatApp.js"></script>
 
 <link rel="stylesheet" href='/stylesheets/playerStat.css'>
-<md-content>
+
 <div ng-app = 'playerStatApp' class="appContainer">
     <div ng-controller ='playerStatCtrl' id="controllerHolder">
 
 
-        <h1  class="row demo1" id="decisionTitle" >Choose Team:</h1>
+        <h1  class="row demo1" id="decisionTitle" ng-hide="hideTeams">Choose Team:</h1>
         <!-- team logos -->
 
-        <div id="teamLogos">
+        <div id="teamLogos" ng-hide="hideTeams">
                 <div class="teamLogoHolder col-lg-3 col-md-3 col-sm-6 col-xs-12" ng-repeat="team in currentTeams | orderBy: 'team_name' " ng-click="selectTeamFunction(currentTeams.indexOf(team))">
-                   <img class = "logoImg" ng-src="/images/logos/{{ team.team_name }}.png"  >
+                    <md-card class="teamCard"  md-ink-ripple>
+                        <md-card-header-text>
+                            <span class="md-title">{{ team.team_name}}</span>
+                        </md-card-header-text>
+                        <br>
+                        <img class = "logoImg" ng-src="/images/logos/{{ team.team_name }}.png"  >
+                    </md-card>
                 </div>
         </div>
-        <br>
+
+
+
         <!-- Roster Profile -->
-        <h1  class="row" ng-style="{'color':teamSecondaryColour}" id="decisionTitle">Choose Player:</h1>
-        <div id="teamRoster" ng-style="{'background-color':teamPrimaryColour}" >
-      <div   id="playerContainer" class="teamRosterHolder" ng-repeat="player in roster | orderBy: 'player_last_name'" ng-click="selectPlayerFunction(roster.indexOf(player))">
-                <md-card>
+        <h1  class="row" id="decisionTitle" ng-hide="hideRoster">Choose Player:</h1>
+        <div id="teamRoster" ng-hide="hideRoster" >
+            <br>
+      <div id="playerContainer" class="teamRosterHolder" ng-repeat="player in roster | orderBy: 'player_last_name'" >
+                <md-card class="playerCard" >
                     <md-card-header>
                         <md-card-avatar>
                             <img class ="md-media-sm" ng-src="/images/logos/{{ selectedTeam.team_name }}.png">
@@ -34,84 +43,45 @@
                         </md-card-header-text>
                     </md-card-header>
                     <img class="md-card-image cardProfile" ng-src="/images/profilePics/{{ player.player_first_name }} {{ player.player_last_name }}.png">
+                        <p><b>Birth Date:</b> {{ player.player_birthDate | date : 'fullDate'}}</p>
+                        <p><b>Height(inches):</b> {{getHeight(roster.indexOf(player))}}</p>
+                        <p><b>Draft Year:</b> {{ getDraftYear(roster.indexOf(player)) }}</p>
+                        <p><b>Player Status:</b> {{ getPlayerStatus(roster.indexOf(player)) }}</p>
+                        <md-button class="md-raised" ng-click="directResults(roster.indexOf(player))">Get Season Stats</md-button>
+                            <br>
+                        <md-button class="md-raised" ng-click="backToTeams()">Back to Teams</md-button>
                 </md-card >
             </div>
         </div>
 
 
-
-        <div class="row"><h1></h1></div>
-        <div class="row"><h1></h1></div>
-        <div class="row" id="insertNodeTwo"><h1></h1></div>
-
-        <a name="playerStats">
-            <div id="personalView" ng-hide="hidePersonalView">
-
-                    <table id="personalTable" class="table">
-                        <tbody>
-                        <tr>
-                            <td rowspan="4">
-                                <img id="profilePic" ng-src="/images/profilePics/{{ player.player_first_name }} {{ player.player_last_name }}.png">
-                            </td>
-                            <td>
-                                <h3><b>Player Name:</b> {{ player.player_first_name }} {{ player.player_last_name }}</h3>
-                            </td>
-                            <td>
-                                <h3><b>Birth Date:</b> {{ player.player_birthDate | date : 'fullDate'}}</h3>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h3><b>Current Team:</b> {{ selectedTeam.team_name }}</h3>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h3><b>Player Position:</b> {{ player.player_position}}</h3>
-                            </td>
-                            <td>
-                                <h3><b>Height(inches):</b> {{height}}</h3>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <h3><b>Draft Year:</b> {{ player.player_draft }}</h3>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-
-                <button type="button" class="btn btn-primary btn-block" ng-click="displayResults()">Get Season Stats (Double Click)</button>
-
-            </div>
-        </a>
-
-        <div class="row"><h1></h1></div>
-        <div class="row"><h1></h1></div>
-
-        <a name="results" ng-hide="hideResults">
+        <div name="results" ng-hide="hideResults">
             <% include ../templates/currentSeasonStats.html %>
-        </a>
+        </div>
 
 
 
     </div>
-</div>
+
+    <!--
+    </div>
 
     <div class="row">
         <p>Fantasy App Tracker</p>
 
     <div class="row">
         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!-- Bottom Add -->
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-7625328914292919"
-             data-ad-slot="2711335985"
-             data-ad-format="auto"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
-    </div>
-</md-content>
+
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-7625328914292919"
+         data-ad-slot="2711335985"
+         data-ad-format="auto"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+    -->
+</div>
+

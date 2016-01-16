@@ -3,13 +3,17 @@
 #teamLogos{
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-between;
     align-content: center;
     /*height: 60%;*/
     /*padding: 1%;*/
 }
 
 /*Holds individual images*/
+.teamCard{
+    padding: 10%;
+    border-radius: 20%;
+}
 .teamLogoHolder{
     /*
         -webkit-box-shadow: 6px 1.5px 12px 0px rgba(209,207,209,1);
@@ -22,6 +26,7 @@
     */
     padding: 5%;
     margin: 1%;
+    flex-grow: 1;
 
 }
 .teamLogoHolder:hover{
@@ -29,9 +34,6 @@
 
 }
 
-.teamLogoHolder:active{
-    background-color: #17B287;
-}
 /* individual img tag*/
 .logoImg {
     max-height: 100%;
@@ -51,8 +53,21 @@
 #teamRoster{
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
+#playerContainer{
 
+}
+.playerCard{
+    border-radius: 2%;
+}
+.playerInfoContainer{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: center;
+
+}
 
 
 /*--------- Select Player Section-------------------*/
