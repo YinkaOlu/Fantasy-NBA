@@ -14,7 +14,28 @@
         </div></a>
     </div>
 </div>
+<!---->
+<div class="fantasyPosHolder col-xs-12 col-sm-6 col-md-3 col-lg-2" id="pointGuard" >
+    <md-card class="teamCard"  md-ink-ripple>
+        <md-card-header-text>
+            <span class="md-title"><h2>Point Guard <br>(PG)</h2></span>
+        </md-card-header-text>
+        <br>
+        <img class="fantasyPosImg" ng-src="/images/{{ pointGuardImg }}.png">
+        <p>{{fantasyRoster[0].player_first_name}} {{fantasyRoster[0].player_last_name}}</p>
+        <p>{{fantasyRoster[0].player_position}}</p>
 
+        <md-card-actions layout="column" layout-align="end center">
+            <md-button ng-click="selectPosition(0)">
+                Add
+            </md-button>
+            <md-button ng-click="removePlayer(0)">
+                Delete
+            </md-button>
+        </md-card-actions>
+    </md-card>
+</div>
+<!---->
     <div class="row">
         <p>Fantasy App Tracker</p>
     </div>
