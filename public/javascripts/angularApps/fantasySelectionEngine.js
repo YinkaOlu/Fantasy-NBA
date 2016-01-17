@@ -465,6 +465,11 @@ app.controller('fantasySelectionEngine', ['$scope', '$http',
             //--------------- End of Stat Building
         };
 
+        $scope.dblStats = function(){
+            $scope.getStats();
+            $scope.getStats();
+
+        };
 
         $scope.getStats = function() {
 

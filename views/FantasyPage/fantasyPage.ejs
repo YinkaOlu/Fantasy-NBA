@@ -4,17 +4,16 @@
 <link rel="stylesheet" href='/stylesheets/fantasyPage.css'>
 
 <!-- Fantasy Stat Angular App -->
-<div id="profileDiv" align = 'left'>
-    <u><h1> Welcome <b><%= user.username %></b></h1></u>
-    <h2><a href="/fantasyTeam/signout" class="text-center new-account">Signout</a></h2>
-</div>
-
-<br>
-<br>
 <script language="javascript" type="text/javascript" src="/javascripts/angularApps/fantasySelectionEngine.js"></script>
 
 <div ng-app="fantasySelectionEngine" class="appContainer">
     <div id="fantasyTeam" ng-controller="fantasySelectionEngine">
+        <div class="row">
+            <div id="fantasyTeamResults" class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+                <% include ../templates/profileCard.ejs %>
+            </div>
+        </div>
+
         <div ng-hide="hideWarning">
             <p><em>Please select a start / end Date</em></p>
         </div>
@@ -38,7 +37,7 @@
                     Save Fantasy Team
                 </md-button>
                 <%}%>
-                <md-button ng-click="getStats()" ng-disabled="disableStatsBtn">
+                <md-button ng-click="dblStats()" ng-disabled="disableStatsBtn">
                     Get Stats
                 </md-button>
             </md-card-actions>
@@ -54,7 +53,7 @@
 
 <!--Point Guard Holder-->
 
-                <div class="fantasyPosHolder" id="pointGuard" >
+                <div class="fantasyPosHolder col-xs-12 col-sm-6 col-md-3 col-lg-2" id="pointGuard" >
                     <md-card class="teamCard"  md-ink-ripple>
                         <md-card-header-text>
                             <span class="md-title"><h2>Point Guard <br>(PG)</h2></span>
@@ -72,14 +71,13 @@
                                 Delete
                             </md-button>
                         </md-card-actions>
-
                     </md-card>
                 </div>
 
 
 <!--Shooting Guard Holder-->
 
-                <div class="fantasyPosHolder" id="shootingGuard" ng-click="selectPosition(1)">
+                <div class="fantasyPosHolder col-xs-12 col-sm-6 col-md-3 col-lg-2" id="shootingGuard">
                     <md-card class="teamCard"  md-ink-ripple>
                         <md-card-header-text>
                             <span class="md-title"><h2>Shooting Guard <br>(SG)</h2></span>
@@ -104,7 +102,7 @@
 
                 <!--Small Forward Holder-->
 
-                    <div class="fantasyPosHolder" id="smallForward" ng-click="selectPosition(2)">
+                    <div class="fantasyPosHolder col-xs-12 col-sm-6 col-md-3 col-lg-2" id="smallForward">
                         <md-card class="teamCard"  md-ink-ripple>
                             <md-card-header-text>
                                 <span class="md-title"><h2>Small Forward <br>(SF)</h2></span>
@@ -129,7 +127,7 @@
 
                 <!--Power Forward Holder-->
 
-                    <div class="fantasyPosHolder" id="powerForward" ng-click="selectPosition(3)">
+                    <div class="fantasyPosHolder col-xs-12 col-sm-6 col-md-3 col-lg-2" id="powerForward">
                         <md-card class="teamCard"  md-ink-ripple>
                             <md-card-header-text>
                                 <span class="md-title"><h2>Power Forward <br>(PF)</h2></span>
@@ -154,7 +152,7 @@
 
                 <!--Center Holder-->
 
-                    <div class="fantasyPosHolder" id="center" ng-click="selectPosition(4)">
+                    <div class="fantasyPosHolder col-xs-12 col-sm-6 col-md-3 col-lg-2" id="center">
                         <md-card class="teamCard"  md-ink-ripple>
                             <md-card-header-text>
                                 <span class="md-title"><h2>Center</h2></span>
@@ -185,7 +183,7 @@
 
 <!--Flex Guard-->
 
-                    <div class="fantasyPosHolder" id="center" ng-click="selectPosition(5)">
+                    <div class="fantasyPosHolder col-xs-12 col-sm-6 col-md-3 col-lg-2" id="center">
                         <md-card class="teamCard"  md-ink-ripple>
                             <md-card-header-text>
                                 <span class="md-title"><h2>Flex Guard <br>(PG - SG)</h2></span>
@@ -210,7 +208,7 @@
 
                 <!--Flex Forward-->
 
-                    <div class="fantasyPosHolder" id="center" ng-click="selectPosition(6)">
+                    <div class="fantasyPosHolder col-xs-12 col-sm-6 col-md-3 col-lg-2" id="center">
                         <md-card class="teamCard"  md-ink-ripple>
                             <md-card-header-text>
                                 <span class="md-title"><h2>Flex Forward <br>(SF - PF)</h2></span>
@@ -235,7 +233,7 @@
 
                 <!--Utility 1-->
 
-                    <div class="fantasyPosHolder" id="center" ng-click="selectPosition(7)">
+                    <div class="fantasyPosHolder col-xs-12 col-sm-6 col-md-3 col-lg-2" id="center">
                         <md-card class="teamCard"  md-ink-ripple>
                             <md-card-header-text>
                                 <span class="md-title"><h2>Any Position</h2></span>
@@ -260,7 +258,7 @@
 
                 <!--Utility 2-->
 
-                    <div class="fantasyPosHolder" id="center" ng-click="selectPosition(8)">
+                    <div class="fantasyPosHolder col-xs-12 col-sm-6 col-md-3 col-lg-2" id="center">
                         <md-card class="teamCard"  md-ink-ripple>
                             <md-card-header-text>
                                 <span class="md-title"><h2>Any Position</h2></span>
@@ -285,7 +283,7 @@
 
                 <!--Utility 3-->
 
-                    <div class="fantasyPosHolder" id="center" ng-click="selectPosition(9)">
+                    <div class="fantasyPosHolder col-xs-12 col-sm-6 col-md-3 col-lg-2" id="center">
                         <md-card class="teamCard"  md-ink-ripple>
                             <md-card-header-text>
                                 <span class="md-title"><h2>Any Position</h2></span>

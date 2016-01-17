@@ -1,0 +1,24 @@
+<div id="profileCard">
+    <md-card id="profileCard"  md-ink-ripple>
+        <md-card-header>
+            <md-card-avatar>
+                <img class ="md-media-sm" src="/images/fantasyAssets/icon-default.png">
+            </md-card-avatar>
+            <md-card-header-text>
+                <span class="md-title"><u><h1> Welcome <b><%= user.username %></b></h1></u></span>
+            </md-card-header-text>
+        </md-card-header>
+
+        <md-card-actions layout="column" layout-align="end center">
+            <% if(user.role != 'guest'){%>
+            <md-button href="/userProfile/home" class="md-primary">
+                Profile Home
+            </md-button>
+            <%}%>
+            <br>
+            <md-button href="/fantasyTeam/signout" class="md-warn">
+                Sign Out
+            </md-button>
+        </md-card-actions>
+    </md-card>
+</div>
