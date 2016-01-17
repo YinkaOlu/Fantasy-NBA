@@ -19,6 +19,7 @@ app.controller('fantasySelectionEngine', ['$scope', '$http',
         $scope.hideSaveBtn = true;
         $scope.hideStatsBtn = true;
         $scope.hideUpdateStatsBtn = true;
+        $scope.hidePlayerSelection = true;
         $scope.disableStatsBtn = true;
 //-------------------------
         $scope.hideTeam = false;
@@ -297,8 +298,9 @@ app.controller('fantasySelectionEngine', ['$scope', '$http',
                             $scope.allowedPlayers = $scope.roster;
                         }
 
-                    })
-
+                    });
+$scope.hidePlayerSelection = false;
+            $scope.assignedPlayer = {};
         };
 
         //----------------------- End of selectTeamFunction -----------------------------------------
@@ -386,6 +388,7 @@ app.controller('fantasySelectionEngine', ['$scope', '$http',
 
             $scope.hideTeam = false;
             $scope.disableBuildBtn = false;
+            $scope.hidePlayerSelection = true;
         };
         $scope.saveTeam = function(){
             //HTTP Call to server, Retrieve User Info
