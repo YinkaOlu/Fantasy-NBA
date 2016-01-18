@@ -12,7 +12,7 @@
 		<br>
 		<br>
 		<div id='DateContainer'>
-			<h2>Game Date: </h2><md-datepicker type="date" ng-model="tempDate">
+			<h2>Game Date: </h2><md-datepicker type="date" ng-model="tempDate"></md-datepicker>
 		</div>
 		<br>
 		<br>
@@ -53,19 +53,19 @@
         </md-input-container>
         <!---->
 
-        <div id ='CSVContainer' ng-show='player.player_first_name'>
+        <md-input-container class="md-block" id ='CSVContainer' ng-show='player.player_first_name'>
             <textarea id="CSVArea" ng-model="inputCSV" ng-change='CSVChop()'></textarea>
 			<br>
 			<br>
-            <button ng-click="multipleCSV()">MultiCSV</button>
-        </div>
+            <md-button ng-click="multipleCSV()">MultiCSV</md-button>
+        </md-input-container>
 
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id='formContainer' ng-hide='!matchValue'>
             <form id="gameEntryForm">
 				<button ng-click="createGame()">Create Game</button>
 				<br>
 				
-				<b><h1 ng-hide = 'matchValue'>CSV does not match Selected Player</h1><b>
+				<b><h1 ng-hide = 'matchValue'>CSV does not match Selected Player</h1></b>
                 <h2>Player from CSV: </h2><input type="text" ng-model="game.player_Name">
 
                 <h2>Minutes Played: </h2><input type="text" ng-model="game.minutes_played">

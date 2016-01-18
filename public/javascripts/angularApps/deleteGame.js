@@ -38,9 +38,12 @@ app.controller('deleteGameController', ['$scope', '$http',
 
         $scope.selectGameFunction = function(GamePos){
             $scope.game = $scope.gamesPlayed[GamePos];
+            $scope.gameToDelete = $scope.game;
+
         };
 
         $scope.deleteGame = function(){
+            alert($scope.gameToDelete._id)
             confirm('delete Game?');
             var deletePlayerURL = '/api/game/' + $scope.game._id;
             alert(deletePlayerURL);
