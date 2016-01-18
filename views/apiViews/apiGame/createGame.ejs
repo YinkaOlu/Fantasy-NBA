@@ -12,31 +12,46 @@
 		<br>
 		<br>
 		<div id='DateContainer'>
-			<h2>Game Date: </h2><input type="date" ng-model="tempDate">
+			<h2>Game Date: </h2><md-datepicker type="date" ng-model="tempDate">
 		</div>
 		<br>
 		<br>
-        <div id="teamsContainer" class="col-md-6 col-sm-6 col-xs-6" ng-show='tempDate'>
-            <form role="form" id="teamForm" name="teamForm">
-                <div class="form-group">
-                    <div class="row"><label>Select team (select one):</label></div>
-                    <select size="30"  id="selectedTeamA" class="form-group">
-                        <option ng-repeat="team in currentTeams | orderBy: 'team_name'" value ='{{currentTeams.indexOf(team)}}' ng-click="selectTeamFunction(currentTeams.indexOf(team))">{{team.team_name}}</option>
-                    </select>
-                </div>
-            </form>
-        </div>
+        <!--<div id="teamsContainer" class="col-md-6 col-sm-6 col-xs-6" ng-show='tempDate'>-->
+            <!--<form role="form" id="teamForm" name="teamForm">-->
+                <!--<div class="form-group">-->
+                    <!--<div class="row"><label>Select team (select one):</label></div>-->
+                    <!--<select size="30"  id="selectedTeamA" class="form-group">-->
+                        <!--<option ng-repeat="team in currentTeams | orderBy: 'team_name'" value ='{{currentTeams.indexOf(team)}}' ng-click="selectTeamFunction(currentTeams.indexOf(team))">{{team.team_name}}</option>-->
+                    <!--</select>-->
+                <!--</div>-->
+            <!--</form>-->
+        <!--</div>-->
+        <!---->
+        <md-input-container>
+            <md-select ng-model="selectedTeam" placeholder="Select a team">
+                <md-option ng-repeat="team in currentTeams | orderBy: 'team_name'" ng-click="selectTeamFunction(currentTeams.indexOf(team))">{{team.team_name}}</md-option>
+            </md-select>
+        </md-input-container>
+        <!---->
 
-        <div id="rosterContainer" class="col-md-6 col-sm-6 col-xs-6" ng-show='roster'>
-            <form role="form" id="playerForm" name="playerForm">
-                <div class="form-group">
-                    <div class="row"><label>Select player (select one):</label></div>
-                    <select size="13"  id="selectedTeamA" class="form-group">
-                        <option ng-repeat="player in roster | orderBy: 'player_last_name'" value ='{{roster.indexOf(player)}}' ng-click="selectPlayerFunction(roster.indexOf(player))">{{player.player_first_name}} {{player.player_last_name}}</option>
-                    </select>
-                </div>
-            </form>
-        </div>
+        <!--<div id="rosterContainer" class="col-md-6 col-sm-6 col-xs-6" ng-show='roster'>-->
+            <!--<form role="form" id="playerForm" name="playerForm">-->
+                <!--<div class="form-group">-->
+                    <!--<div class="row"><label>Select player (select one):</label></div>-->
+                    <!--<select size="13"  id="selectedTeamA" class="form-group">-->
+                        <!--<option ng-repeat="player in roster | orderBy: 'player_last_name'" value ='{{roster.indexOf(player)}}' ng-click="selectPlayerFunction(roster.indexOf(player))">{{player.player_first_name}} {{player.player_last_name}}</option>-->
+                    <!--</select>-->
+                <!--</div>-->
+            <!--</form>-->
+        <!--</div>-->
+
+        <!---->
+        <md-input-container ng-show='roster'>
+            <md-select ng-model="selectedPlayer" placeholder="Select a player">
+                <md-option ng-repeat="player in roster | orderBy: 'player_last_name'" ng-click="selectPlayerFunction(roster.indexOf(player))">{{player.player_first_name}} {{player.player_last_name}}</md-option>
+            </md-select>
+        </md-input-container>
+        <!---->
 
         <div id ='CSVContainer' ng-show='player.player_first_name'>
             <textarea id="CSVArea" ng-model="inputCSV" ng-change='CSVChop()'></textarea>
