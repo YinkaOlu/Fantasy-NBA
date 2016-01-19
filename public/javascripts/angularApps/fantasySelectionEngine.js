@@ -536,10 +536,12 @@ $scope.hidePlayerSelection = false;
 
 
                     $scope.stats[p].fTRB += (gameArray[g].DRB + gameArray[g].ORB);
-
-                    $scope.stats[p].fFGPer += (gameArray[g].FGM / gameArray[g].FGA);
-                    $scope.stats[p].fFTPer += (gameArray[g].FTM / gameArray[g].FTA);
-                    $scope.stats[p].fThreePPer += (gameArray[g].threes_made / gameArray[g].threes_attempted);
+                    if(gameArray[g].FGA > 0)
+                        $scope.stats[p].fFGPer += (gameArray[g].FGM / gameArray[g].FGA);
+                    if(gameArray[g].FTA > 0)
+                        $scope.stats[p].fFTPer += (gameArray[g].FTM / gameArray[g].FTA);
+                    if(gameArray[g].threes_attempted > 0)
+                        $scope.stats[p].fThreePPer += (gameArray[g].threes_made / gameArray[g].threes_attempted);
 
                     ///$scope.stats.fPoints += + gameArray[g].PTS;
                     //$scope.stats.fAssists += + gameArray[g].AST;
