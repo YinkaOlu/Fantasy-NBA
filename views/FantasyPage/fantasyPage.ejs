@@ -44,15 +44,15 @@
         </md-card>
 
         <h1><u>Build Your Fantasy Team</u></h1>
-        <div class="row"><h2> Your Starting 5 </h2></div>
-        <div class="row" id="startingFiveContainer" ng-hide="hideTeam">
 
 
 
                 <!--<div class="col-lg-1 col-md-1 col-sm-0 col-xs-0"></div>-->
 
 <!--Point Guard Holder-->
-
+            <md-tabs md-dynamic-height md-border-bottom>
+                <md-tab label="Starting Five">
+                    <div class="row" id="startingFiveContainer" ng-hide="hideTeam">
                 <div class="fantasyPosHolder col-xs-12 col-sm-6 col-md-3 col-lg-2" id="pointGuard" >
                     <md-card class="teamCard"  md-ink-ripple>
                         <md-card-header-text>
@@ -172,15 +172,15 @@
                         </md-card>
                     </div>
 
+                    </div>
+                </md-tab>
 
-        </div>
         <md-divider md-inset></md-divider>
 
-        <div class="row"><h2> Your Bench </h2></div>
+                <md-tab label="Bench">
         <div class="row" id="benchContainer" ng-hide="hideTeam">
 
 <!--Flex Guard-->
-
                     <div class="fantasyPosHolder col-xs-12 col-sm-6 col-md-3 col-lg-2" id="center">
                         <md-card class="teamCard"  md-ink-ripple>
                             <md-card-header-text>
@@ -303,8 +303,8 @@
                         </md-card>
                     </div>
         </div>
-
-        <md-divider md-inset ></md-divider>
+                </md-tab>
+        </md-tabs>
 
             <div id="fantasySelectPartial" class="row" ng-hide="hideSelectionForm">
                 <% include ../templates/fantasySelectionTemp.html %>
