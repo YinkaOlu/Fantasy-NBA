@@ -31,14 +31,14 @@ padding-left: 10%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 #benchContainer{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
 }
 #fantasyDateFinder{
     display: flex;
@@ -54,11 +54,6 @@ padding-left: 10%;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
-}
-
-md-button{
-    display: flex;
-    justify-content: center;
 }
 
 
