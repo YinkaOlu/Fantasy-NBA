@@ -4,11 +4,12 @@
 var app = angular.module('fantasySelectionEngine',['ngMaterial']);
 
 app.controller('fantasySelectionEngine', ['$scope', '$http', '$interval',
-    function($scope, $http, $interval) {
+    function($scope, $http, $interval, $mdToast) {
 
         $scope.hideResultsLoading = true;
         $scope.hideSelectionLoading = true;
         //----------------------------------------------
+        //----------- Load Bar Settings ----------------
         //---------------------------------------------
         var self = this, j= 0, counter = 0;
         self.mode = 'query';
@@ -45,6 +46,7 @@ app.controller('fantasySelectionEngine', ['$scope', '$http', '$interval',
             self.mode = (self.mode == 'query' ? 'determinate' : 'query');
         }, 7200, 0, true);
         //----------------------------------------------
+        //-------------- End Load Bar Settings ---------
         //----------------------------------------------
 
         //HTTP Call to nba database, Retrieve team list
@@ -429,7 +431,10 @@ $scope.hidePlayerSelection = false;
             $scope.hideSelectionForm = true;
             console.log('End of player Addition function');
 
+
+
             $scope.hideTeam = false;
+            $scope.hideRoster = false;
             $scope.disableBuildBtn = false;
             $scope.hidePlayerSelection = true;
             $scope.hideSelectionLoading = true;

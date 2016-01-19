@@ -10,16 +10,20 @@
     <div id="fantasyTeam" ng-controller="fantasySelectionEngine">
 
         <div class="row">
-            <div id="fantasyTeamResults" class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
+            <div id="fantasyTeamResults" class="col-xs-12 col-sm-12 col-md-6 col-lg-5">
                 <% include ../templates/profileCard.ejs %>
             </div>
         </div>
 
-        <div ng-hide="hideWarning">
-            <p><em>Please select a start / end Date</em></p>
-        </div>
+        <h1><u>Build Your Fantasy Team</u></h1>
 
-        <md-card id="fantasyDateFinder">
+        <div id="mainContainer">
+
+        <md-card id="fantasyDateFinder" class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
+            <div ng-hide="hideWarning">
+                <p><em>Please select a start / end Date</em></p>
+            </div>
+
             <div id='startDate'>
                 <h1>Start Date</h1>
                 <md-datepicker md-placeholder="Enter Start date" id='startDate' ng-model="startDate"></md-datepicker>
@@ -44,17 +48,17 @@
             </md-card-actions>
         </md-card>
 
-        <h1><u>Build Your Fantasy Team</u></h1>
 
 
 
                 <!--<div class="col-lg-1 col-md-1 col-sm-0 col-xs-0"></div>-->
 
 <!--Point Guard Holder-->
-            <md-tabs md-dynamic-height md-border-bottom ng-hide="hideRoster">
+            <md-tabs md-dynamic-height md-border-bottom ng-hide="hideRoster" id="teamTabs" class="col-lg-10 col-md-10 col-sm-10 col-xs-10" >
                 <md-tab label="Starting Five">
                     <div class="row" id="startingFiveContainer" ng-hide="hideTeam">
-                <div class="fantasyPosHolder col-xs-12 col-sm-6 col-md-3 col-lg-2" id="pointGuard" >
+
+                <div class="fantasyPosHolder " id="pointGuard" >
                     <md-card class="teamCard"  md-ink-ripple>
                         <md-card-header-text>
                             <span class="md-title"><h2>Point Guard <br>(PG)</h2></span>
@@ -76,7 +80,7 @@
 
 <!--Shooting Guard Holder-->
 
-                <div class="fantasyPosHolder col-xs-12 col-sm-6 col-md-3 col-lg-2" id="shootingGuard">
+                <div class="fantasyPosHolder " id="shootingGuard">
                     <md-card class="teamCard"  md-ink-ripple>
                         <md-card-header-text>
                             <span class="md-title"><h2>Shooting Guard <br>(SG)</h2></span>
@@ -101,7 +105,7 @@
 
                 <!--Small Forward Holder-->
 
-                    <div class="fantasyPosHolder col-xs-12 col-sm-6 col-md-3 col-lg-2" id="smallForward">
+                    <div class="fantasyPosHolder " id="smallForward">
                         <md-card class="teamCard"  md-ink-ripple>
                             <md-card-header-text>
                                 <span class="md-title"><h2>Small Forward <br>(SF)</h2></span>
@@ -126,7 +130,7 @@
 
                 <!--Power Forward Holder-->
 
-                    <div class="fantasyPosHolder col-xs-12 col-sm-6 col-md-3 col-lg-2" id="powerForward">
+                    <div class="fantasyPosHolder " id="powerForward">
                         <md-card class="teamCard"  md-ink-ripple>
                             <md-card-header-text>
                                 <span class="md-title"><h2>Power Forward <br>(PF)</h2></span>
@@ -151,7 +155,7 @@
 
                 <!--Center Holder-->
 
-                    <div class="fantasyPosHolder col-xs-12 col-sm-6 col-md-3 col-lg-2" id="center">
+                    <div class="fantasyPosHolder " id="center">
                         <md-card class="teamCard"  md-ink-ripple>
                             <md-card-header-text>
                                 <span class="md-title"><h2>Center</h2></span>
@@ -182,7 +186,7 @@
         <div class="row" id="benchContainer" ng-hide="hideTeam">
 
 <!--Flex Guard-->
-                    <div class="fantasyPosHolder col-xs-12 col-sm-6 col-md-3 col-lg-2" id="center">
+                    <div class="fantasyPosHolder " id="center">
                         <md-card class="teamCard"  md-ink-ripple>
                             <md-card-header-text>
                                 <span class="md-title"><h2>Flex Guard <br>(PG - SG)</h2></span>
@@ -207,7 +211,7 @@
 
                 <!--Flex Forward-->
 
-                    <div class="fantasyPosHolder col-xs-12 col-sm-6 col-md-3 col-lg-2" id="center">
+                    <div class="fantasyPosHolder " id="center">
                         <md-card class="teamCard"  md-ink-ripple>
                             <md-card-header-text>
                                 <span class="md-title"><h2>Flex Forward <br>(SF - PF)</h2></span>
@@ -232,7 +236,7 @@
 
                 <!--Utility 1-->
 
-                    <div class="fantasyPosHolder col-xs-12 col-sm-6 col-md-3 col-lg-2" id="center">
+                    <div class="fantasyPosHolder " id="center">
                         <md-card class="teamCard"  md-ink-ripple>
                             <md-card-header-text>
                                 <span class="md-title"><h2>Any Position</h2></span>
@@ -257,7 +261,7 @@
 
                 <!--Utility 2-->
 
-                    <div class="fantasyPosHolder col-xs-12 col-sm-6 col-md-3 col-lg-2" id="center">
+                    <div class="fantasyPosHolder " id="center">
                         <md-card class="teamCard"  md-ink-ripple>
                             <md-card-header-text>
                                 <span class="md-title"><h2>Any Position</h2></span>
@@ -282,7 +286,7 @@
 
                 <!--Utility 3-->
 
-                    <div class="fantasyPosHolder col-xs-12 col-sm-6 col-md-3 col-lg-2" id="center">
+                    <div class="fantasyPosHolder " id="center">
                         <md-card class="teamCard"  md-ink-ripple>
                             <md-card-header-text>
                                 <span class="md-title"><h2>Any Position</h2></span>
@@ -306,6 +310,7 @@
         </div>
                 </md-tab>
         </md-tabs>
+        </div>
 
             <div id="fantasySelectPartial" class="row" ng-hide="hideSelectionForm">
                 <% include ../templates/fantasySelectionTemp.html %>
