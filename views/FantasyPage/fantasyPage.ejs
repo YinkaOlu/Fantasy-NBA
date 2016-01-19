@@ -8,6 +8,7 @@
 
 <div ng-app="fantasySelectionEngine" class="appContainer">
     <div id="fantasyTeam" ng-controller="fantasySelectionEngine">
+
         <div class="row">
             <div id="fantasyTeamResults" class="col-xs-12 col-sm-6 col-md-3 col-lg-2">
                 <% include ../templates/profileCard.ejs %>
@@ -50,7 +51,7 @@
                 <!--<div class="col-lg-1 col-md-1 col-sm-0 col-xs-0"></div>-->
 
 <!--Point Guard Holder-->
-            <md-tabs md-dynamic-height md-border-bottom>
+            <md-tabs md-dynamic-height md-border-bottom ng-hide="hideRoster">
                 <md-tab label="Starting Five">
                     <div class="row" id="startingFiveContainer" ng-hide="hideTeam">
                 <div class="fantasyPosHolder col-xs-12 col-sm-6 col-md-3 col-lg-2" id="pointGuard" >
@@ -308,12 +309,14 @@
 
             <div id="fantasySelectPartial" class="row" ng-hide="hideSelectionForm">
                 <% include ../templates/fantasySelectionTemp.html %>
+                <md-progress-linear md-mode="indeterminate" ng-hide="hideSelectionLoading"></md-progress-linear>
             </div>
         <br>
         <br>
 
 
 
+        <md-progress-linear md-mode="indeterminate" ng-hide="hideResultsLoading"></md-progress-linear>
         <div id="fantasyTeamResults" ng-hide="hideResults">
             <% include ../templates/fantasyTeamResults.html %>
         </div>
