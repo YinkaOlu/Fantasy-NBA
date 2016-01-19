@@ -270,7 +270,7 @@ app.controller('playerStatCtrl', ['$scope', '$http',
             var data = new google.visualization.DataTable();
 
             data.addColumn('string', 'Game Date');
-            data.addColumn('number', 'FG %');
+            data.addColumn('number', '3P %');
 
             for (var i = 0; i < amountOfGames; i++) {
                 if($scope.gamesPlayed[i].threes_attempted > 0) {
@@ -302,7 +302,7 @@ app.controller('playerStatCtrl', ['$scope', '$http',
             var data = new google.visualization.DataTable();
 
             data.addColumn('string', 'Game Date');
-            data.addColumn('number', 'FG %');
+            data.addColumn('number', 'FT %');
 
             for (var i = 0; i < amountOfGames; i++) {
                 if($scope.gamesPlayed[i].FTA > 0) {
@@ -318,7 +318,7 @@ app.controller('playerStatCtrl', ['$scope', '$http',
 
             // Set Points Chart options
             var options = {
-                'title': 'Three Point Percentage Per Game',
+                'title': 'Free Throw Percentage Per Game',
                 curveType: 'function',
                 animation: {startup: true}
             };
@@ -334,7 +334,7 @@ app.controller('playerStatCtrl', ['$scope', '$http',
             var data = new google.visualization.DataTable();
 
             data.addColumn('string', 'Game Date');
-            data.addColumn('number', 'FG %');
+            data.addColumn('number', 'Assists');
 
             for (var i = 0; i < amountOfGames; i++) {
                 $scope.gameDay = 'G-'+i;
@@ -344,7 +344,7 @@ app.controller('playerStatCtrl', ['$scope', '$http',
 
             // Set Points Chart options
             var options = {
-                'title': 'Three Point Percentage Per Game',
+                'title': 'Assists Per Game',
                 curveType: 'function',
                 animation: {startup: true}
             };
@@ -360,7 +360,7 @@ app.controller('playerStatCtrl', ['$scope', '$http',
             var data = new google.visualization.DataTable();
 
             data.addColumn('string', 'Game Date');
-            data.addColumn('number', 'FG %');
+            data.addColumn('number', 'Steals');
 
             for (var i = 0; i < amountOfGames; i++) {
                 $scope.gameDay = 'G-'+i;
@@ -396,7 +396,7 @@ app.controller('playerStatCtrl', ['$scope', '$http',
 
             // Set Points Chart options
             var options = {
-                'title': 'Blockss Per Game',
+                'title': 'Blocks Per Game',
                 curveType: 'function',
                 animation: {startup: true}
             };
