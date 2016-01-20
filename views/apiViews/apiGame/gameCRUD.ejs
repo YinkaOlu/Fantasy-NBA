@@ -2,7 +2,30 @@
 <% include ../../templates/navigationTemp.html %>
 <% include ../../templates/adminNav.ejs %>
 
-<a href ='/createGame'><div id="CreateGame" class="CRUDDiv col-lg-6 col-md-6 col-sm-12 col-xs-12"> <h1> Create Game </h1></div></a>
-<a href ='/readGames'><div id="ReadGames" class="CRUDDiv col-lg-6 col-md-6 col-sm-12 col-xs-12"><h1> Read Game </h1></div></a>
-<a href ='/updateGame'><div id="UpdateGame" class="CRUDDiv col-lg-6 col-md-6 col-sm-12 col-xs-12"> <h1>Update Game </h1></div></a>
-<a href ='/deleteGame'><div id="DeleteGame" class="CRUDDiv col-lg-6 col-md-6 col-sm-12 col-xs-12"> <h1>Delete Game</h1> </div></a>
+<!-- Choice Page Engine -->
+<script language="javascript" type="text/javascript" src="/javascripts/angularApps/choicePage.js"></script>
+
+
+<div ng-app="choiceApp">
+    <div id="choicePageContainer" ng-controller="choiceController">
+        <md-tabs md-dynamic-height md-border-bottom>
+            <md-tab label="Create Game">
+                <a href ='/createGame'><div id="CreateGame" class="CRUDDiv col-lg-6 col-md-6 col-sm-12 col-xs-12"> <h1> Create Game </h1></div></a>
+                </md-tab>
+            <!--<md-tab>
+                <a href ='/readGames'><div id="ReadGames" class="CRUDDiv col-lg-6 col-md-6 col-sm-12 col-xs-12"><h1> Read Game </h1></div></a>
+            </md-tab>
+            -->
+            <md-tab label="Update Game">
+                <a href ='/updateGame'><div id="UpdateGame" class="CRUDDiv col-lg-6 col-md-6 col-sm-12 col-xs-12"> <h1>Update Game </h1></div></a>
+            </md-tab>
+
+            <md-tab label="Delete Game">
+                <a href ='/deleteGame'><div id="DeleteGame" class="CRUDDiv col-lg-6 col-md-6 col-sm-12 col-xs-12"> <h1>Delete Game</h1> </div></a>
+            </md-tab>
+
+            </md-tabs>
+        </div>
+</div>
+
+

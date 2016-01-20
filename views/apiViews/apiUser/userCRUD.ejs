@@ -7,33 +7,35 @@
 
 <div class="appContainer" ng-app="userCRUDApp">
     <div class="ctrlContainer" ng-controller="userCRUDApp">
-        <div class="row userContainer" ng-repeat="user in users">
-            <div>
-                <div class="userName col-lg-3 col-md-2 col-sm-2 col-xs-2"><input type="text" ng-model="user.username"></div>
-                <div class="userEmail col-lg-3 col-md-2 col-sm-2 col-xs-2"><input type="text" ng-model="user.email"></div>
+        <md-tabs>
+            <md-tab label="Player List">
+                <div class="userContainer" ng-repeat="user in users">
+                    <div>
+                        <div class="userName col-lg-3 col-md-2 col-sm-2 col-xs-2"><input type="text" ng-model="user.username"></div>
+                        <div class="userEmail col-lg-3 col-md-2 col-sm-2 col-xs-2"><input type="text" ng-model="user.email"></div>
+                        <div class="userRole col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                            Basic <input type="radio" ng-model="user.role" value="basic">
+                            Admin <input type="radio" ng-model="user.role" value="administrator">
+                            Manager  <input type="radio" ng-model="user.role" value="manager">
+                            Guest <input type="radio" ng-model="user.role" value="guest">
+                        </div>
+                        <button class="btn btn-sm btn-danger" ng-click="deleteUser(users.indexOf(user))">Delete User</button>
+                        <button class="btn btn-sm btn-success" ng-click="updateUser(users.indexOf(user))">Save Edit</button>
+                    </div>
+                </div>
+            </md-tab>
+            <md-tab label="Create New User">
+                <div class="userName col-lg-2 col-md-2 col-sm-2 col-xs-2"><input type="text" ng-model="newUser.username"></div>
+                <div class="userEmail col-lg-2 col-md-2 col-sm-2 col-xs-2"><input type="text" ng-model="newUser.email"></div>
+                <div class="userPassword col-lg-2 col-md-2 col-sm-2 col-xs-2"><input type="text" ng-model="newUser.password"></div>
                 <div class="userRole col-lg-4 col-md-4 col-sm-4 col-xs-4">
                     Basic <input type="radio" ng-model="user.role" value="basic">
                     Admin <input type="radio" ng-model="user.role" value="administrator">
                     Manager  <input type="radio" ng-model="user.role" value="manager">
                     Guest <input type="radio" ng-model="user.role" value="guest">
                 </div>
-                <button class="btn btn-sm btn-danger" ng-click="deleteUser(users.indexOf(user))">Delete User</button>
-                <button class="btn btn-sm btn-success" ng-click="updateUser(users.indexOf(user))">Save Edit</button>
-            </div>
-
-        </div>
-
-        <br>
-
-        <div class="userName col-lg-2 col-md-2 col-sm-2 col-xs-2"><input type="text" ng-model="newUser.username"></div>
-        <div class="userEmail col-lg-2 col-md-2 col-sm-2 col-xs-2"><input type="text" ng-model="newUser.email"></div>
-        <div class="userPassword col-lg-2 col-md-2 col-sm-2 col-xs-2"><input type="text" ng-model="newUser.password"></div>
-        <div class="userRole col-lg-4 col-md-4 col-sm-4 col-xs-4">
-            Basic <input type="radio" ng-model="user.role" value="basic">
-            Admin <input type="radio" ng-model="user.role" value="administrator">
-            Manager  <input type="radio" ng-model="user.role" value="manager">
-            Guest <input type="radio" ng-model="user.role" value="guest">
-        </div>
-        <button class="btn btn-lg btn-primary" ng-click="createUser()"> Create User </button>
+                <button class="btn btn-lg btn-primary" ng-click="createUser()"> Create User </button>
+            </md-tab>
+        </md-tabs>
     </div>
 </div>
