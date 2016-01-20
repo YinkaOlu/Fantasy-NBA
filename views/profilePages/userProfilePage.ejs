@@ -5,71 +5,76 @@
 
 <link rel="stylesheet" href='/stylesheets/profilePage.css'>
 
-<div ng-app="profilePageManager">
+<div id="profilePage" ng-app="profilePageManager">
     <div ng-controller="profilePageManager">
+        <md-card>
+            <md-card-content>
+                <div id="profileDiv">
+                    <u><h1> Welcome <b><%= user.username %></b></h1></u>
+                    <% if(user.role == 'administrator'){%>
+                    <a href="/apiHome">Administrator Settings</a>
+                    <%}%>
+                    <h2><a href="/userProfile/signout" class="text-center new-account">Signout</a></h2>
+                </div>
+            </md-card-content>
+        </md-card>
 
-        <h1>User Profile</h1>
+<md-tabs>
+    <md-tab label="Favourite Players">
 
-        <div id="profileDiv" align = 'left'>
-            <u><h1> Welcome <b><%= user.username %></b></h1></u>
-            <% if(user.role == 'administrator'){%>
-            <a href="/apiHome">Administrator Settings</a>
-            <%}%>
-            <h2><a href="/userProfile/signout" class="text-center new-account">Signout</a></h2>
-        </div>
+    </md-tab>
 
-        <div>
-            <h2>Your Fantasy Teams</h2>
-            <table style="width:100%" class="table table-hover table-bordered table-striped table-condensed">
-                <tr>
-                    <th>Fantasy Team Name</th>
-                    <th>Team Options</th>
-                </tr>
-                <tr class="fantasyTeamHolder" ng-repeat="team in userTeams">
-                        <td><h3>{{ team.team_name}}</h3></td>
-                        <td><button class="btn-medium" ng-click="viewRoster(userTeams.indexOf(team))">View Team Roster</button></td>
-                </tr>
-            </table>
-        </div>
+    <md-tab id="savedTeam" label="Saved Teams">
+                <md-card class="fantasyTeamHolder" ng-repeat="team in userTeams">
+                    <md-card-title>
+                        <md-card-title-text>
+                            <h3>{{ team.team_name}}</h3>
+                        </md-card-title-text>
+                    </md-card-title>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button ng-click="viewRoster(userTeams.indexOf(team))">View Team Roster</md-button>
+                    </md-card-actions>
+                </md-card>
 
-        <div ng-hide="hideFantasyRoster">
-            <h1>Team: <b>{{selectedTeam.team_name}}</b> Roster</h1>
-            <table class="table table-hover table-bordered table-striped table-condensed">
-                <tr ng-repeat="player in selectedRoster">
-                    <td class="imgHolder"><img class="playerImg" ng-src="/images/profilePics/{{ player.player_first_name }} {{ player.player_last_name }}.png"></td>
-                    <td><h3>{{ player.player_first_name }} {{ player.player_last_name }}</h3></td>
-                    <td><p>{{player.player_position}}</p></td>
-                </tr>
-            </table>
+                <div ng-hide="hideFantasyRoster">
+                    <h1>Team: <b>{{selectedTeam.team_name}}</b> Roster</h1>
+                    <table class="table table-hover table-bordered table-striped table-condensed">
+                        <tr ng-repeat="player in selectedRoster">
+                            <td class="imgHolder"><img class="playerImg" ng-src="/images/profilePics/{{ player.player_first_name }} {{ player.player_last_name }}.png"></td>
+                            <td><h3>{{ player.player_first_name }} {{ player.player_last_name }}</h3></td>
+                            <td><p>{{player.player_position}}</p></td>
+                        </tr>
+                    </table>
 
-            <div class="row" id="fantasyStatFinder">
-                <div id='startDate' class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <h1>Start Date</h1>
-                    <input type='date' id='startDate' ng-model="startDate">
+                    <div class="row" id="fantasyStatFinder">
+                        <div id='startDate' class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <h1>Start Date</h1>
+                            <input type='date' id='startDate' ng-model="startDate">
+                        </div>
+
+                        <div id='endDate'class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <h1>End Date</h1>
+                            <input type='date' id='endDate' ng-model="endDate">
+                        </div>
+                    </div>
+
+                    <div class="row" id="buildTeam">
+                        <button type="button" class="btn btn-primary btn-block" ng-click="getStats()" ng-hide="hideGetStatsBtn">Get Stats</button>
+                    </div>
+
+                    <div class="row" id="buildTeam">
+                        <button type="button" class="btn btn-primary btn-block" ng-click="getStats()" ng-hide="hideUpdateStatsBtn">Update Stats</button>
+                    </div>
+
+                    <div class="row" id="buildTeam">
+                        <button type="button" class="btn btn-primary btn-block" ng-click="buildStats()" ng-hide="hideDisplayStatsBtn">Display Stats</button>
+                    </div>
                 </div>
 
-                <div id='endDate'class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <h1>End Date</h1>
-                    <input type='date' id='endDate' ng-model="endDate">
+                <div id="fantasyTeamResults" ng-hide="hideResults">
+                    <% include ../templates/fantasyTeamResults.html %>
                 </div>
-            </div>
-
-            <div class="row" id="buildTeam">
-                <button type="button" class="btn btn-primary btn-block" ng-click="getStats()" ng-hide="hideGetStatsBtn">Get Stats</button>
-            </div>
-
-            <div class="row" id="buildTeam">
-                <button type="button" class="btn btn-primary btn-block" ng-click="getStats()" ng-hide="hideUpdateStatsBtn">Update Stats</button>
-            </div>
-
-            <div class="row" id="buildTeam">
-                <button type="button" class="btn btn-primary btn-block" ng-click="buildStats()" ng-hide="hideDisplayStatsBtn">Display Stats</button>
-            </div>
-        </div>
-
-        <div id="fantasyTeamResults" ng-hide="hideResults">
-            <% include ../templates/fantasyTeamResults.html %>
-        </div>
-
+    </md-tab>
+</md-tabs>
     </div>
 </div>
