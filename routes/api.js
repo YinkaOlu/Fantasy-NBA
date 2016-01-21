@@ -32,6 +32,8 @@ var fantasyModel = require('../models/fantasyTeam');
 
 var userModel = require('../models/user');
 
+var favPlayerModel = require('../models/favPlayer');
+
 
 
 router.use(function(req, res, next) {
@@ -61,6 +63,59 @@ router.route('/findGames/:player_id').get(function(req, res) {
         res.json(docs);
     });
 });
+
+//----------------------------------Query to find Favourtie Players by UserID ------------------------------------
+//----------------------------------------------------------------------------------------------------
+router.route('/favPlayer/:user_id')
+    .get(function(req, res) {
+        console.log('Got Request to find fantasy Team for user: ' + req.params.user_id);
+        favPlayerModel.find({user: req.params.user_id}, function(err, teams) {
+            if (err)
+                res.send(err);
+            console.log(teams);
+            res.json(teams);
+        })
+
+    });
+
+//-------------------------------------Save/Delete favourite Player --------------------------------------------
+//-------------------------------------------------------------------------------------------------------
+router.route('/saveFavPlayer')
+    .post(function(req, res) {
+        console.log('Got Save Request');
+        console.log(req.body);
+        var newFavPlayer = new favPlayerModel();
+
+        newFavPlayer.user = req.body.userID;
+        newFavPlayer.player = req.body.playerID;
+
+        console.log('New Fav Player: ');
+        console.log(newFavPlayer);
+
+        // save the new game and check for errors
+        newFavPlayer.save(function(err) {
+            if (err)
+                res.send(err);
+
+            res.json({ message: 'New fav Player created!' });
+        });
+
+
+    });
+
+router.route('/deleteFavPlayer/:favPlayer_ID')
+    .delete(function(req, res) {
+        console.log('Delete Request Fav Player Received');
+        favPlayerModel.remove({
+            _id: req.params.favPlayer_ID
+        }, function(err, bear) {
+            if (err)
+                res.send(err);
+
+            res.json({ message: 'Successfully deleted' });
+        });
+        console.log('Team Deleted');
+    });
 
 //----------------------------------Query to Games by Player ID in Date Range ------------------------
 //----------------------------------------------------------------------------------------------------

@@ -528,6 +528,24 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
             $scope.hideResultsLoading = true;
         };
 
+        $scope.savePlayer = function(player){
+            var playerID = player._id;
+            //HTTP Call to server, Retrieve User Info
+            $http.get('/fantasyTeam/userID').success(function(response){
+                //Store DB as variable $scope.currentTeams
+                $scope.currentUser = response;
+
+                var playerToSave = {};
+                playerToSave.userID = $scope.currentUser;
+                playerToSave.playerID = playerID;
+                alert($scope.currentUser);
+                alert(playerToSave.playerID);
+
+                $http.post('/api/saveFavPlayer', playerToSave);
+            });
+
+        };
+
 
 
 
