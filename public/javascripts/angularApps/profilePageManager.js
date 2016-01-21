@@ -92,6 +92,8 @@ app.controller('profilePageManager', ['$scope', '$http',
 
         $scope.dblStats = function(){
             $scope.buildStats();
+            $scope.hideResults = false;
+            $scope.buildChart();
         };
             //**************************************************************************************
             $scope.buildStats = function(){
@@ -210,9 +212,6 @@ app.controller('profilePageManager', ['$scope', '$http',
             }
             console.log('Stat content');
             console.log($scope.stats);
-
-
-            $scope.hideResults = false;
             $scope.buildChart();
         };
 

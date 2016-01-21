@@ -1,6 +1,6 @@
 <div>
     <md-button class="md-raised" ng-click="backToRoster()">Back to {{team.team_name}} roster</md-button>
-    <h1>Fantasy Team Stats</h1>
+    <h1>Fantasy Team Stats ({{startDate | date : 'fullDate'}} - {{endDate | date : 'fullDate'}})</h1>
     <img class="md-card-image cardProfile" ng-src="/images/profilePics/{{ player.player_first_name }} {{ player.player_last_name }}.png">
     <md-divider></md-divider>
     <div id="playerResultTable">
@@ -9,9 +9,6 @@
                 <!--Points Card-->
                 <md-card class="resultsCard" >
                     <md-card-header>
-                        <md-card-avatar>
-                            <img class ="md-media-sm" ng-src="/images/logos/{{ selectedTeam.team_name }}.png">
-                        </md-card-avatar>
                         <md-card-header-text>
                             <span class="md-title">Points</span>
                             <span class="md-subhead">Total Points: {{ totalPoint | number: 2 }} || Team Points per Game {{ getTotalPTS() | number: 2 }}</span>
