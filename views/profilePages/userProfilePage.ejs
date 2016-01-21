@@ -11,7 +11,7 @@
             <md-card-content>
                 <div id="profileDiv">
                     <u><h1> Welcome <b><%= user.username %></b></h1></u>
-                    <% if(user.role == 'administrator'){%>
+                    <% if(user.role=='administrator' ){%>
                     <a href="/apiHome">Administrator Settings</a>
                     <%}%>
                     <h2><a href="/userProfile/signout" class="text-center new-account">Signout</a></h2>
@@ -19,62 +19,52 @@
             </md-card-content>
         </md-card>
 
-<md-tabs>
-    <md-tab label="Favourite Players">
+        <md-content>
+            <md-tabs md-dynamic-height md-border-bottom>
 
-    </md-tab>
+                <md-tab label="Favourite Players">
+                    <md-content class="md-padding">
 
-    <md-tab id="savedTeam" label="Saved Teams">
-                <md-card class="fantasyTeamHolder" ng-repeat="team in userTeams">
-                    <md-card-title>
-                        <md-card-title-text>
-                            <h3>{{ team.team_name}}</h3>
-                        </md-card-title-text>
-                    </md-card-title>
-                    <md-card-actions layout="row" layout-align="end center">
-                        <md-button ng-click="viewRoster(userTeams.indexOf(team))">View Team Roster</md-button>
-                    </md-card-actions>
-                </md-card>
+                    </md-content>
+                </md-tab>
 
-                <div ng-hide="hideFantasyRoster">
-                    <h1>Team: <b>{{selectedTeam.team_name}}</b> Roster</h1>
-                    <table class="table table-hover table-bordered table-striped table-condensed">
-                        <tr ng-repeat="player in selectedRoster">
-                            <td class="imgHolder"><img class="playerImg" ng-src="/images/profilePics/{{ player.player_first_name }} {{ player.player_last_name }}.png"></td>
-                            <td><h3>{{ player.player_first_name }} {{ player.player_last_name }}</h3></td>
-                            <td><p>{{player.player_position}}</p></td>
-                        </tr>
-                    </table>
+                <md-tab label="Saved Teams">
+                    <md-content class="md-padding">
+                        <md-card class="fantasyTeamHolder" ng-repeat="team in userTeams">
+                            <md-card-title>
+                                <md-card-title-text>
+                                    <span class="md-headline">{{ team.team_name}}</span>
+                                </md-card-title-text>
+                            </md-card-title>
+                            <md-card-actions layout="row" layout-align="end center">
+                                <md-button ng-click="viewRoster(userTeams.indexOf(team))">View Team Roster</md-button>
+                            </md-card-actions>
+                        </md-card>
 
-                    <div class="row" id="fantasyStatFinder">
-                        <div id='startDate' class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <h1>Start Date</h1>
-                            <input type='date' id='startDate' ng-model="startDate">
+                        <!-- Player Cards -->
+                        <div ng-hide="hideFantasyRoster">
+                            <h1>Team: <b>{{selectedTeam.team_name}}</b> Roster</h1>
+                            <div class="playerCard">
+                                <md-card ng-repeat="player in selectedRoster" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 ">
+                                    <img class="md-card-image" ng-src="/images/profilePics/{{ player.player_first_name }} {{ player.player_last_name }}.png">
+                                    <md-card-header-text>
+                                        <span class="md-title">{{ player.player_first_name }} {{ player.player_last_name }}</span>
+                                        <!--<span class="md-subhead">{{player.player_position}}</span>-->
+                                    </md-card-header-text>
+                                </md-card>
+                            </div>
+
+
+                            <div id="fantasyTeamResults" ng-hide="hideResults">
+                                <% include ../templates/fantasyTeamResults.html %>
+                            </div>
                         </div>
+                    </md-content>
+                </md-tab>
 
-                        <div id='endDate'class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <h1>End Date</h1>
-                            <input type='date' id='endDate' ng-model="endDate">
-                        </div>
-                    </div>
+            </md-tabs>
+        </md-content>
 
-                    <div class="row" id="buildTeam">
-                        <button type="button" class="btn btn-primary btn-block" ng-click="getStats()" ng-hide="hideGetStatsBtn">Get Stats</button>
-                    </div>
-
-                    <div class="row" id="buildTeam">
-                        <button type="button" class="btn btn-primary btn-block" ng-click="getStats()" ng-hide="hideUpdateStatsBtn">Update Stats</button>
-                    </div>
-
-                    <div class="row" id="buildTeam">
-                        <button type="button" class="btn btn-primary btn-block" ng-click="buildStats()" ng-hide="hideDisplayStatsBtn">Display Stats</button>
-                    </div>
-                </div>
-
-                <div id="fantasyTeamResults" ng-hide="hideResults">
-                    <% include ../templates/fantasyTeamResults.html %>
-                </div>
-    </md-tab>
-</md-tabs>
     </div>
 </div>
+

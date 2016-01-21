@@ -17,3 +17,11 @@
 #savedTeam{
     height: 100%;
 }
+#rosterPics{
+    display: flex;
+}
+.playerCard{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
