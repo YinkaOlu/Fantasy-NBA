@@ -31,3 +31,10 @@
     justify-content: center;
     flex-direction: row;
 }
+
+#dateSelector{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: row;
+}

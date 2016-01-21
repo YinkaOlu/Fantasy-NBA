@@ -18,35 +18,35 @@
         <h1><u>Build Your Fantasy Team</u></h1>
 
         <div id="mainContainer">
+            <md-card id="fantasyDateFinder" class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
+                <div ng-hide="hideWarning">
+                    <p><em>Please select a start / end Date</em></p>
+                </div>
 
-        <md-card id="fantasyDateFinder" class="col-xs-12 col-sm-12 col-md-12 col-lg-2">
-            <div ng-hide="hideWarning">
-                <p><em>Please select a start / end Date</em></p>
-            </div>
+                <div id='startDate'>
+                    <h1>Start Date</h1>
+                    <md-datepicker md-placeholder="Enter Start date" id='startDate' ng-model="startDate"></md-datepicker>
+                </div>
 
-            <div id='startDate'>
-                <h1>Start Date</h1>
-                <md-datepicker md-placeholder="Enter Start date" id='startDate' ng-model="startDate"></md-datepicker>
-            </div>
+                <div id='endDate'>
+                    <h1>End Date</h1>
+                    <md-datepicker md-placeholder="Enter End date" id='endDate' ng-model="endDate"></md-datepicker>
+                </div>
+                <md-card-actions layout="column" layout-align="end center">
+                    <md-button ng-click="buildFantasyTeam()" ng-disabled="disableBuildBtn">
+                        Build Fantasy Team
+                    </md-button>
+                    <% if(user.role != 'guest'){ %>
+                    <md-button ng-click="saveTeam()" ng-disabled="disableBuildBtn">
+                        Save Fantasy Team
+                    </md-button>
+                    <%}%>
+                    <md-button ng-click="dblStats()" ng-disabled="disableStatsBtn">
+                        Get Stats
+                    </md-button>
+                </md-card-actions>
+            </md-card>
 
-            <div id='endDate'>
-                <h1>End Date</h1>
-                <md-datepicker md-placeholder="Enter End date" id='endDate' ng-model="endDate"></md-datepicker>
-            </div>
-            <md-card-actions layout="column" layout-align="end center">
-                <md-button ng-click="buildFantasyTeam()" ng-disabled="disableBuildBtn">
-                    Build Fantasy Team
-                </md-button>
-                <% if(user.role != 'guest'){ %>
-                <md-button ng-click="saveTeam()" ng-disabled="disableBuildBtn">
-                    Save Fantasy Team
-                </md-button>
-                <%}%>
-                <md-button ng-click="dblStats()" ng-disabled="disableStatsBtn">
-                    Get Stats
-                </md-button>
-            </md-card-actions>
-        </md-card>
 
 
 

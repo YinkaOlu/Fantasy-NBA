@@ -44,7 +44,34 @@
                         </div>
 
                             <!-- Player Cards -->
-                            <div ng-hide="hideFantasyRoster" class="row">
+
+                        <div ng-hide="hideFantasyRoster" class="row">
+                        <div id="dateSelector">
+                            <md-card id="fantasyDateFinder" class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                                <div ng-hide="hideWarning">
+                                    <p><em>Please select a start / end Date</em></p>
+                                </div>
+
+                                <div id='startDate'>
+                                    <h1>Start Date</h1>
+                                    <md-datepicker md-placeholder="Enter Start date" id='startDate' ng-model="startDate"></md-datepicker>
+                                </div>
+
+                                <div id='endDate'>
+                                    <h1>End Date</h1>
+                                    <md-datepicker md-placeholder="Enter End date" id='endDate' ng-model="endDate"></md-datepicker>
+                                </div>
+                                <md-card-actions layout="column" layout-align="end center">
+                                    <md-button ng-click="getStats()" ng-disabled="disableBuildBtn">
+                                        Build Fantasy Team
+                                    </md-button>
+                                    <md-button ng-click="dblStats()" ng-disabled="disableStatsBtn">
+                                        Get Stats
+                                    </md-button>
+                                </md-card-actions>
+                            </md-card>
+                        </div>
+
                                 <h1>Team: <b>{{selectedTeam.team_name}}</b> Roster</h1>
                                 <div class="playerCard">
                                     <md-card ng-repeat="player in selectedRoster" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 ">
@@ -55,6 +82,7 @@
                                         </md-card-header-text>
                                     </md-card>
                                 </div>
+
                                 <div id="fantasyTeamResults" ng-hide="hideResults">
                                     <% include ../templates/fantasyTeamResults.html %>
                                 </div>

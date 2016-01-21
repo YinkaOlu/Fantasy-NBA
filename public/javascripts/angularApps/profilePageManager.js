@@ -89,6 +89,10 @@ app.controller('profilePageManager', ['$scope', '$http',
             $scope.hideResults = true;
 
         };
+
+        $scope.dblStats = function(){
+            $scope.buildStats();
+        };
             //**************************************************************************************
             $scope.buildStats = function(){
                 $scope.hideDisplayStatsBtn = true;
