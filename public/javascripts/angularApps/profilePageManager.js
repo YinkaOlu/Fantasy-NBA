@@ -45,6 +45,7 @@ app.controller('profilePageManager', ['$scope', '$http',
 
                     var playerURL = '/api/findPlayer/'+ $scope.playerRefs[i].player;
                     $http.get(playerURL).success(function(player) {
+                        player = player[0];
                         $scope.userPlayers.push(player);
                         console.log('Player is: ');
                         console.log(player);
