@@ -116,12 +116,13 @@ router.route('/saveFavPlayer')
 
     });
 
-router.route('/deleteFavPlayer/:favPlayer_ID')
+router.route('/deleteFavPlayer/:favPlayer_ID/:user_ID')
     .delete(function(req, res) {
         console.log('Delete Request Fav Player Received');
         console.log(req.params.favPlayer_ID);
         favPlayerModel.remove({
-            _id: req.params.favPlayer_ID
+            player: req.params.favPlayer_ID,
+            user: req.params.user_ID
         }, function(err, bear) {
             if (err)
                 res.send(err);

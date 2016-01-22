@@ -24,10 +24,10 @@ app.controller('profilePageManager', ['$scope', '$http',
         //HTTP Call , Retrieve User ID
         $http.get('/fantasyTeam/userID').success(function(response) {
             //Store DB as variable $scope.currentTeams
-             var currentUserID = response;
+             $scope.currentUserID = response;
 
-            var url = '/api/fantasyTeam/'+ currentUserID;
-            var url2 = '/api/favPlayer/'+ currentUserID;
+            var url = '/api/fantasyTeam/'+ $scope.currentUserID;
+            var url2 = '/api/favPlayer/'+ $scope.currentUserID;
 
             $http.get(url).success(function(response) {
                 //Store DB as variable $scope.currentTeams
@@ -70,9 +70,9 @@ app.controller('profilePageManager', ['$scope', '$http',
         };
 
         $scope.deletePlayer = function(player){
-            var deletePlayerURL = '/api/deleteFavPlayer/' + player._id;
+            var deletePlayerURL = '/api/deleteFavPlayer/' + player._id +'/'+ $scope.currentUserID;
             $http.delete(deletePlayerURL);
-            alert(player._id);
+            $scope.userPlayers.splice($scope.userPlayers.indexOf(player), 1);
         }
 //===============================================================================================
         //=======================================================================================
