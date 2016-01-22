@@ -538,9 +538,6 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
                 var playerToSave = {};
                 playerToSave.userID = $scope.currentUser;
                 playerToSave.playerID = playerID;
-                alert($scope.currentUser);
-                alert(playerToSave.playerID);
-
                 $http.post('/api/saveFavPlayer', playerToSave);
             });
 

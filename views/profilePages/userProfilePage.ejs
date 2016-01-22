@@ -32,11 +32,18 @@
                             </md-card-title>
                             <img class="md-card-image cardProfile" ng-src="/images/profilePics/{{ player.player_first_name }} {{ player.player_last_name }}.png">
                             <md-card-actions>
-                                <md-button ng-click=''>View Player Stats</md-button>
+                                <md-button ng-click='directResults(player)'>View Player Stats</md-button>
                                 <md-button ng-click="deletePlayer(player)">Delete</md-button>
                             </md-card-actions>
                         </md-card>
                     </md-content>
+
+                    <md-progress-linear md-mode="indeterminate" ng-hide="hideResultsLoading"></md-progress-linear>
+                    <div name="results" ng-hide="hideResults">
+                        <% include ../templates/currentSeasonStats.html %>
+                    </div>
+
+
                 </md-tab>
 
                 <md-tab label="Saved Teams" >
