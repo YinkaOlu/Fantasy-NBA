@@ -69,6 +69,11 @@ app.controller('profilePageManager', ['$scope', '$http',
 
         };
 
+        $scope.deletePlayer = function(player){
+            var deletePlayerURL = '/api/deleteFavPlayer/' + player._id;
+            $http.delete(deletePlayerURL);
+            alert(player._id);
+        }
 //===============================================================================================
         //=======================================================================================
 

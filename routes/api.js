@@ -119,6 +119,7 @@ router.route('/saveFavPlayer')
 router.route('/deleteFavPlayer/:favPlayer_ID')
     .delete(function(req, res) {
         console.log('Delete Request Fav Player Received');
+        console.log(req.params.favPlayer_ID);
         favPlayerModel.remove({
             _id: req.params.favPlayer_ID
         }, function(err, bear) {
@@ -127,7 +128,7 @@ router.route('/deleteFavPlayer/:favPlayer_ID')
 
             res.json({ message: 'Successfully deleted' });
         });
-        console.log('Team Deleted');
+        console.log('Team Player');
     });
 
 //----------------------------------Query to Games by Player ID in Date Range ------------------------
