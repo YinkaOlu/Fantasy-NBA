@@ -7,22 +7,25 @@
 
 <div id="profilePage" ng-app="profilePageManager">
     <div ng-controller="profilePageManager">
-        <md-card>
-            <md-card-content>
-                <div id="profileDiv">
-                    <u><h1> Welcome <b><%= user.username %></b></h1></u>
-                    <% if(user.role=='administrator' ){%>
-                    <a href="/apiHome">Administrator Settings</a>
-                    <%}%>
-                    <h2><a href="/userProfile/signout" class="text-center new-account">Signout</a></h2>
-                </div>
-            </md-card-content>
-        </md-card>
 
         <md-content>
             <md-tabs md-dynamic-height md-border-bottom>
 
-                <md-tab label="Favourite Players">
+                <md-tab label="<%= user.username %> Profile">
+                    <md-card>
+                        <md-card-content>
+                            <div id="profileDiv">
+                                <u><h1> Welcome <b><%= user.username %></b></h1></u>
+                                <% if(user.role=='administrator' ){%>
+                                <a href="/apiHome">Administrator Settings</a>
+                                <%}%>
+                                <h2><a href="/userProfile/signout" class="text-center new-account">Signout</a></h2>
+                            </div>
+                        </md-card-content>
+                    </md-card>
+                </md-tab>
+
+                <md-tab label="Your Favourite Players">
                     <md-content class="md-padding">
                         <md-card class="fantasyPlayerHolder col-lg-5 col-md-5 col-sm-5 col-xs-5" ng-repeat="player in userPlayers">
                             <md-card-title>
@@ -40,10 +43,169 @@
 
                     <md-progress-linear md-mode="indeterminate" ng-hide="hideResultsLoading"></md-progress-linear>
                     <div name="results" ng-hide="hideResults">
-                        <% include ../templates/currentSeasonStats.html %>
+                        <!--============================================================-->
+                        <div>
+                            <md-button class="md-raised" ng-click="backToRoster()">Back to {{team.team_name}} roster</md-button>
+                            <h1>{{ player.player_first_name }} {{ player.player_last_name }}'s Current Season Stats</h1>
+                            <img class="md-card-image cardProfile" ng-src="/images/profilePics/{{ player.player_first_name }} {{ player.player_last_name }}.png">
+                            <md-divider></md-divider>
+                            <div id="playerResultTable">
+                                <md-tabs md-dynamic-height md-border-bottom>
+                                    <md-tab label="Points">
+                                        <!--Points Card-->
+                                        <md-card class="resultsCard" >
+                                            <md-card-header>
+                                                <md-card-avatar>
+                                                    <img class ="md-media-sm" ng-src="/images/logos/{{ selectedTeam.team_name }}.png">
+                                                </md-card-avatar>
+                                                <md-card-header-text>
+                                                    <span class="md-title">Points</span>
+                                                    <span class="md-subhead">{{ PPG | number: 1 }}</span>
+                                                </md-card-header-text>
+                                            </md-card-header>
+                                            <div id="PointsChart" class="chartDIV"></div>
+                                        </md-card >
+                                    </md-tab>
+                                    <md-tab label="Field Goals">
+                                        <!--Field Goal Card -->
+                                        <md-card class="resultsCard" >
+                                            <md-card-header>
+                                                <md-card-avatar>
+                                                    <img class ="md-media-sm" ng-src="/images/logos/{{ selectedTeam.team_name }}.png">
+                                                </md-card-avatar>
+                                                <md-card-header-text>
+                                                    <span class="md-title">Field Goal Percentage</span>
+                                                    <span class="md-subhead">{{ FGPer | number:3 }}</span>
+                                                </md-card-header-text>
+                                            </md-card-header>
+                                            <div id="FGChart" class="chartDIV"></div>
+                                        </md-card >
+                                    </md-tab>
+                                    <md-tab label="Three Pointers">
+                                        <!--Three Point Percentage Card-->
+                                        <md-card class="resultsCard" >
+                                            <md-card-header>
+                                                <md-card-avatar>
+                                                    <img class ="md-media-sm" ng-src="/images/logos/{{ selectedTeam.team_name }}.png">
+                                                </md-card-avatar>
+                                                <md-card-header-text>
+                                                    <span class="md-title">Three Point Percentage</span>
+                                                    <span class="md-subhead">{{ threePPer | number: 3}}</span>
+                                                </md-card-header-text>
+                                            </md-card-header>
+                                            <div id="threePChart" class="chartDIV"></div>
+                                        </md-card >
+                                    </md-tab>
+                                    <md-tab label="Free Throw Percentage">
+                                        <!--Free Throw Percentage Card-->
+                                        <md-card class="resultsCard" >
+                                            <md-card-header>
+                                                <md-card-avatar>
+                                                    <img class ="md-media-sm" ng-src="/images/logos/{{ selectedTeam.team_name }}.png">
+                                                </md-card-avatar>
+                                                <md-card-header-text>
+                                                    <span class="md-title">Free Throw Percentage</span>
+                                                    <span class="md-subhead">{{ FTPer | number: 3}}</span>
+                                                </md-card-header-text>
+                                            </md-card-header>
+                                            <div id="FTChart" class="chartDIV"></div>
+                                        </md-card >
+                                    </md-tab>
+                                    <md-tab label="Assists">
+                                        <!--assist Card-->
+                                        <md-card class="resultsCard" >
+                                            <md-card-header>
+                                                <md-card-avatar>
+                                                    <img class ="md-media-sm" ng-src="/images/logos/{{ selectedTeam.team_name }}.png">
+                                                </md-card-avatar>
+                                                <md-card-header-text>
+                                                    <span class="md-title">Total Assists</span>
+                                                    <span class="md-subhead">{{ APG | number: 1}}</span>
+                                                </md-card-header-text>
+                                            </md-card-header>
+                                            <div id="AssistChart" class="chartDIV"></div>
+                                        </md-card >
+                                    </md-tab>
+                                    <md-tab label="Steals">
+                                        <!--Steal Card-->
+                                        <md-card class="resultsCard" >
+                                            <md-card-header>
+                                                <md-card-avatar>
+                                                    <img class ="md-media-sm" ng-src="/images/logos/{{ selectedTeam.team_name }}.png">
+                                                </md-card-avatar>
+                                                <md-card-header-text>
+                                                    <span class="md-title">Total Steals</span>
+                                                    <span class="md-subhead">{{ Steals | number: 1}}</span>
+                                                </md-card-header-text>
+                                            </md-card-header>
+                                            <div id="StealChart" class="chartDIV"></div>
+                                        </md-card >
+                                    </md-tab>
+                                    <md-tab label="Blocks">
+                                        <!--Block Card-->
+                                        <md-card class="resultsCard" >
+                                            <md-card-header>
+                                                <md-card-avatar>
+                                                    <img class ="md-media-sm" ng-src="/images/logos/{{ selectedTeam.team_name }}.png">
+                                                </md-card-avatar>
+                                                <md-card-header-text>
+                                                    <span class="md-title">Total Blocks</span>
+                                                    <span class="md-subhead">{{ BPG | number: 1}}</span>
+                                                </md-card-header-text>
+                                            </md-card-header>
+                                            <div id="BlockChart" class="chartDIV"></div>
+                                        </md-card >
+                                    </md-tab>
+                                    <md-tab label="Rebounds">
+                                        <!--Rebounds Card-->
+                                        <md-card class="resultsCard" >
+                                            <md-card-header>
+                                                <md-card-avatar>
+                                                    <img class ="md-media-sm" ng-src="/images/logos/{{ selectedTeam.team_name }}.png">
+                                                </md-card-avatar>
+                                                <md-card-header-text>
+                                                    <span class="md-title">Rebounds</span>
+                                                    <span class="md-subhead">{{ RPG | number: 1}}</span>
+                                                </md-card-header-text>
+                                            </md-card-header>
+                                            <div id="TRBChart" class="chartDIV"></div>
+                                        </md-card >
+                                    </md-tab>
+                                    <md-tab label="Turnovers">
+                                        <!--Turnover Card-->
+                                        <md-card class="resultsCard" >
+                                            <md-card-header>
+                                                <md-card-avatar>
+                                                    <img class ="md-media-sm" ng-src="/images/logos/{{ selectedTeam.team_name }}.png">
+                                                </md-card-avatar>
+                                                <md-card-header-text>
+                                                    <span class="md-title">Turnover</span>
+                                                    <span class="md-subhead">{{ TOV | number: 1}}</span>
+                                                </md-card-header-text>
+                                            </md-card-header>
+                                            <div id="TOVChart" class="chartDIV"></div>
+                                        </md-card >
+                                    </md-tab>
+                                    <md-tab label="Fouls">
+                                        <!--FoulsCard-->
+                                        <md-card class="resultsCard" >
+                                            <md-card-header>
+                                                <md-card-avatar>
+                                                    <img class ="md-media-sm" ng-src="/images/logos/{{ selectedTeam.team_name }}.png">
+                                                </md-card-avatar>
+                                                <md-card-header-text>
+                                                    <span class="md-title">Fouls</span>
+                                                    <span class="md-subhead">{{ Fouls | number: 1}}</span>
+                                                </md-card-header-text>
+                                            </md-card-header>
+                                            <div id="FoulChart" class="chartDIV"></div>
+                                        </md-card >
+                                    </md-tab>
+                                </md-tabs>
+                            </div>
+                        </div>
                     </div>
-
-
+                        <!--============================================================-->
                 </md-tab>
 
                 <md-tab label="Saved Teams" >
@@ -61,50 +223,50 @@
                             </md-card>
                         </div>
 
-                            <!-- Player Cards -->
+                        <!-- Player Cards -->
 
                         <div ng-hide="hideFantasyRoster" class="row">
-                        <div id="dateSelector">
-                            <md-card id="fantasyDateFinder" class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-                                <div ng-hide="hideWarning">
-                                    <p><em>Please select a start / end Date</em></p>
-                                </div>
+                            <div id="dateSelector">
+                                <md-card id="fantasyDateFinder" class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+                                    <div ng-hide="hideWarning">
+                                        <p><em>Please select a start / end Date</em></p>
+                                    </div>
 
-                                <div id='startDate'>
-                                    <h1>Start Date</h1>
-                                    <md-datepicker md-placeholder="Enter Start date" id='startDate' ng-model="startDate"></md-datepicker>
-                                </div>
+                                    <div id='startDate'>
+                                        <h1>Start Date</h1>
+                                        <md-datepicker md-placeholder="Enter Start date" id='startDate' ng-model="startDate"></md-datepicker>
+                                    </div>
 
-                                <div id='endDate'>
-                                    <h1>End Date</h1>
-                                    <md-datepicker md-placeholder="Enter End date" id='endDate' ng-model="endDate"></md-datepicker>
-                                </div>
-                                <md-card-actions layout="column" layout-align="end center">
-                                    <md-button ng-click="getStats()" ng-disabled="disableBuildBtn">
-                                        Build Fantasy Team
-                                    </md-button>
-                                    <md-button ng-click="dblStats()" ng-disabled="disableStatsBtn">
-                                        Get Stats
-                                    </md-button>
-                                </md-card-actions>
-                            </md-card>
-                        </div>
-
-                                <h1>Team: <b>{{selectedTeam.team_name}}</b> Roster</h1>
-                                <div class="playerCard">
-                                    <md-card ng-repeat="player in selectedRoster" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 ">
-                                        <img class="md-card-image" ng-src="/images/profilePics/{{ player.player_first_name }} {{ player.player_last_name }}.png">
-                                        <md-card-header-text>
-                                            <span class="md-title">{{ player.player_first_name }} {{ player.player_last_name }}</span>
-                                            <!--<span class="md-subhead">{{player.player_position}}</span>-->
-                                        </md-card-header-text>
-                                    </md-card>
-                                </div>
-
-                                <div id="fantasyTeamResults" ng-hide="hideResults">
-                                    <% include ../templates/fantasyTeamResults.html %>
-                                </div>
+                                    <div id='endDate'>
+                                        <h1>End Date</h1>
+                                        <md-datepicker md-placeholder="Enter End date" id='endDate' ng-model="endDate"></md-datepicker>
+                                    </div>
+                                    <md-card-actions layout="column" layout-align="end center">
+                                        <md-button ng-click="getStats()" ng-disabled="disableBuildBtn">
+                                            Build Fantasy Team
+                                        </md-button>
+                                        <md-button ng-click="dblStats()" ng-disabled="disableStatsBtn">
+                                            Get Stats
+                                        </md-button>
+                                    </md-card-actions>
+                                </md-card>
                             </div>
+
+                            <h1>Team: <b>{{selectedTeam.team_name}}</b> Roster</h1>
+                            <div class="playerCard">
+                                <md-card ng-repeat="player in selectedRoster" class="col-lg-2 col-md-3 col-sm-4 col-xs-12 ">
+                                    <img class="md-card-image" ng-src="/images/profilePics/{{ player.player_first_name }} {{ player.player_last_name }}.png">
+                                    <md-card-header-text>
+                                        <span class="md-title">{{ player.player_first_name }} {{ player.player_last_name }}</span>
+                                        <!--<span class="md-subhead">{{player.player_position}}</span>-->
+                                    </md-card-header-text>
+                                </md-card>
+                            </div>
+
+                            <div id="fantasyTeamResults" ng-hide="hideResults">
+                                <% include ../templates/fantasyTeamResults.html %>
+                            </div>
+                        </div>
                     </md-content>
                 </md-tab>
 

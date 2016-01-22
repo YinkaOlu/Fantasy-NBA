@@ -7,6 +7,7 @@ app.controller('profilePageManager', ['$scope', '$http',
     function($scope, $http) {
 
         $scope.hideResultsLoading = true;
+        $scope.hideResults = true;
 
         $scope.endDate = Date.now();
         $scope.endDate = new Date($scope.endDate);
