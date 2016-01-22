@@ -19,18 +19,39 @@ app.controller('profilePageManager', ['$scope', '$http',
         $scope.hideUpdateStatsBtn = true;
         $scope.hideDisplayStatsBtn = true;
 
+        $scope.userPlayers = [];
+
         //HTTP Call , Retrieve User ID
         $http.get('/fantasyTeam/userID').success(function(response) {
             //Store DB as variable $scope.currentTeams
              var currentUserID = response;
 
             var url = '/api/fantasyTeam/'+ currentUserID;
+            var url2 = '/api/favPlayer/'+ currentUserID;
 
             $http.get(url).success(function(response) {
                 //Store DB as variable $scope.currentTeams
                 $scope.userTeams = response;
                 $scope.fantasyRosters = $scope.userTeams.roster;
-                console.log('Finished Retrieval');
+                console.log('Finished Team Retrieval');
+            });
+
+            $http.get(url2).success(function(playerIDs) {
+                //Store DB as variable $scope.currentTeams
+                $scope.playerRefs = playerIDs;
+                console.log('Finished Player Retrieval');
+
+                for(var i = 0; i<$scope.playerRefs.length; i++){
+
+                    var playerURL = '/api/findPlayer/'+ $scope.playerRefs[i].player;
+                    $http.get(playerURL).success(function(player) {
+                        $scope.userPlayers.push(player);
+                        console.log('Player is: ');
+                        console.log(player);
+                    });
+                }
+
+
             });
         });
 

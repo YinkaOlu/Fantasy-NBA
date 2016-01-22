@@ -53,6 +53,19 @@ router.route('/findRoster/:team_id').get(function(req, res) {
     });
 });
 
+//----------------------------------------------------------------------------------
+//----------------------------------Query to find Players ------------------------------------
+//----------------------------------------------------------------------------------------------------
+router.route('/findPlayer/:player_id').get(function(req, res) {
+    console.log('Finding Player');
+    console.log(req.params.player_id);
+    playerModel.find({ _id:  req.params.player_id}, function (err, doc){
+        console.log('Ttest');
+        console.log(doc);
+        res.json(doc);
+    });
+});
+
 //----------------------------------Query to find Games by Player ID ------------------------------------
 //----------------------------------------------------------------------------------------------------
 router.route('/findGames/:player_id').get(function(req, res) {
@@ -68,12 +81,12 @@ router.route('/findGames/:player_id').get(function(req, res) {
 //----------------------------------------------------------------------------------------------------
 router.route('/favPlayer/:user_id')
     .get(function(req, res) {
-        console.log('Got Request to find fantasy Team for user: ' + req.params.user_id);
-        favPlayerModel.find({user: req.params.user_id}, function(err, teams) {
+        console.log('Got Request to find favourite Players for user: ' + req.params.user_id);
+        favPlayerModel.find({user: req.params.user_id}, function(err, players) {
             if (err)
                 res.send(err);
-            console.log(teams);
-            res.json(teams);
+            console.log(players);
+            res.json(players);
         })
 
     });

@@ -24,7 +24,17 @@
 
                 <md-tab label="Favourite Players">
                     <md-content class="md-padding">
-
+                        <md-card class="fantasyPlayerHolder col-lg-5 col-md-5 col-sm-5 col-xs-5" ng-repeat="player in userPlayers">
+                            <md-card-title>
+                                <md-card-title-text>
+                                    <span class="md-headline">{{ player[0].player_first_name}} {{ player[0].player_last_name}}</span>
+                                </md-card-title-text>
+                            </md-card-title>
+                            <img class="md-card-image cardProfile" ng-src="/images/profilePics/{{ player[0].player_first_name }} {{ player[0].player_last_name }}.png">
+                            <md-card-actions>
+                                <md-button ng-click="viewRoster(userTeams.indexOf(team))">View Player Stats</md-button>
+                            </md-card-actions>
+                        </md-card>
                     </md-content>
                 </md-tab>
 
