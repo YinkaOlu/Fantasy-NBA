@@ -28,10 +28,11 @@
 
 
         <!-- Roster Profile -->
+        <md-button class="md-raised" ng-click="backToTeams()">Back to Teams</md-button>
+        <br>
         <h1  class="row" id="decisionTitle" ng-hide="hideRoster">Choose Player:</h1>
         <div id="teamRoster" ng-hide="hideRoster" >
-            <br>
-            <md-button class="md-raised" ng-click="backToTeams()">Back to Teams</md-button>
+
       <div id="playerContainer" class="teamRosterHolder" ng-repeat="player in roster | orderBy: 'player_last_name'" >
                 <md-card class="playerCard" >
                     <md-card-header>

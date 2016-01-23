@@ -7,48 +7,18 @@
 <div id="deleteTeam" ng-app="deleteGameEngine">
     <div ng-controller="deleteGameController">
 
-        <!--<div id="formOneContainer" class="col-md-6 col-sm-6 col-xs-6">-->
-            <!--<form role="form" id="step1a" name="myForm3">-->
-                <!--<div class="form-group">-->
-                    <!--<div class="row"><label>Select team (select one):</label></div>-->
-                    <!--<select size="9"  id="selectedTeamA" class="form-group">-->
-                        <!--<option ng-repeat="team in currentTeams | orderBy: 'team_name'" value ='{{currentTeams.indexOf(team)}}' ng-click="selectTeamFunction(currentTeams.indexOf(team))">{{team.team_name}}</option>-->
-                    <!--</select>-->
-                <!--</div>-->
-            <!--</form>-->
-        <!--</div>-->
         <md-input-container>
             <md-select ng-model="selectedTeam" placeholder="Select a team">
                 <md-option ng-repeat="team in currentTeams | orderBy: 'team_name'" ng-click="selectTeamFunction(currentTeams.indexOf(team))">{{team.team_name}}</md-option>
             </md-select>
         </md-input-container>
 
-        <!--<div id="formOneContainer" class="col-md-6 col-sm-6 col-xs-6">-->
-            <!--<form role="form" id="step1a" name="myForm3">-->
-                <!--<div class="form-group">-->
-                    <!--<div class="row"><label>Select player (select one):</label></div>-->
-                    <!--<select size="9"  id="selectedTeamA" class="form-group">-->
-                        <!--<option ng-repeat="player in roster | orderBy: 'player_first_name'" value ='{{roster.indexOf(player)}}' ng-click="selectPlayerFunction(roster.indexOf(player))">{{player.player_first_name}} {{player.player_last_name}}</option>-->
-                    <!--</select>-->
-                <!--</div>-->
-            <!--</form>-->
-        <!--</div>-->
         <md-input-container ng-show='roster'>
             <md-select ng-model="selectedPlayer" placeholder="Select a player">
                 <md-option ng-repeat="player in roster | orderBy: 'player_last_name'" ng-click="selectPlayerFunction(roster.indexOf(player))">{{player.player_first_name}} {{player.player_last_name}}</md-option>
             </md-select>
         </md-input-container>
 
-        <!--<div id="formOneContainer" class="col-md-6 col-sm-6 col-xs-6">-->
-            <!--<form role="form" id="step1a" name="myForm3">-->
-                <!--<div class="form-group">-->
-                    <!--<div class="row"><label>Select Game (select one):</label></div>-->
-                    <!--<select size="9"  id="selectedTeamA" class="form-group">-->
-                        <!--<option ng-repeat="game in gamesPlayed | orderBy: 'game_Date'" value ='{{gamesPlayed.indexOf(game)}}' ng-click="selectGameFunction(gamesPlayed.indexOf(game))">{{game.game_Date}}</option>-->
-                    <!--</select>-->
-                <!--</div>-->
-            <!--</form>-->
-        <!--</div>-->
 
         <md-input-container>
             <label>Select Game (select one):</label>
@@ -60,15 +30,17 @@
 
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
-                <h2>Game Date: </h2><md-datepicker ng-model="gameToDelete.game_Date"></md-datepicker>
+            <h2>Game Date: </h2>
+            <md-datepicker ng-model="gameToDelete.game_Date"></md-datepicker>
 
-                <md-input-container id="gameEntryForm">
-                    <h2>Player: </h2><input type="text" ng-model="gameToDelete.player_Name">
-                </md-input-container>
-                <br>
-                <md-button ng-click="deleteGame()">delete Game</md-button>
-                <br>
-                <a href="/gameform"> Back to Game CRUD PAGE</a>
+            <md-input-container id="gameEntryForm">
+                <h2>Player: </h2>
+                <input type="text" ng-model="gameToDelete.player_Name">
+            </md-input-container>
+            <br>
+            <md-button ng-click="deleteGame()">delete Game</md-button>
+            <br>
+            <a href="/gameform"> Back to Game CRUD PAGE</a>
         </div>
     </div>
 </div>

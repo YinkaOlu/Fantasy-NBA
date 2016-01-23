@@ -6,15 +6,17 @@
 <script language="javascript" type="text/javascript" src="/javascripts/angularApps/updateGame.js"></script>
 <div id="updateTeam" ng-app="updateGameEngine">
     <div ng-controller="updateGameController">
-		<a href="/gameform"> Back to Game CRUD PAGE</a>
-		<br>
-		<br>
+        <a href="/gameform"> Back to Game CRUD PAGE</a>
+        <br>
+        <br>
         <div id="formOneContainer" class="col-md-6 col-sm-6 col-xs-6">
             <md-input-container role="form" id="step1a" name="myForm3">
                 <div class="form-group">
-                    <div class="row"><label>Select team (select one):</label></div>
-                    <md-select size="30"  id="selectedTeamA" class="form-group" ng-model="team">
-                        <md-option ng-repeat="team in currentTeams | orderBy: 'team_name'" value ='{{currentTeams.indexOf(team)}}' ng-click="selectTeamFunction(currentTeams.indexOf(team))">{{team.team_name}}</md-option>
+                    <div class="row">
+                        <label>Select team (select one):</label>
+                    </div>
+                    <md-select size="30" id="selectedTeamA" class="form-group" ng-model="team">
+                        <md-option ng-repeat="team in currentTeams | orderBy: 'team_name'" value='{{currentTeams.indexOf(team)}}' ng-click="selectTeamFunction(currentTeams.indexOf(team))">{{team.team_name}}</md-option>
                     </md-select>
                 </div>
             </md-input-container>
@@ -23,9 +25,11 @@
         <div id="formOneContainer" class="col-md-6 col-sm-6 col-xs-6">
             <md-input-container role="form" id="step1a" name="myForm3">
                 <div class="form-group">
-                    <div class="row"><label>Select player (select one):</label></div>
-                    <md-select size="10"  id="selectedTeamA" class="form-group" ng-model="player">
-                        <md-option ng-repeat="player in roster | orderBy: 'player_last_name'" value ='{{roster.indexOf(player)}}' ng-click="selectPlayerFunction(roster.indexOf(player))">{{player.player_first_name}} {{player.player_last_name}}</md-option>
+                    <div class="row">
+                        <label>Select player (select one):</label>
+                    </div>
+                    <md-select size="10" id="selectedTeamA" class="form-group" ng-model="player">
+                        <md-option ng-repeat="player in roster | orderBy: 'player_last_name'" value='{{roster.indexOf(player)}}' ng-click="selectPlayerFunction(roster.indexOf(player))">{{player.player_first_name}} {{player.player_last_name}}</md-option>
                     </md-select>
                 </div>
             </md-input-container>
@@ -34,9 +38,11 @@
         <div id="formOneContainer" class="col-md-6 col-sm-6 col-xs-6">
             <md-input-container role="form" id="step1a" name="myForm3">
                 <div class="form-group">
-                    <div class="row"><label>Select Game (select one):</label></div>
-                    <md-select size="9"  id="selectedTeamA" class="form-group" ng-model="test">
-                        <md-option ng-repeat="game in gamesPlayed | orderBy: 'game_Date'" value ='{{gamesPlayed.indexOf(game)}}' ng-click="selectGameFunction(gamesPlayed.indexOf(game))">{{game.player_Name}} || {{game.game_Date | date : 'fullDate'}}</md-option>
+                    <div class="row">
+                        <label>Select Game (select one):</label>
+                    </div>
+                    <md-select size="9" id="selectedTeamA" class="form-group" ng-model="test">
+                        <md-option ng-repeat="game in gamesPlayed | orderBy: 'game_Date'" value='{{gamesPlayed.indexOf(game)}}' ng-click="selectGameFunction(gamesPlayed.indexOf(game))">{{game.player_Name}} || {{game.game_Date | date : 'fullDate'}}</md-option>
                     </md-select>
                 </div>
             </md-input-container>
@@ -47,80 +53,98 @@
             <md-button ng-click="updateGame()">update Game</md-button>
             <br>
             <md-input-container id="gameEntryForm">
-                <h2>Player: </h2><input type="text" ng-model="game.player_Name">
+                <h2>Player: </h2>
+                <input type="text" ng-model="game.player_Name">
             </md-input-container>
             <br>
             <md-input-container>
-                <h2>Game Date: </h2><input type="date" ng-model="game.game_Date">
+                <h2>Game Date: </h2>
+                <input type="date" ng-model="game.game_Date">
             </md-input-container>
             <br>
             <md-input-container>
-                <h2>Minutes Played: </h2><input type="text" ng-model="game.minutes_played">
+                <h2>Minutes Played: </h2>
+                <input type="text" ng-model="game.minutes_played">
             </md-input-container>
             <br>
             <md-input-container>
-                <h2>Field Goals Made: </h2><input type="text" ng-model="game.FGM">
+                <h2>Field Goals Made: </h2>
+                <input type="text" ng-model="game.FGM">
             </md-input-container>
             <br>
             <md-input-container>
-                <h2>Field Goals Attempted: </h2><input type="text" ng-model="game.FGA">
+                <h2>Field Goals Attempted: </h2>
+                <input type="text" ng-model="game.FGA">
             </md-input-container>
             <br>
             <md-input-container>
-                <h2>Threes Made: </h2><input type="text" ng-model="game.threes_made">
+                <h2>Threes Made: </h2>
+                <input type="text" ng-model="game.threes_made">
             </md-input-container>
             <br>
             <md-input-container id="gameEntryForm">
-                <h2>Threes Attempted: </h2><input type="text" ng-model="game.threes_attempted">
+                <h2>Threes Attempted: </h2>
+                <input type="text" ng-model="game.threes_attempted">
             </md-input-container>
             <br>
             <md-input-container>
-                <h2>Freethrows Made: </h2><input type="text" ng-model="game.FTM">
+                <h2>Freethrows Made: </h2>
+                <input type="text" ng-model="game.FTM">
             </md-input-container>
             <br>
             <md-input-container>
-                <h2>Freethrows Attempted: </h2><input type="text" ng-model="game.FTA">
+                <h2>Freethrows Attempted: </h2>
+                <input type="text" ng-model="game.FTA">
             </md-input-container>
             <br>
             <md-input-container>
-                <h2>Offensive Rebounds: </h2><input type="text" ng-model="game.ORB">
+                <h2>Offensive Rebounds: </h2>
+                <input type="text" ng-model="game.ORB">
             </md-input-container>
             <br>
             <md-input-container>
-                <h2>Defensive Rebounds: </h2><input type="text" ng-model="game.DRB">
+                <h2>Defensive Rebounds: </h2>
+                <input type="text" ng-model="game.DRB">
             </md-input-container>
             <br>
             <md-input-container>
-                <h2>Assists: </h2><input type="text" ng-model="game.AST">
+                <h2>Assists: </h2>
+                <input type="text" ng-model="game.AST">
             </md-input-container>
             <br>
             <md-input-container id="gameEntryForm">
-                <h2>Steals: </h2><input type="text" ng-model="game.STL">
+                <h2>Steals: </h2>
+                <input type="text" ng-model="game.STL">
             </md-input-container>
             <br>
             <md-input-container>
-                <h2>Blocks: </h2><input type="text" ng-model="game.BLK">
+                <h2>Blocks: </h2>
+                <input type="text" ng-model="game.BLK">
             </md-input-container>
             <br>
             <md-input-container>
-                <h2>Turnovers: </h2><input type="text" ng-model="game.TOV">
+                <h2>Turnovers: </h2>
+                <input type="text" ng-model="game.TOV">
             </md-input-container>
             <br>
             <md-input-container>
-                <h2>Fouls: </h2><input type="text" ng-model="game.Fouls">
+                <h2>Fouls: </h2>
+                <input type="text" ng-model="game.Fouls">
             </md-input-container>
             <br>
             <md-input-container>
-                <h2>Points: </h2><input type="text" ng-model="game.PTS">
+                <h2>Points: </h2>
+                <input type="text" ng-model="game.PTS">
             </md-input-container>
             <br>
             <md-input-container>
-                <h2>Plus-Minus: </h2><input type="text" ng-model="game.plusMinus">
+                <h2>Plus-Minus: </h2>
+                <input type="text" ng-model="game.plusMinus">
             </md-input-container>
-                <br>
-                <md-button ng-click="updateGame()">update Game</md-button>
-                <br>
-                <a href="/gameform"> Back to Game CRUD PAGE</a>
+            <br>
+            <md-button ng-click="updateGame()">update Game</md-button>
+            <br>
+            <a href="/gameform"> Back to Game CRUD PAGE</a>
             </md-input-container>
         </div>
     </div>
