@@ -20,7 +20,7 @@
     height: 100%;
     padding-left: 0%;
     padding-right: 0%;
-    text-align: center;
+    text-align: left;
     margin: 0%;
 
 
@@ -29,23 +29,24 @@
 
 
 #fantasyTeamImg{
-    background-color: #34495E;
-    background-image: url("../images/backgroundImages/leftBackground.png");
+    background-color: #830037;
+    background-image: url("../images/backgroundImages/rightBackground.png");
     background-size: auto 100%;
     background-repeat: no-repeat;
+    background-position: center;
 
     margin: 0%;
     height: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     font-family: 'Montserrat', sans-serif;
-    text-align: right;
-    padding: 5%;
+    text-align: left;
+    padding: 1%;
 }
 
 #statCheck{
-    background-color: #366B69;
-    background-image: url("../images/backgroundImages/rightBackground.png");
+    background-color: #34495e;
+    background-image: url("../images/backgroundImages/leftBackground.png");
     background-size: auto 100%;
     background-position: right center;
     background-repeat: no-repeat;
