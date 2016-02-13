@@ -31,10 +31,11 @@
         <md-button class="md-raised" ng-click="backToTeams()">Back to Teams</md-button>
         <br>
         <h1  class="row" id="decisionTitle" ng-hide="hideRoster">Choose Player:</h1>
-        <div id="teamRoster" ng-hide="hideRoster" >
+        <div id="teamRoster" ng-hide="hideRoster" ng-style="{'background-color': selectedTeam.teamPrimaryColour}">
 
-      <div id="playerContainer" class="teamRosterHolder" ng-repeat="player in roster | orderBy: 'player_last_name'" >
-                <md-card class="playerCard" >
+            <div id="playerContainer" class="teamRosterHolder" ng-repeat="player in roster | orderBy: 'player_last_name'" ng-style="{'background-color': selectedTeam.teamSecondaryColour}">
+
+                <md-card class="playerCard">
                     <md-card-header>
                         <md-card-avatar>
                             <img class ="md-media-sm" ng-src="/images/logos/{{ selectedTeam.team_name }}.png">
