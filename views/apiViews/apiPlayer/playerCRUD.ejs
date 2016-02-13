@@ -2,8 +2,29 @@
 <% include ../../templates/navigationTemp.html %>
 <% include ../../templates/adminNav.ejs %>
 
-<a href ='/createPlayer'><div id="CreateTeam" class="CRUDDiv col-lg-6 col-md-6 col-sm-12 col-xs-12"> <h1> Create Player </h1></div></a>
-<a href ='/readPlayers'><div id="ReadTeams" class="CRUDDiv col-lg-6 col-md-6 col-sm-12 col-xs-12"><h1> Read Players </h1></div></a>
-<a href ='/updatePlayer'><div id="UpdateTeam" class="CRUDDiv col-lg-6 col-md-6 col-sm-12 col-xs-12"> <h1>Update Player </h1></div></a>
-<a href ='/deletePlayer'><div id="DeleteTeam" class="CRUDDiv col-lg-6 col-md-6 col-sm-12 col-xs-12"> <h1>Delete Player</h1> </div></a>
-<a href ='/tradePlayer'><div id="TradeTeam" class="CRUDDiv col-lg-6 col-md-6 col-sm-12 col-xs-12"> <h1>Trade Player</h1> </div></a>
+
+<!--<a href ='/readPlayers'><div id="ReadTeams" class="CRUDDiv col-lg-6 col-md-6 col-sm-12 col-xs-12"><h1> Read Players </h1></div></a>-->
+<!-- Choice Page Engine -->
+<script language="javascript" type="text/javascript" src="/javascripts/angularApps/choicePage.js"></script>
+
+<div ng-app="choiceApp">
+    <div id="choicePageContainer" ng-controller="choiceController">
+        <md-tabs md-dynamic-height md-border-bottom>
+            <md-tab label="Create Player">
+                <a href ='/createPlayer'><div id="CreateTeam" class="CRUDDiv col-lg-6 col-md-6 col-sm-12 col-xs-12"> <h1> Create Player </h1></div></a>
+            </md-tab>
+            <md-tab label="Trade Player">
+                <a href ='/tradePlayer'><div id="TradeTeam" class="CRUDDiv col-lg-6 col-md-6 col-sm-12 col-xs-12"> <h1>Trade Player</h1> </div></a>
+            </md-tab>
+
+            <md-tab label="Update Player">
+                <a href ='/updatePlayer'><div id="UpdateTeam" class="CRUDDiv col-lg-6 col-md-6 col-sm-12 col-xs-12"> <h1>Update Player </h1></div></a>
+            </md-tab>
+
+            <md-tab label="Delete Player">
+                <a href ='/deletePlayer'><div id="DeleteTeam" class="CRUDDiv col-lg-6 col-md-6 col-sm-12 col-xs-12"> <h1>Delete Player</h1> </div></a>
+            </md-tab>
+
+        </md-tabs>
+    </div>
+</div>

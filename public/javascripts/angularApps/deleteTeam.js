@@ -1,7 +1,7 @@
 /**
  * Created by yinka_000 on 2015-12-06.
  */
-var app = angular.module('deleteTeamEngine', []);
+var app = angular.module('deleteTeamEngine', ['ngMaterial']);
 
 app.controller('deleteTeamController', ['$scope', '$http',
     function($scope, $http) {

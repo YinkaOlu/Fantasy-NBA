@@ -1,10 +1,53 @@
 /**
  * Created by yolu on 12/31/2015.
  */
-var app = angular.module('playerStatApp',[]);
+var app = angular.module('playerStatApp',['ngMaterial']);
 
-app.controller('playerStatCtrl', ['$scope', '$http',
-    function($scope, $http){
+app.controller('playerStatCtrl', ['$scope', '$http','$interval',
+    function($scope, $http, $interval){
+
+        $scope.hideResultsLoading = true;
+        //----------------------------------------------
+        //---------------------------------------------
+        var self = this, j= 0, counter = 0;
+        self.mode = 'query';
+        self.activated = true;
+        self.determinateValue = 30;
+        self.determinateValue2 = 30;
+        self.modes = [ ];
+        /**
+         * Turn off or on the 5 themed loaders
+         */
+        self.toggleActivation = function() {
+            if ( !self.activated ) self.modes = [ ];
+            if (  self.activated ) {
+                j = counter = 0;
+                self.determinateValue = 30;
+                self.determinateValue2 = 30;
+            }
+        };
+        $interval(function() {
+            self.determinateValue += 1;
+            self.determinateValue2 += 1.5;
+            if (self.determinateValue > 100) self.determinateValue = 30;
+            if (self.determinateValue2 > 100) self.determinateValue2 = 30;
+            // Incrementally start animation the five (5) Indeterminate,
+            // themed progress circular bars
+            if ( (j < 2) && !self.modes[j] && self.activated ) {
+                self.modes[j] = (j==0) ? 'buffer' : 'query';
+            }
+            if ( counter++ % 4 == 0 ) j++;
+            // Show the indicator in the "Used within Containers" after 200ms delay
+            if ( j == 2 ) self.contained = "indeterminate";
+        }, 100, 0, true);
+        $interval(function() {
+            self.mode = (self.mode == 'query' ? 'determinate' : 'query');
+        }, 7200, 0, true);
+        //----------------------------------------------
+        //----------------------------------------------
+
+        $scope.hideTeams = false;
+        $scope.hideRoster = true;
 
         $scope.hidePersonalView = true;
         $http.get('/api/team').success(function(response){
@@ -26,6 +69,9 @@ app.controller('playerStatCtrl', ['$scope', '$http',
 
             $scope.hideResults = true;
             $scope.hidePersonalView = true;
+            $scope.hideTeams = true;
+            $scope.hideRoster = false;
+
         };
 
         $scope.selectPlayerFunction = function(playerPos){
@@ -36,6 +82,55 @@ app.controller('playerStatCtrl', ['$scope', '$http',
             $scope.height = ''+Math.floor($scope.player.player_height/12)+' ft '+($scope.player.player_height%12)+' inches';
             $scope.hideResults = true;
             $scope.hidePersonalView = false;
+            $scope.hideRoster = true;
+        };
+
+        $scope.getHeight = function(playerPos){
+            var player = $scope.roster[playerPos];
+            var height = ''+Math.floor(player.player_height/12)+' ft '+(player.player_height%12)+' inches';
+            return height;
+        };
+
+        $scope.getDraftYear = function(playerPos){
+            var player = $scope.roster[playerPos];
+            var draftYear;
+            if(player.player_draft != null && player.player_draft != '')
+                draftYear = player.player_draft;
+            else{
+                draftYear = 'Undrafted';
+            }
+            return draftYear;
+        };
+
+        $scope.getPlayerStatus = function(playerPos){
+            var player = $scope.roster[playerPos];
+            var status = player.player_status;
+            return status;
+        };
+
+        $scope.backToTeams = function(){
+            $scope.hideTeams = false;
+            $scope.hideRoster = true;
+        };
+
+        $scope.backToRoster = function(){
+            $scope.hideResultsLoading = true;
+            $scope.hideResults = true;
+            $scope.hideRoster = false;
+        };
+
+        $scope.directResults = function(playerPos){
+            $scope.hideResultsLoading = false;
+            $scope.player = $scope.roster[playerPos];
+            $scope.playerID = $scope.player._id;
+            $scope.displayResults();
+            $scope.displayResults();
+            $scope.hideRoster = true;
+        };
+
+        $scope.dblDisplay = function(){
+            $scope.displayResults();
+            $scope.displayResults();
         };
 
         $scope.displayResults = function(){
@@ -81,7 +176,6 @@ app.controller('playerStatCtrl', ['$scope', '$http',
                 //Display Results
                 $scope.hideResults = false;
             });
-
 
         };
 
@@ -218,7 +312,7 @@ app.controller('playerStatCtrl', ['$scope', '$http',
             var data = new google.visualization.DataTable();
 
             data.addColumn('string', 'Game Date');
-            data.addColumn('number', 'FG %');
+            data.addColumn('number', '3P %');
 
             for (var i = 0; i < amountOfGames; i++) {
                 if($scope.gamesPlayed[i].threes_attempted > 0) {
@@ -250,7 +344,7 @@ app.controller('playerStatCtrl', ['$scope', '$http',
             var data = new google.visualization.DataTable();
 
             data.addColumn('string', 'Game Date');
-            data.addColumn('number', 'FG %');
+            data.addColumn('number', 'FT %');
 
             for (var i = 0; i < amountOfGames; i++) {
                 if($scope.gamesPlayed[i].FTA > 0) {
@@ -266,7 +360,7 @@ app.controller('playerStatCtrl', ['$scope', '$http',
 
             // Set Points Chart options
             var options = {
-                'title': 'Three Point Percentage Per Game',
+                'title': 'Free Throw Percentage Per Game',
                 curveType: 'function',
                 animation: {startup: true}
             };
@@ -282,7 +376,7 @@ app.controller('playerStatCtrl', ['$scope', '$http',
             var data = new google.visualization.DataTable();
 
             data.addColumn('string', 'Game Date');
-            data.addColumn('number', 'FG %');
+            data.addColumn('number', 'Assists');
 
             for (var i = 0; i < amountOfGames; i++) {
                 $scope.gameDay = 'G-'+i;
@@ -292,7 +386,7 @@ app.controller('playerStatCtrl', ['$scope', '$http',
 
             // Set Points Chart options
             var options = {
-                'title': 'Three Point Percentage Per Game',
+                'title': 'Assists Per Game',
                 curveType: 'function',
                 animation: {startup: true}
             };
@@ -308,7 +402,7 @@ app.controller('playerStatCtrl', ['$scope', '$http',
             var data = new google.visualization.DataTable();
 
             data.addColumn('string', 'Game Date');
-            data.addColumn('number', 'FG %');
+            data.addColumn('number', 'Steals');
 
             for (var i = 0; i < amountOfGames; i++) {
                 $scope.gameDay = 'G-'+i;
@@ -344,7 +438,7 @@ app.controller('playerStatCtrl', ['$scope', '$http',
 
             // Set Points Chart options
             var options = {
-                'title': 'Blockss Per Game',
+                'title': 'Blocks Per Game',
                 curveType: 'function',
                 animation: {startup: true}
             };
@@ -431,7 +525,25 @@ app.controller('playerStatCtrl', ['$scope', '$http',
             // Instantiate and draw Points chart
             var chart = new google.visualization.AreaChart(document.getElementById('FoulChart'));
             chart.draw(data, options);
+            $scope.hideResultsLoading = true;
         };
+
+        $scope.savePlayer = function(player){
+            var playerID = player._id;
+            //HTTP Call to server, Retrieve User Info
+            $http.get('/fantasyTeam/userID').success(function(response){
+                //Store DB as variable $scope.currentTeams
+                $scope.currentUser = response;
+
+                var playerToSave = {};
+                playerToSave.userID = $scope.currentUser;
+                playerToSave.playerID = playerID;
+                $http.post('/api/saveFavPlayer', playerToSave);
+            });
+
+        };
+
+
 
 
 

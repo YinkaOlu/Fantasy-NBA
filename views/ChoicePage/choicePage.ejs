@@ -1,33 +1,33 @@
 <% include ../templates/headTemp.ejs %>
 <% include ../templates/navigationTemp.html %>
 
+<!-- Choice Page Engine -->
+<script language="javascript" type="text/javascript" src="/javascripts/angularApps/choicePage.js"></script>
+
 <link rel="stylesheet" href='/stylesheets/choicePage.css'>
+<div ng-app="choiceApp">
+    <div id="choicePageContainer" ng-controller="choiceController">
+        <md-tabs md-dynamic-height md-border-bottom>
+            <md-tab label="Build Your fantasy team">
+                    <a href="/fantasyTeam" style="color: white">
+                        <div id="fantasyTeamImg">
+                            <div class="divOverImage"> <h1 style=" line-height: 100%; font-size: 15vh">Build<br />Fantasy <br>Team</h1> </div>
+                        </div>
+                    </a>
+            </md-tab>
 
-<div id="choicePageContainer">
-    <div id="choiceMenu">
-        <a href="/fantasyTeam" style="color: white"><div id="fantasyTeamImg" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-           <div class="divOverImage"> <h1 style=" line-height: 100%; font-size: 15vh">Build<br />Fantasy Team </h1> </div>
-        </div></a>
+            <md-tab label="Check Player Stats">
+                    <a href="/playerStat" style="color: white">
+                        <div id="statCheck">
+                            <div class="divOverImage">
+                                <h1 style=" line-height: 100%; font-size: 15vh">Stat<br />Check</h1>
+                            </div>
+                        </div>
+                    </a>
+            </md-tab>
 
-        <a href="/playerStat" style="color: white"><div id="statCheck" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-            <div class="divOverImage"> <h1 style=" line-height: 100%; font-size: 15vh">Stat<br />Check</h1> </div>
-        </div></a>
+        </md-tabs>
     </div>
+
 </div>
-<footer>
-    <div class="row">
-        <p>Fantasy App Tracker</p>
-    </div>
-    <div class="row">
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!-- Bottom Add -->
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-7625328914292919"
-             data-ad-slot="2711335985"
-             data-ad-format="auto"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
-</footer>
+

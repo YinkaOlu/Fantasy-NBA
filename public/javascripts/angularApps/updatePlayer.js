@@ -1,6 +1,6 @@
 
 
-var app = angular.module('updatePlayerEngine', []);
+var app = angular.module('updatePlayerEngine', ['ngMaterial']);
 app.controller('updatePlayerController', ['$scope', '$http',
     function($scope, $http) {
 

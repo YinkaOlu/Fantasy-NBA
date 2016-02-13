@@ -1,14 +1,17 @@
 /**
  * Created by yinka_000 on 2016-01-05.
  */
-var app = angular.module('profilePageManager',[]);
+var app = angular.module('profilePageManager', ['ngMaterial']);
 
 app.controller('profilePageManager', ['$scope', '$http',
     function($scope, $http) {
 
+        $scope.hideResultsLoading = true;
+        $scope.hideResults = true;
+
         $scope.endDate = Date.now();
         $scope.endDate = new Date($scope.endDate);
-        $scope.startDate = $scope.endDate - (30*86400000);
+        $scope.startDate = $scope.endDate - (30 * 86400000);
         $scope.startDate = new Date($scope.startDate);
 
         $scope.hideFantasyRoster = true;
@@ -19,22 +22,44 @@ app.controller('profilePageManager', ['$scope', '$http',
         $scope.hideUpdateStatsBtn = true;
         $scope.hideDisplayStatsBtn = true;
 
+        $scope.userPlayers = [];
+
         //HTTP Call , Retrieve User ID
         $http.get('/fantasyTeam/userID').success(function(response) {
             //Store DB as variable $scope.currentTeams
-             var currentUserID = response;
+            $scope.currentUserID = response;
 
-            var url = '/api/fantasyTeam/'+ currentUserID;
+            var url = '/api/fantasyTeam/' + $scope.currentUserID;
+            var url2 = '/api/favPlayer/' + $scope.currentUserID;
 
             $http.get(url).success(function(response) {
                 //Store DB as variable $scope.currentTeams
                 $scope.userTeams = response;
                 $scope.fantasyRosters = $scope.userTeams.roster;
-                console.log('Finished Retrieval');
+                console.log('Finished Team Retrieval');
+            });
+
+            $http.get(url2).success(function(playerIDs) {
+                //Store DB as variable $scope.currentTeams
+                $scope.playerRefs = playerIDs;
+                console.log('Finished Player Retrieval');
+
+                for (var i = 0; i < $scope.playerRefs.length; i++) {
+
+                    var playerURL = '/api/findPlayer/' + $scope.playerRefs[i].player;
+                    $http.get(playerURL).success(function(player) {
+                        player = player[0];
+                        $scope.userPlayers.push(player);
+                        console.log('Player is: ');
+                        console.log(player);
+                    });
+                }
+
+
             });
         });
 
-        $scope.viewRoster = function(teamNum){
+        $scope.viewRoster = function(teamNum) {
             //Reset
             $scope.selectedTeam = {};
             $scope.selectedRoster = {};
@@ -42,12 +67,17 @@ app.controller('profilePageManager', ['$scope', '$http',
             // Implement
 
             $scope.selectedTeam = $scope.userTeams[teamNum];
-                $scope.selectedRoster = $scope.selectedTeam.roster;
-                $scope.hideFantasyRoster = false;
+            $scope.selectedRoster = $scope.selectedTeam.roster;
+            $scope.hideFantasyRoster = false;
 
         };
 
-//===============================================================================================
+        $scope.deletePlayer = function(player) {
+            var deletePlayerURL = '/api/deleteFavPlayer/' + player._id + '/' + $scope.currentUserID;
+            $http.delete(deletePlayerURL);
+            $scope.userPlayers.splice($scope.userPlayers.indexOf(player), 1);
+        }
+        //===============================================================================================
         //=======================================================================================
 
         $scope.getStats = function() {
@@ -57,7 +87,7 @@ app.controller('profilePageManager', ['$scope', '$http',
 
             $scope.reqGamesQuery = {};
 
-            for(var i = 0; i<$scope.selectedRoster.length; i++)
+            for (var i = 0; i < $scope.selectedRoster.length; i++)
                 //Add Games with in range into $scope.playerQueryGames, position in array corresponds to player position ie. 0 = point guard, 1 = shooting guard
                 //Each position holds an array that contains games
             {
@@ -74,7 +104,7 @@ app.controller('profilePageManager', ['$scope', '$http',
                 $scope.queriedGameCounter = i;
 
                 //alert('Test');
-                $http.get(testURL).success(function (response) {
+                $http.get(testURL).success(function(response) {
                     $scope.rangeGames = response;
                     var playerFromQuery = $scope.rangeGames[0].player_Name;
                     $scope.playerQueryGames.push(playerFromQuery);
@@ -89,10 +119,16 @@ app.controller('profilePageManager', ['$scope', '$http',
             $scope.hideResults = true;
 
         };
-            //**************************************************************************************
-            $scope.buildStats = function(){
-                $scope.hideDisplayStatsBtn = true;
-                $scope.hideUpdateStatsBtn = false;
+
+        $scope.dblStats = function() {
+            $scope.buildStats();
+            $scope.hideResults = false;
+            $scope.buildChart();
+        };
+        //**************************************************************************************
+        $scope.buildStats = function() {
+            $scope.hideDisplayStatsBtn = true;
+            $scope.hideUpdateStatsBtn = false;
             $scope.stats = [];
             //$scope.stats.fPoints = 0;
             //$scope.stats.fAssists = 0;
@@ -122,8 +158,8 @@ app.controller('profilePageManager', ['$scope', '$http',
             $scope.totalsPerPlayer = [];
 
             for (var p = 0; p < $scope.playerQueryGames.length; p++) {
-                console.log("Stats for: " + $scope.playerQueryGames[p] + '\n' + $scope.playerQueryGames [p + 1]);
-                var gameArray = $scope.playerQueryGames [p + 1];
+                console.log("Stats for: " + $scope.playerQueryGames[p] + '\n' + $scope.playerQueryGames[p + 1]);
+                var gameArray = $scope.playerQueryGames[p + 1];
                 console.log(gameArray);
 
                 $scope.stats[p] = {};
@@ -153,13 +189,13 @@ app.controller('profilePageManager', ['$scope', '$http',
 
 
                     $scope.stats[p].fTRB += (gameArray[g].DRB + gameArray[g].ORB);
-                    if(gameArray[g].FGA > 0){
+                    if (gameArray[g].FGA > 0) {
                         $scope.stats[p].fFGPer += (gameArray[g].FGM / gameArray[g].FGA);
                     }
-                    if(gameArray[g].FTA > 0){
+                    if (gameArray[g].FTA > 0) {
                         $scope.stats[p].fFTPer += (gameArray[g].FTM / gameArray[g].FTA);
                     }
-                    if(gameArray[g].threes_attempted > 0){
+                    if (gameArray[g].threes_attempted > 0) {
                         $scope.stats[p].fThreePPer += (gameArray[g].threes_made / gameArray[g].threes_attempted);
                     }
 
@@ -206,23 +242,20 @@ app.controller('profilePageManager', ['$scope', '$http',
             }
             console.log('Stat content');
             console.log($scope.stats);
-
-
-            $scope.hideResults = false;
             $scope.buildChart();
         };
 
-//-----------------------------------------------------------------------------------
-//--------------- View Calculator Functions----------------------------------------
+        //-----------------------------------------------------------------------------------
+        //--------------- View Calculator Functions----------------------------------------
         //Return Total PTS of entire Team in Date Range
-        $scope.getTotalPTS = function(){
+        $scope.getTotalPTS = function() {
             var teamTotalPTS = 0;
 
 
-            var statLength = Math.floor($scope.stats.length/2) + ($scope.stats.length % 2);
-            console.log('Amount of players in array'+statLength);
+            var statLength = Math.floor($scope.stats.length / 2) + ($scope.stats.length % 2);
+            console.log('Amount of players in array' + statLength);
 
-            for(var i = 0; i < statLength; i++){
+            for (var i = 0; i < statLength; i++) {
                 teamTotalPTS += $scope.stats[i].fPoints;
                 console.log(teamTotalPTS);
                 i++;
@@ -232,142 +265,142 @@ app.controller('profilePageManager', ['$scope', '$http',
         };
 
         //Return Total FGPer per game of entire Team in Date Range
-        $scope.getTeamFGPer = function(){
+        $scope.getTeamFGPer = function() {
             var teamTotalFGPer = 0;
 
-            var statLength = Math.floor($scope.stats.length/2) + ($scope.stats.length % 2);
-            console.log('Amount of players in array'+statLength);
+            var statLength = Math.floor($scope.stats.length / 2) + ($scope.stats.length % 2);
+            console.log('Amount of players in array' + statLength);
 
-            for(var i = 0; i < $scope.stats.length; i++){
+            for (var i = 0; i < $scope.stats.length; i++) {
                 teamTotalFGPer += $scope.stats[i].fFGPer;
-                console.log('***'+teamTotalFGPer);
+                console.log('***' + teamTotalFGPer);
                 i++;
             }
 
-            return (teamTotalFGPer/(statLength));
+            return (teamTotalFGPer / (statLength));
         };
 
         //Return Total ThreePPer per game of entire Team in Date Range
-        $scope.getTeamThreePPer = function(){
+        $scope.getTeamThreePPer = function() {
             var teamThreePPer = 0;
 
-            var statLength = Math.floor($scope.stats.length/2) + ($scope.stats.length % 2);
-            console.log('Amount of players in array'+statLength);
+            var statLength = Math.floor($scope.stats.length / 2) + ($scope.stats.length % 2);
+            console.log('Amount of players in array' + statLength);
 
-            for(var i = 0; i <$scope.stats.length; i++){
+            for (var i = 0; i < $scope.stats.length; i++) {
                 teamThreePPer += $scope.stats[i].fThreePPer;
-                console.log('*-*-'+teamThreePPer);
+                console.log('*-*-' + teamThreePPer);
                 i++;
             }
 
-            return (teamThreePPer/statLength);
+            return (teamThreePPer / statLength);
         };
 
         //Return Total ThreePPer per game of entire Team in Date Range
-        $scope.getTeamFTPer = function(){
+        $scope.getTeamFTPer = function() {
             var teamFTPer = 0;
 
-            var statLength = Math.floor($scope.stats.length/2) + ($scope.stats.length % 2);
-            console.log('Amount of players in array'+statLength);
-            for(var i = 0; i <$scope.stats.length; i++){
+            var statLength = Math.floor($scope.stats.length / 2) + ($scope.stats.length % 2);
+            console.log('Amount of players in array' + statLength);
+            for (var i = 0; i < $scope.stats.length; i++) {
                 teamFTPer += $scope.stats[i].fFTPer;
-                console.log('*-*-'+teamFTPer);
+                console.log('*-*-' + teamFTPer);
                 i++;
             }
-            return (teamFTPer/statLength);
+            return (teamFTPer / statLength);
         };
 
         //Return Total Assists per game of entire Team in Date Range
-        $scope.getTeamAssists = function(){
+        $scope.getTeamAssists = function() {
             var teamAssists = 0;
 
-            var statLength = Math.floor($scope.stats.length/2) + ($scope.stats.length % 2);
-            console.log('Amount of players in array'+statLength);
-            for(var i = 0; i <$scope.stats.length; i++){
+            var statLength = Math.floor($scope.stats.length / 2) + ($scope.stats.length % 2);
+            console.log('Amount of players in array' + statLength);
+            for (var i = 0; i < $scope.stats.length; i++) {
                 teamAssists += $scope.stats[i].fAssists;
-                console.log('*-*-'+teamAssists);
+                console.log('*-*-' + teamAssists);
                 i++;
             }
             return (teamAssists);
         };
 
         //Return Total Steals per game of entire Team in Date Range
-        $scope.getTeamSteals = function(){
+        $scope.getTeamSteals = function() {
             var teamSteals = 0;
 
-            var statLength = Math.floor($scope.stats.length/2) + ($scope.stats.length % 2);
-            console.log('Amount of players in array'+statLength);
-            for(var i = 0; i <$scope.stats.length; i++){
+            var statLength = Math.floor($scope.stats.length / 2) + ($scope.stats.length % 2);
+            console.log('Amount of players in array' + statLength);
+            for (var i = 0; i < $scope.stats.length; i++) {
                 teamSteals += $scope.stats[i].fSteals;
-                console.log('*-*-'+teamSteals);
+                console.log('*-*-' + teamSteals);
                 i++;
             }
             return (teamSteals);
         };
 
         //Return Total Blocks per game of entire Team in Date Range
-        $scope.getTeamBlocks = function(){
+        $scope.getTeamBlocks = function() {
             var teamBlocks = 0;
 
-            var statLength = Math.floor($scope.stats.length/2) + ($scope.stats.length % 2);
-            console.log('Amount of players in array'+statLength);
-            for(var i = 0; i <$scope.stats.length; i++){
+            var statLength = Math.floor($scope.stats.length / 2) + ($scope.stats.length % 2);
+            console.log('Amount of players in array' + statLength);
+            for (var i = 0; i < $scope.stats.length; i++) {
                 teamBlocks += $scope.stats[i].fBlocks;
-                console.log('*-*-'+teamBlocks);
+                console.log('*-*-' + teamBlocks);
                 i++;
             }
             return (teamBlocks);
         };
 
         //Return Total Blocks per game of entire Team in Date Range
-        $scope.getTeamTRB = function(){
+        $scope.getTeamTRB = function() {
             var teamTRB = 0;
 
-            var statLength = Math.floor($scope.stats.length/2) + ($scope.stats.length % 2);
-            console.log('Amount of players in array'+statLength);
-            for(var i = 0; i <$scope.stats.length; i++){
+            var statLength = Math.floor($scope.stats.length / 2) + ($scope.stats.length % 2);
+            console.log('Amount of players in array' + statLength);
+            for (var i = 0; i < $scope.stats.length; i++) {
                 teamTRB += $scope.stats[i].fTRB;
-                console.log('*-*-'+teamTRB);
+                console.log('*-*-' + teamTRB);
                 i++;
             }
             return (teamTRB);
         };
 
         //Return Total TOVs per game of entire Team in Date Range
-        $scope.getTeamTOV = function(){
+        $scope.getTeamTOV = function() {
             var teamTOV = 0;
 
-            var statLength = Math.floor($scope.stats.length/2) + ($scope.stats.length % 2);
-            console.log('Amount of players in array'+statLength);
-            for(var i = 0; i <$scope.stats.length; i++){
+            var statLength = Math.floor($scope.stats.length / 2) + ($scope.stats.length % 2);
+            console.log('Amount of players in array' + statLength);
+            for (var i = 0; i < $scope.stats.length; i++) {
                 teamTOV += $scope.stats[i].fTOV;
-                console.log('*-*-'+teamTOV);
+                console.log('*-*-' + teamTOV);
                 i++;
             }
             return (teamTOV);
         };
 
         //Return Total Fouls per game of entire Team in Date Range
-        $scope.getTeamFouls = function(){
+        $scope.getTeamFouls = function() {
             var teamFouls = 0;
 
-            var statLength = Math.floor($scope.stats.length/2) + ($scope.stats.length % 2);
-            console.log('Amount of players in array'+statLength);
-            for(var i = 0; i <$scope.stats.length; i++){
+            var statLength = Math.floor($scope.stats.length / 2) + ($scope.stats.length % 2);
+            console.log('Amount of players in array' + statLength);
+            for (var i = 0; i < $scope.stats.length; i++) {
                 teamFouls += $scope.stats[i].fFouls;
-                console.log('*-*-'+teamFouls);
+                console.log('*-*-' + teamFouls);
                 i++;
             }
             return (teamFouls);
         };
-//===============================================================================================
+        //===============================================================================================
         //=======================================================================================
-//-------------------------------------------------------------------------//
+        //-------------------------------------------------------------------------//
         //-------------------------------------------------------------------------
         //---------------------------------- Chart Set up ----------------------------------------//
         //---------------------- Points Chart----------------------------------------------//
         // Create the Points table.
-        $scope.buildChart = function () {
+        $scope.buildChart = function() {
             //Points Chart
             var pointsData = new google.visualization.DataTable();
 
@@ -375,7 +408,9 @@ app.controller('profilePageManager', ['$scope', '$http',
             pointsData.addColumn('number', 'Points');
 
             for (var i = 0; i < $scope.stats.length; i++) {
-                pointsData.addRows([[$scope.playerQueryGames[i], $scope.stats[i].fPoints]]);
+                pointsData.addRows([
+                    [$scope.playerQueryGames[i], $scope.stats[i].fPoints]
+                ]);
                 i++;
             }
 
@@ -394,7 +429,9 @@ app.controller('profilePageManager', ['$scope', '$http',
             FGData.addColumn('number', 'FT Percentage');
 
             for (var i = 0; i < $scope.stats.length; i++) {
-                FGData.addRows([[$scope.playerQueryGames[i], $scope.stats[i].fFGPer]]);
+                FGData.addRows([
+                    [$scope.playerQueryGames[i], $scope.stats[i].fFGPer]
+                ]);
                 i++;
             }
 
@@ -413,7 +450,9 @@ app.controller('profilePageManager', ['$scope', '$http',
             threePData.addColumn('number', '3P Percentage');
 
             for (var i = 0; i < $scope.stats.length; i++) {
-                threePData.addRows([[$scope.playerQueryGames[i], $scope.stats[i].fThreePPer]]);
+                threePData.addRows([
+                    [$scope.playerQueryGames[i], $scope.stats[i].fThreePPer]
+                ]);
                 i++;
             }
 
@@ -432,7 +471,9 @@ app.controller('profilePageManager', ['$scope', '$http',
             FTData.addColumn('number', 'Free Throw Percentage');
 
             for (var i = 0; i < $scope.stats.length; i++) {
-                FTData.addRows([[$scope.playerQueryGames[i], $scope.stats[i].fFTPer]]);
+                FTData.addRows([
+                    [$scope.playerQueryGames[i], $scope.stats[i].fFTPer]
+                ]);
                 i++;
             }
 
@@ -451,7 +492,9 @@ app.controller('profilePageManager', ['$scope', '$http',
             assistData.addColumn('number', 'Assists');
 
             for (var i = 0; i < $scope.stats.length; i++) {
-                assistData.addRows([[$scope.playerQueryGames[i], $scope.stats[i].fAssists]]);
+                assistData.addRows([
+                    [$scope.playerQueryGames[i], $scope.stats[i].fAssists]
+                ]);
                 i++;
             }
 
@@ -470,7 +513,9 @@ app.controller('profilePageManager', ['$scope', '$http',
             stealsData.addColumn('number', 'Steals');
 
             for (var i = 0; i < $scope.stats.length; i++) {
-                stealsData.addRows([[$scope.playerQueryGames[i], $scope.stats[i].fSteals]]);
+                stealsData.addRows([
+                    [$scope.playerQueryGames[i], $scope.stats[i].fSteals]
+                ]);
                 i++;
             }
 
@@ -489,7 +534,9 @@ app.controller('profilePageManager', ['$scope', '$http',
             blocksData.addColumn('number', 'Blocks');
 
             for (var i = 0; i < $scope.stats.length; i++) {
-                blocksData.addRows([[$scope.playerQueryGames[i], $scope.stats[i].fBlocks]]);
+                blocksData.addRows([
+                    [$scope.playerQueryGames[i], $scope.stats[i].fBlocks]
+                ]);
                 i++;
             }
 
@@ -508,7 +555,9 @@ app.controller('profilePageManager', ['$scope', '$http',
             reboundsData.addColumn('number', 'Rebounds');
 
             for (var i = 0; i < $scope.stats.length; i++) {
-                reboundsData.addRows([[$scope.playerQueryGames[i], $scope.stats[i].fTRB]]);
+                reboundsData.addRows([
+                    [$scope.playerQueryGames[i], $scope.stats[i].fTRB]
+                ]);
                 i++;
             }
 
@@ -528,7 +577,9 @@ app.controller('profilePageManager', ['$scope', '$http',
             TOVData.addColumn('number', 'TurnOver');
 
             for (var i = 0; i < $scope.stats.length; i++) {
-                TOVData.addRows([[$scope.playerQueryGames[i], $scope.stats[i].fTOV]]);
+                TOVData.addRows([
+                    [$scope.playerQueryGames[i], $scope.stats[i].fTOV]
+                ]);
                 i++;
             }
 
@@ -549,7 +600,9 @@ app.controller('profilePageManager', ['$scope', '$http',
             FoulData.addColumn('number', 'Fouls');
 
             for (var i = 0; i < $scope.stats.length; i++) {
-                FoulData.addRows([[$scope.playerQueryGames[i], $scope.stats[i].fFouls]]);
+                FoulData.addRows([
+                    [$scope.playerQueryGames[i], $scope.stats[i].fFouls]
+                ]);
                 i++;
             }
 
@@ -562,8 +615,459 @@ app.controller('profilePageManager', ['$scope', '$http',
             var chartFoul = new google.visualization.ColumnChart(document.getElementById('FoulChart'));
             chartFoul.draw(FoulData, FoulOptions);
         };
-//====================================================================================================
+        //====================================================================================================
+        //----------------------- Season Stats Calculator-------------------------------------------
+        $scope.directResults = function(player) {
+            $scope.hideResultsLoading = false;
+            $scope.player = player;
+            $scope.playerID = $scope.player._id;
+            $scope.displayResults();
+            $scope.displayResults();
+            $scope.hideRoster = true;
+        };
+
+        $scope.displayResults = function() {
+
+            //Get All Games played by player
+            var playerURL = '/api/findGames/' + $scope.playerID;
+            $http.get(playerURL).success(function(response) {
+                $scope.gamesPlayed = response;
+
+                //Calculate Season Stats
+                $scope.seasonStats();
+
+                // Build Points Charts
+                $scope.pointsGraph();
+
+                // Build FG Chart
+                $scope.FGGraph();
+
+                // Three Point Chart
+                $scope.ThreePGraph();
+
+                // Free Throw Chart
+                $scope.FTGraph();
+
+                // Assistd Chart
+                $scope.AssistGraph();
+
+                // Rebounds Chart
+                $scope.ReboundsGraph();
+
+                // Blocks Chart
+                $scope.BlockGraph();
+
+                // Steals Chart
+                $scope.StealGraph();
+
+                // TOV Chart
+                $scope.TOVGraph();
+
+                //Fouls Chart
+                $scope.FoulGraph();
+
+                //Display Results
+                $scope.hideResults = false;
+            });
+
+        };
+
+        $scope.seasonStats = function() {
+            $scope.PPG = 0;
+            $scope.APG = 0;
+            $scope.FGPer = 0;
+            $scope.BPG = 0;
+            $scope.threePPer = 0;
+            $scope.FTPer = 0;
+            $scope.RPG = 0;
+            $scope.TOV = 0;
+            $scope.Fouls = 0;
+            $scope.plusMinus = 0;
+            $scope.MPG = 0;
+            $scope.Steals = 0;
+
+            $scope.FGM = 0;
+            $scope.FGA = 0;
+
+            $scope.TPA = 0;
+            $scope.TPM = 0;
+
+            $scope.FTA = 0;
+            $scope.FTM = 0;
+
+
+            var gamesPlayed = $scope.gamesPlayed.length;
+
+            console.log(gamesPlayed);
+
+            for (var i = 0; i < gamesPlayed; i++) {
+                $scope.PPG += $scope.gamesPlayed[i].PTS;
+                $scope.APG += $scope.gamesPlayed[i].AST;
+                $scope.RPG += ($scope.gamesPlayed[i].ORB + $scope.gamesPlayed[i].DRB);
+                $scope.TOV += ($scope.gamesPlayed[i].TOV);
+                $scope.Fouls += $scope.gamesPlayed[i].Fouls;
+                $scope.BPG += $scope.gamesPlayed[i].BLK;
+                $scope.plusMinus += $scope.gamesPlayed[i].plusMinus;
+                $scope.MPG += $scope.gamesPlayed[i].minutes_played;
+                $scope.Steals += $scope.gamesPlayed[i].STL;
+
+
+                $scope.FGM += ($scope.gamesPlayed[i].FGM);
+                $scope.FGA += ($scope.gamesPlayed[i].FGA);
+
+                $scope.TPA += ($scope.gamesPlayed[i].threes_attempted);
+                $scope.TPM += ($scope.gamesPlayed[i].threes_made);
+
+
+                $scope.FTA += ($scope.gamesPlayed[i].FTA);
+                $scope.FTM += ($scope.gamesPlayed[i].FTM);
+
+
+            }
+
+            $scope.PPG = ($scope.PPG / gamesPlayed);
+            $scope.APG = ($scope.APG / gamesPlayed);
+            $scope.RPG = ($scope.RPG / gamesPlayed);
+            $scope.TOV = ($scope.TOV / gamesPlayed);
+            $scope.Fouls = ($scope.Fouls / gamesPlayed);
+            $scope.BPG = ($scope.BPG / gamesPlayed);
+            $scope.plusMinus = ($scope.plusMinus / gamesPlayed);
+            $scope.MPG = ($scope.MPG / gamesPlayed);
+            $scope.Steals = ($scope.Steals / gamesPlayed);
+
+            $scope.FGPer = ($scope.FGM / $scope.FGA);
+            $scope.threePPer = ($scope.TPM / $scope.TPA);
+            $scope.FTPer = ($scope.FTM / $scope.FTA);
+
+        };
+
+        $scope.pointsGraph = function() {
+            var amountOfGames = $scope.gamesPlayed.length;
+            //Points Chart
+            var data = new google.visualization.DataTable();
+
+            data.addColumn('string', 'Game Date');
+            data.addColumn('number', 'Points');
+
+            for (var i = 0; i < amountOfGames; i++) {
+                $scope.gameDay = 'G-' + i;
+                data.addRows([
+                    [$scope.gameDay, $scope.gamesPlayed[i].PTS]
+                ]);
+                // i++;
+            }
+
+            // Set Points Chart options
+            var options = {
+                'title': 'Points Per Game',
+                curveType: 'function',
+                animation: {
+                    startup: true
+                }
+            };
+
+            // Instantiate and draw Points chart
+            var chart = new google.visualization.AreaChart(document.getElementById('PointsChart'));
+            chart.draw(data, options);
+        };
+
+        $scope.FGGraph = function() {
+            var amountOfGames = $scope.gamesPlayed.length;
+            //Points Chart
+            var data = new google.visualization.DataTable();
+
+            data.addColumn('string', 'Game Date');
+            data.addColumn('number', 'FG %');
+
+            for (var i = 0; i < amountOfGames; i++) {
+                if ($scope.gamesPlayed[i].FGA > 0) {
+                    $scope.gameDay = 'G-' + i;
+                    data.addRows([
+                        [$scope.gameDay, ($scope.gamesPlayed[i].FGM / $scope.gamesPlayed[i].FGA)]
+                    ]);
+                } else {
+                    $scope.gameDay = 'G-' + i;
+                    data.addRows([
+                        [$scope.gameDay, 0]
+                    ]);
+                }
+                // i++;
+            }
+
+            // Set Points Chart options
+            var options = {
+                'title': 'Field Goals Per Game',
+                curveType: 'function',
+                animation: {
+                    startup: true
+                }
+            };
+
+            // Instantiate and draw Points chart
+            var chart = new google.visualization.AreaChart(document.getElementById('FGChart'));
+            chart.draw(data, options);
+        };
+
+        $scope.ThreePGraph = function() {
+            var amountOfGames = $scope.gamesPlayed.length;
+            //Points Chart
+            var data = new google.visualization.DataTable();
+
+            data.addColumn('string', 'Game Date');
+            data.addColumn('number', '3P %');
+
+            for (var i = 0; i < amountOfGames; i++) {
+                if ($scope.gamesPlayed[i].threes_attempted > 0) {
+                    $scope.gameDay = 'G-' + i;
+                    data.addRows([
+                        [$scope.gameDay, ($scope.gamesPlayed[i].threes_made / $scope.gamesPlayed[i].threes_attempted)]
+                    ]);
+                } else {
+                    $scope.gameDay = 'G-' + i;
+                    data.addRows([
+                        [$scope.gameDay, 0]
+                    ]);
+                }
+                // i++;
+            }
+
+            // Set Points Chart options
+            var options = {
+                'title': 'Three Point Percentage Per Game',
+                curveType: 'function',
+                animation: {
+                    startup: true
+                }
+            };
+
+            // Instantiate and draw Points chart
+            var chart = new google.visualization.AreaChart(document.getElementById('threePChart'));
+            chart.draw(data, options);
+        };
+
+        $scope.FTGraph = function() {
+            var amountOfGames = $scope.gamesPlayed.length;
+            //Points Chart
+            var data = new google.visualization.DataTable();
+
+            data.addColumn('string', 'Game Date');
+            data.addColumn('number', 'FT %');
+
+            for (var i = 0; i < amountOfGames; i++) {
+                if ($scope.gamesPlayed[i].FTA > 0) {
+                    $scope.gameDay = 'G-' + i;
+                    data.addRows([
+                        [$scope.gameDay, ($scope.gamesPlayed[i].FTM / $scope.gamesPlayed[i].FTA)]
+                    ]);
+                } else {
+                    $scope.gameDay = 'G-' + i;
+                    data.addRows([
+                        [$scope.gameDay, 0]
+                    ]);
+                }
+                // i++;
+            }
+
+            // Set Points Chart options
+            var options = {
+                'title': 'Free Throw Percentage Per Game',
+                curveType: 'function',
+                animation: {
+                    startup: true
+                }
+            };
+
+            // Instantiate and draw Points chart
+            var chart = new google.visualization.AreaChart(document.getElementById('FTChart'));
+            chart.draw(data, options);
+        };
+
+        $scope.AssistGraph = function() {
+            var amountOfGames = $scope.gamesPlayed.length;
+            //Points Chart
+            var data = new google.visualization.DataTable();
+
+            data.addColumn('string', 'Game Date');
+            data.addColumn('number', 'Assists');
+
+            for (var i = 0; i < amountOfGames; i++) {
+                $scope.gameDay = 'G-' + i;
+                data.addRows([
+                    [$scope.gameDay, ($scope.gamesPlayed[i].AST)]
+                ]);
+                // i++;
+            }
+
+            // Set Points Chart options
+            var options = {
+                'title': 'Assists Per Game',
+                curveType: 'function',
+                animation: {
+                    startup: true
+                }
+            };
+
+            // Instantiate and draw Points chart
+            var chart = new google.visualization.AreaChart(document.getElementById('AssistChart'));
+            chart.draw(data, options);
+        };
+
+        $scope.StealGraph = function() {
+            var amountOfGames = $scope.gamesPlayed.length;
+            //Points Chart
+            var data = new google.visualization.DataTable();
+
+            data.addColumn('string', 'Game Date');
+            data.addColumn('number', 'Steals');
+
+            for (var i = 0; i < amountOfGames; i++) {
+                $scope.gameDay = 'G-' + i;
+                data.addRows([
+                    [$scope.gameDay, ($scope.gamesPlayed[i].STL)]
+                ]);
+                // i++;
+            }
+
+            // Set Points Chart options
+            var options = {
+                'title': 'Steals Per Game',
+                curveType: 'function',
+                animation: {
+                    startup: true
+                }
+            };
+
+            // Instantiate and draw Points chart
+            var chart = new google.visualization.AreaChart(document.getElementById('StealChart'));
+            chart.draw(data, options);
+        };
+
+        $scope.BlockGraph = function() {
+            var amountOfGames = $scope.gamesPlayed.length;
+            //Points Chart
+            var data = new google.visualization.DataTable();
+
+            data.addColumn('string', 'Game Date');
+            data.addColumn('number', 'Blocks');
+
+            for (var i = 0; i < amountOfGames; i++) {
+                $scope.gameDay = 'G-' + i;
+                data.addRows([
+                    [$scope.gameDay, ($scope.gamesPlayed[i].BLK)]
+                ]);
+                // i++;
+            }
+
+            // Set Points Chart options
+            var options = {
+                'title': 'Blocks Per Game',
+                curveType: 'function',
+                animation: {
+                    startup: true
+                }
+            };
+
+            // Instantiate and draw Points chart
+            var chart = new google.visualization.AreaChart(document.getElementById('BlockChart'));
+            chart.draw(data, options);
+        };
+
+        $scope.ReboundsGraph = function() {
+            var amountOfGames = $scope.gamesPlayed.length;
+            //Points Chart
+            var data = new google.visualization.DataTable();
+
+            data.addColumn('string', 'Game Date');
+            data.addColumn('number', 'Offensive Rebounds');
+            data.addColumn('number', 'Defensive Rebounds');
+
+            for (var i = 0; i < amountOfGames; i++) {
+                $scope.gameDay = 'G-' + i;
+                data.addRows([
+                    [$scope.gameDay, ($scope.gamesPlayed[i].ORB), $scope.gamesPlayed[i].DRB]
+                ]);
+                // i++;
+            }
+
+            // Set Points Chart options
+            var options = {
+                'title': 'Rebounds Per Game',
+                curveType: 'function',
+                animation: {
+                    startup: true
+                }
+            };
+
+            // Instantiate and draw Points chart
+            var chart = new google.visualization.AreaChart(document.getElementById('TRBChart'));
+            chart.draw(data, options);
+        };
+
+        $scope.TOVGraph = function() {
+            var amountOfGames = $scope.gamesPlayed.length;
+            //Points Chart
+            var data = new google.visualization.DataTable();
+
+            data.addColumn('string', 'Game Date');
+            data.addColumn('number', 'Turnovers');
+
+            for (var i = 0; i < amountOfGames; i++) {
+                $scope.gameDay = 'G-' + i;
+                data.addRows([
+                    [$scope.gameDay, ($scope.gamesPlayed[i].TOV)]
+                ]);
+                // i++;
+            }
+
+            // Set Points Chart options
+            var options = {
+                'title': 'Steals Per Game',
+                curveType: 'function',
+                animation: {
+                    startup: true
+                }
+            };
+
+            // Instantiate and draw Points chart
+            var chart = new google.visualization.AreaChart(document.getElementById('TOVChart'));
+            chart.draw(data, options);
+        };
+
+        $scope.FoulGraph = function() {
+            var amountOfGames = $scope.gamesPlayed.length;
+            //Points Chart
+            var data = new google.visualization.DataTable();
+
+            data.addColumn('string', 'Game Date');
+            data.addColumn('number', 'Fouls');
+
+            for (var i = 0; i < amountOfGames; i++) {
+                $scope.gameDay = 'G-' + i;
+                data.addRows([
+                    [$scope.gameDay, ($scope.gamesPlayed[i].Fouls)]
+                ]);
+                // i++;
+            }
+
+            // Set Points Chart options
+            var options = {
+                'title': 'Fouls Per Game',
+                curveType: 'function',
+                animation: {
+                    startup: true
+                }
+            };
+
+            // Instantiate and draw Points chart
+            var chart = new google.visualization.AreaChart(document.getElementById('FoulChart'));
+            chart.draw(data, options);
+            $scope.hideResultsLoading = true;
+        };
+
+        //------------------------- End of Stat calculator (Player) --------------------------------
+        //==================================================================================================
 
 
 
-    }]);
+    }
+]);

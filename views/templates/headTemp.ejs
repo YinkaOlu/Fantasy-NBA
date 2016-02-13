@@ -1,3 +1,5 @@
+<html>
+
 <head>
     <title></title>
 
@@ -10,17 +12,13 @@
     <script language="JavaScript" type="text/javascript" src="/javascripts/jquery_UI/jquery-ui.min.js"></script>
 
 
-    <!--animation javascript file -->
-    <script language="JavaScript" type="text/javascript" src="/javascripts/AnimationController/animationController.js"></script>
-    <!-- <script language="JavaScript" type="text/javascript" src="/javascripts/AnimationController/fantasyAnimationController.js"></script> -->
-
-
-
 
     <!-- Google Charts -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-        google.charts.load('current', {packages: ['corechart']});
+        google.charts.load('current', {
+            packages: ['corechart']
+        });
         google.charts.setOnLoadCallback(drawChart);
     </script>
 
@@ -37,34 +35,53 @@
 
 
     <!-- Basic Style Sheet -->
-     <link rel="stylesheet" href='/stylesheets/style.css'>
-
-    <!-- Quatrocento Sans Font -->
-    <link href='https://fonts.googleapis.com/css?family=Quattrocento+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href='/stylesheets/style.css'>
 
     <!-- AngularJS -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <!-- Angular Material requires Angular.js Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.2/angular-material.layouts.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/angular-material/1.0.2/angular-material.min.css">
 
-    <!-- Tubular -->
-    <script language="javascript" type="text/javascript" src="/javascripts/tubular/jquery.tubular.1.0.js"></script>
 
     <!-- Google Font -->
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
     <!-- Google Analytics -->
     <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                        (i[r].q = i[r].q || []).push(arguments)
+                    }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
         ga('create', 'UA-72261203-1', 'auto');
+        ga('require', 'linkid');
         ga('send', 'pageview');
-
     </script>
 
-
+    <!-- Google Material Icons-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
+
 <body>
+<!-- Angular Material Dependencies -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
+<!-- Basic Style Sheet -->
+<link rel="stylesheet" href='/stylesheets/style.css'>
+
+
+<!-- Angular Material Javascript now available via Google CDN; version 0.11.2 used here -->
+<script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.11.2/angular-material.min.js"></script>
+
 
 </body>
+
 </html>

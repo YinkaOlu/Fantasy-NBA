@@ -32,6 +32,8 @@ var fantasyModel = require('../models/fantasyTeam');
 
 var userModel = require('../models/user');
 
+var favPlayerModel = require('../models/favPlayer');
+
 
 
 router.use(function(req, res, next) {
@@ -51,6 +53,19 @@ router.route('/findRoster/:team_id').get(function(req, res) {
     });
 });
 
+//----------------------------------------------------------------------------------
+//----------------------------------Query to find Players ------------------------------------
+//----------------------------------------------------------------------------------------------------
+router.route('/findPlayer/:player_id').get(function(req, res) {
+    console.log('Finding Player');
+    console.log(req.params.player_id);
+    playerModel.find({ _id:  req.params.player_id}, function (err, doc){
+        console.log('Ttest');
+        console.log(doc);
+        res.json(doc);
+    });
+});
+
 //----------------------------------Query to find Games by Player ID ------------------------------------
 //----------------------------------------------------------------------------------------------------
 router.route('/findGames/:player_id').get(function(req, res) {
@@ -61,6 +76,61 @@ router.route('/findGames/:player_id').get(function(req, res) {
         res.json(docs);
     });
 });
+
+//----------------------------------Query to find Favourtie Players by UserID ------------------------------------
+//----------------------------------------------------------------------------------------------------
+router.route('/favPlayer/:user_id')
+    .get(function(req, res) {
+        console.log('Got Request to find favourite Players for user: ' + req.params.user_id);
+        favPlayerModel.find({user: req.params.user_id}, function(err, players) {
+            if (err)
+                res.send(err);
+            console.log(players);
+            res.json(players);
+        })
+
+    });
+
+//-------------------------------------Save/Delete favourite Player --------------------------------------------
+//-------------------------------------------------------------------------------------------------------
+router.route('/saveFavPlayer')
+    .post(function(req, res) {
+        console.log('Got Save Request');
+        console.log(req.body);
+        var newFavPlayer = new favPlayerModel();
+
+        newFavPlayer.user = req.body.userID;
+        newFavPlayer.player = req.body.playerID;
+
+        console.log('New Fav Player: ');
+        console.log(newFavPlayer);
+
+        // save the new game and check for errors
+        newFavPlayer.save(function(err) {
+            if (err)
+                res.send(err);
+
+            res.json({ message: 'New fav Player created!' });
+        });
+
+
+    });
+
+router.route('/deleteFavPlayer/:favPlayer_ID/:user_ID')
+    .delete(function(req, res) {
+        console.log('Delete Request Fav Player Received');
+        console.log(req.params.favPlayer_ID);
+        favPlayerModel.remove({
+            player: req.params.favPlayer_ID,
+            user: req.params.user_ID
+        }, function(err, bear) {
+            if (err)
+                res.send(err);
+
+            res.json({ message: 'Successfully deleted' });
+        });
+        console.log('Team Player');
+    });
 
 //----------------------------------Query to Games by Player ID in Date Range ------------------------
 //----------------------------------------------------------------------------------------------------

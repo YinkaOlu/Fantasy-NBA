@@ -8,67 +8,75 @@
 
 <div id="createTeam" ng-app="createGameEngine">
     <div ng-controller="createGameController">
-		<a href="/gameform"> Back to Game CRUD PAGE</a>
-		<br>
-		<br>
-		<div id='DateContainer'>
-			<h2>Game Date: </h2><input type="date" ng-model="tempDate">
-		</div>
-		<br>
-		<br>
-        <div id="teamsContainer" class="col-md-6 col-sm-6 col-xs-6" ng-show='tempDate'>
-            <form role="form" id="teamForm" name="teamForm">
-                <div class="form-group">
-                    <div class="row"><label>Select team (select one):</label></div>
-                    <select size="30"  id="selectedTeamA" class="form-group">
-                        <option ng-repeat="team in currentTeams | orderBy: 'team_name'" value ='{{currentTeams.indexOf(team)}}' ng-click="selectTeamFunction(currentTeams.indexOf(team))">{{team.team_name}}</option>
-                    </select>
-                </div>
-            </form>
+        <a href="/gameform"> Back to Game CRUD PAGE</a>
+        <br>
+        <br>
+        <div id='DateContainer'>
+            <h2>Game Date: </h2>
+            <md-datepicker type="date" ng-model="tempDate"></md-datepicker>
         </div>
+        <br>
+        <br>
+        <md-input-container>
+            <md-select ng-model="selectedTeam" placeholder="Select a team">
+                <md-option ng-repeat="team in currentTeams | orderBy: 'team_name'" ng-click="selectTeamFunction(currentTeams.indexOf(team))">{{team.team_name}}</md-option>
+            </md-select>
+        </md-input-container>
+        <md-input-container ng-show='roster'>
+            <md-select ng-model="selectedPlayer" placeholder="Select a player">
+                <md-option ng-repeat="player in roster | orderBy: 'player_last_name'" ng-click="selectPlayerFunction(roster.indexOf(player))">{{player.player_first_name}} {{player.player_last_name}}</md-option>
+            </md-select>
+        </md-input-container>
+        <!---->
 
-        <div id="rosterContainer" class="col-md-6 col-sm-6 col-xs-6" ng-show='roster'>
-            <form role="form" id="playerForm" name="playerForm">
-                <div class="form-group">
-                    <div class="row"><label>Select player (select one):</label></div>
-                    <select size="13"  id="selectedTeamA" class="form-group">
-                        <option ng-repeat="player in roster | orderBy: 'player_last_name'" value ='{{roster.indexOf(player)}}' ng-click="selectPlayerFunction(roster.indexOf(player))">{{player.player_first_name}} {{player.player_last_name}}</option>
-                    </select>
-                </div>
-            </form>
-        </div>
-
-        <div id ='CSVContainer' ng-show='player.player_first_name'>
+        <md-input-container class="md-block" id='CSVContainer' ng-show='player.player_first_name'>
             <textarea id="CSVArea" ng-model="inputCSV" ng-change='CSVChop()'></textarea>
-			<br>
-			<br>
-            <button ng-click="multipleCSV()">MultiCSV</button>
-        </div>
+            <br>
+            <br>
+            <md-button ng-click="multipleCSV()">MultiCSV</md-button>
+        </md-input-container>
 
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id='formContainer' ng-hide='!matchValue'>
             <form id="gameEntryForm">
-				<button ng-click="createGame()">Create Game</button>
-				<br>
-				
-				<b><h1 ng-hide = 'matchValue'>CSV does not match Selected Player</h1><b>
-                <h2>Player from CSV: </h2><input type="text" ng-model="game.player_Name">
+                <button ng-click="createGame()">Create Game</button>
+                <br>
 
-                <h2>Minutes Played: </h2><input type="text" ng-model="game.minutes_played">
-                <h2>Field Goals Made: </h2><input type="text" ng-model="game.FGM">
-                <h2>Field Goals Attempted: </h2><input type="text" ng-model="game.FGA">
-                <h2>Threes Made: </h2><input type="text" ng-model="game.threes_made">
-                <h2>Threes Attempted: </h2><input type="text" ng-model="game.threes_attempted">
-                <h2>Freethrows Made: </h2><input type="text" ng-model="game.FTM">
-                <h2>Freethrows Attempted: </h2><input type="text" ng-model="game.FTA">
-                <h2>Offensive Rebounds: </h2><input type="text" ng-model="game.ORB">
-                <h2>Defensive Rebounds: </h2><input type="text" ng-model="game.DRB">
-                <h2>Assists: </h2><input type="text" ng-model="game.AST">
-                <h2>Steals: </h2><input type="text" ng-model="game.STL">
-                <h2>Blocks: </h2><input type="text" ng-model="game.BLK">
-                <h2>Turnovers: </h2><input type="text" ng-model="game.TOV">
-                <h2>Fouls: </h2><input type="text" ng-model="game.Fouls">
-                <h2>Points: </h2><input type="text" ng-model="game.PTS">
-                <h2>Plus-Minus: </h2><input type="text" ng-model="game.plusMinus">
+                <b><h1 ng-hide = 'matchValue'>CSV does not match Selected Player</h1></b>
+                <h2>Player from CSV: </h2>
+                <input type="text" ng-model="game.player_Name">
+
+                <h2>Minutes Played: </h2>
+                <input type="text" ng-model="game.minutes_played">
+                <h2>Field Goals Made: </h2>
+                <input type="text" ng-model="game.FGM">
+                <h2>Field Goals Attempted: </h2>
+                <input type="text" ng-model="game.FGA">
+                <h2>Threes Made: </h2>
+                <input type="text" ng-model="game.threes_made">
+                <h2>Threes Attempted: </h2>
+                <input type="text" ng-model="game.threes_attempted">
+                <h2>Freethrows Made: </h2>
+                <input type="text" ng-model="game.FTM">
+                <h2>Freethrows Attempted: </h2>
+                <input type="text" ng-model="game.FTA">
+                <h2>Offensive Rebounds: </h2>
+                <input type="text" ng-model="game.ORB">
+                <h2>Defensive Rebounds: </h2>
+                <input type="text" ng-model="game.DRB">
+                <h2>Assists: </h2>
+                <input type="text" ng-model="game.AST">
+                <h2>Steals: </h2>
+                <input type="text" ng-model="game.STL">
+                <h2>Blocks: </h2>
+                <input type="text" ng-model="game.BLK">
+                <h2>Turnovers: </h2>
+                <input type="text" ng-model="game.TOV">
+                <h2>Fouls: </h2>
+                <input type="text" ng-model="game.Fouls">
+                <h2>Points: </h2>
+                <input type="text" ng-model="game.PTS">
+                <h2>Plus-Minus: </h2>
+                <input type="text" ng-model="game.plusMinus">
 
                 <br>
                 <button ng-click="createGame()">Create Game</button>

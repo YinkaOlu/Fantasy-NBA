@@ -1,7 +1,7 @@
 /**
  * Created by yinka_000 on 2015-12-07.
  */
-var app = angular.module('deleteGameEngine', []);
+var app = angular.module('deleteGameEngine', ['ngMaterial']);
 
 app.controller('deleteGameController', ['$scope', '$http',
     function($scope, $http) {
@@ -38,9 +38,12 @@ app.controller('deleteGameController', ['$scope', '$http',
 
         $scope.selectGameFunction = function(GamePos){
             $scope.game = $scope.gamesPlayed[GamePos];
+            $scope.gameToDelete = $scope.game;
+
         };
 
         $scope.deleteGame = function(){
+            alert($scope.gameToDelete._id)
             confirm('delete Game?');
             var deletePlayerURL = '/api/game/' + $scope.game._id;
             alert(deletePlayerURL);

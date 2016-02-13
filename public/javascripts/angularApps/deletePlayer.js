@@ -1,7 +1,7 @@
 /**
  * Created by yinka_000 on 2015-12-06.
  */
-var app = angular.module('deletePlayerEngine', []);
+var app = angular.module('deletePlayerEngine', ['ngMaterial']);
 
 app.controller('deletePlayerController', ['$scope', '$http',
     function($scope, $http) {

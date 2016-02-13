@@ -3,28 +3,19 @@
 
 <div class="row" id="fantasySelectDiv">
     <!-- form for step 1: choose team -->
-    <div id="formOneContainer" class="col-md-6 col-sm-6 col-xs-6">
-        <form role="form" id="step1a" >
-            <div class="form-group">
-                <div class="row"><label>Select team (select one):</label></div>
-                <select size="10"  id="selectedTeamA" class="form-group">
-                    <option ng-repeat="team in currentTeams | orderBy: 'team_name'" value ='{{currentTeams.indexOf(team)}}' ng-click="selectTeamFunction(currentTeams.indexOf(team))">{{team.team_name}}</option>
-                </select>
-            </div>
-        </form>
-    </div>
 
-    <!-- for for step2: choose player -->
-    <div class="col-md-6 col-sm-6 col-xs-6" id="formTwoContainer">
-        <form role="form" id="step2a">
-            <div class="form-group">
-                <div class="row"><label>Select player (select one):</label></div>
-                <div class="row"><select size="6" id="selectedPlayerA" class="form-group">
+    <md-input-container>
+        <md-select ng-model="selectedTeam" placeholder="Select a team">
+            <md-option ng-repeat="team in currentTeams | orderBy: 'team_name'" ng-click="selectTeamFunction(currentTeams.indexOf(team))">{{team.team_name}}</md-option>
+        </md-select>
+    </md-input-container>
 
-                    <option ng-repeat="player in allowedPlayers | orderBy: 'player_first_name'" ng-click="assignPlayer(player)">{{player.player_first_name}} {{player.player_last_name}}</option>
-                </select></div>
-            </div>
-            <button ng-click="addPlayer()" id="addFantasyPlayerBtn" ng-hide="hideAddPlayerBtn"> Add Player to Fantasy Team</button>
-        </form>
-    </div>
+    <md-input-container ng-hide="hidePlayerSelection">
+        <md-select ng-model="selectedPlayer" placeholder="Select a player">
+            <md-option ng-repeat="player in allowedPlayers | orderBy: 'player_first_name'" ng-click="assignPlayer(player)">{{player.player_first_name}} {{player.player_last_name}}</md-option>
+        </md-select>
+    </md-input-container>
+
+            <md-button class="md-raised" ng-click="addPlayer()" id="addFantasyPlayerBtn" ng-hide="hideAddPlayerBtn"> Add Player to Fantasy Team</md-button>
+
 </div>

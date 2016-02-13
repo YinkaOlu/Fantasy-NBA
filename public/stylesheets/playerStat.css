@@ -1,60 +1,105 @@
 /*-----------Select Team Section--------------*/
 /*Holds All team logos*/
 #teamLogos{
-    height: 60%;
-    padding: 1%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: center;
+    /*height: 60%;*/
+    /*padding: 1%;*/
 }
 
 /*Holds individual images*/
+.teamCard{
+    padding: 8%;
+    border-radius: 20%;
+    height: auto;
+}
 .teamLogoHolder{
-    -webkit-box-shadow: 6px 1.5px 12px 0px rgba(209,207,209,1);
+    /*
+        -webkit-box-shadow: 6px 1.5px 12px 0px rgba(209,207,209,1);
     -moz-box-shadow: 6px 1.5px 12px 0px rgba(209,207,209,1);
     box-shadow: 6px 1.5px 12px 0px rgba(209,207,209,1);
     height: 40%;
-    padding: 3%;
-    margin: 1%;
-    background-color: white;
+
+
     border-radius: 50%;
+    */
+
+    padding: 0%;
+    margin: 0.2%;
+    flex-grow: 1;
 
 }
 .teamLogoHolder:hover{
-    padding: 2.5%;
+    padding: 1%;
 
 }
 
-.teamLogoHolder:active{
-    background-color: #17B287;
-}
 /* individual img tag*/
 .logoImg {
-    max-height: 100%;
-    max-width: 100%;
+    width: 100%;
 
 
     /*Center Image*/
     display: block;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 0;
+    margin-right: 0;
 }
 .logoImg:hover{
-    border-radius: 50%;
+    /*border-radius: 80%;*/
     opacity: 0.7;
 }
 
+#teamRoster{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+#playerContainer{
 
+}
+.playerCard{
+    border-radius: 2%;
+}
+.playerInfoContainer{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: center;
 
+}
+
+.playerResultRow{
+    display: flex;
+}
+
+#playerResultTable{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+}
+.resultsCard{
+flex-grow: 1;
+    display: flex;
+}
+.chartDIV{
+    flex-grow: 1;
+}
 
 
 /*--------- Select Player Section-------------------*/
 /*Holds All selected Team roster*/
+
+
+
+/*Holds individual images*/
+/*.teamRosterHolder{
 #teamRoster{
     height: 150%;
     width: 100%;
 
 }
-
-/*Holds individual images*/
-.teamRosterHolder{
     float: left;
     height: 25%;
     width: 18%;
@@ -65,7 +110,8 @@
 
 }
 
-/* individual img tag*/
+
+
 .playerImg {
     max-height: 100%;
     max-width: 100%;
@@ -77,9 +123,8 @@
     position: relative;
     top: 50%;
     transform: translateY(-50%);
-
-
 }
+
 .basicInfo {
     max-height: 100%;
     max-width: 100%;
@@ -125,3 +170,4 @@
 {
     background-color: white;
 }
+*/

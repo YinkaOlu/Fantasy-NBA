@@ -3,7 +3,7 @@
  */
 
 
-var app = angular.module('createTeamEngine', []);
+var app = angular.module('createTeamEngine', ['ngMaterial']);
 
 app.controller('createTeamController', ['$scope', '$http',
     function($scope, $http) {

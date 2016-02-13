@@ -9,3 +9,32 @@
 .imgHolder{
     width: 15%;
 }
+
+#profilePage{
+    height: 100%;
+}
+
+#savedTeam{
+    height: 100%;
+}
+#rosterPics{
+    display: flex;
+}
+.playerCard{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+#savedTeam{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: row;
+}
+
+#dateSelector{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: row;
+}
