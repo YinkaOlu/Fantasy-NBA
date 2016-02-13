@@ -60,6 +60,22 @@
 
 }
 
+#userProfile{
+    background-color: #002D62;
+    background-image: url("../images/backgroundImages/userprofile.png");
+    background-size: auto 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    font-family: 'Montserrat', sans-serif;
+    text-align: left;
+    padding: 5%;
+
+}
+
 #choicePageContainer{
     height: 91%;
     width: 100%;
