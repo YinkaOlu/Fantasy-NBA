@@ -11,6 +11,7 @@ var playerStat = require('./routes/playerStatServer');
 var fantasyTeamRoute = require('./routes/fantasyTeamServer');
 var choicePageRoute = require('./routes/choicePageServer');
 var userProfile = require('./routes/userServer');
+var calculateRoute = require('./routes/calculateRoute');
 
 var passport = require('passport');
 
@@ -78,6 +79,9 @@ app.use('/api', api);
 //----------------------------------------------------------
 
 app.use('/userProfile', userProfile);
+
+//*---------------------------------
+app.use('/calculate', calculateRoute);
 
 
 
