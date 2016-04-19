@@ -133,6 +133,8 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
         };
 
         $scope.displayResults = function(){
+            //Display Results
+            $scope.hideResults = false;
             //Get Player Stats
             var statsURL = '/calculate/findGames/' + $scope.playerID;
             $http.get(statsURL).success(function(response) {
@@ -158,9 +160,8 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
                 $scope.gamesPlayed = response;
                 console.log('Another One:');
                 console.log(response);
+
                 $scope.buildAllGraphs();
-                //Display Results
-                $scope.hideResults = false;
             });
 
         };
