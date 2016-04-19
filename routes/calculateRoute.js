@@ -37,8 +37,8 @@ var userModel = require('../models/user');
 
 var favPlayerModel = require('../models/favPlayer');
 
-//----------------------------------Query to find Games by Player ID ------------------------------------
-//----------------------------------------------------------------------------------------------------
+//-----Calculate Season Stats for Individual Player (Player Stat Page -----------
+//--------------------------------------------------------------------------------
 router.route('/findGames/:player_id').get(function(req, res) {
     console.log('Finding played games');
     console.log(req.params.player_id);
@@ -117,6 +117,35 @@ router.route('/findGames/:player_id').get(function(req, res) {
         // Send Stats in JSON Format
         res.json(statResults);
     });
+});
+
+router.route('/getFantasyStats/:startDate/:endDate/:pointGuardID').get(function(req, res) {
+    console.log('Got Build Fantasy Team Request');
+    console.log(req.params.startDate);
+    console.log(req.params.endDate);
+    console.log(req.params.pointGuardID);
+
+    var startDate = new Date(req.params.startDate);
+    var endDate = new Date(req.params.startDate);
+    console.log(endDate);
+    console.log(startDate);
+
+    var PGQueryResults = [];
+    var pointGuardID = req.params.pointGuardID;
+
+    var PGGameQuery = gameModel.find({});
+
+    PGGameQuery.where('game_Date').gte(startDate);
+    PGGameQuery.where('game_Date').lte(endDate);
+    PGGameQuery.where('associated_player', pointGuardID);
+
+    PGGameQuery.exec(function (err, docs){
+        console.log(docs);
+        PGQueryResults = docs;
+        console.log("*****");
+        console.log(PGQueryResults);
+    });
+
 });
 
 module.exports = router;
