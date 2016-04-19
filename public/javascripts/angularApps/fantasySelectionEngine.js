@@ -473,16 +473,20 @@ app.controller('fantasySelectionEngine', ['$scope', '$http', '$interval',
             }
 
             //----------- Start of Stat Building
+
             else {
+                alert($scope.fantasyRoster[0]._id);
+                var fantasyURL = '/calculate/getFantasyStats/'+$scope.startDate+'/'+$scope.endDate+'/'+$scope.fantasyRoster[0]._id;
+                $http.get(fantasyURL);
+            }
+        }
+                /*
                 $scope.disableStatsBtn = false;
                 $scope.hideWarning = true;
                 $scope.hideBuildBtn = true;
                 $scope.hideStatsBtn = false;
                 $scope.hideSaveBtn = false;
-
-                console.log('Start Date: ' + $scope.startDate + '\nEnd Date: ' + $scope.endDate);
-                console.log('Building Fantasy Team......');
-
+                // ^^^^^^IGNORE FOR NOW^^^^^^^^^^^
                 $scope.playerQueryGames = [];
 
                 $scope.reqGamesQuery = {};
@@ -652,7 +656,7 @@ app.controller('fantasySelectionEngine', ['$scope', '$http', '$interval',
             $scope.hideStatsBtn = true;
 
         };
-
+*/
         //-----------------------------------------------------------------------------------
         //--------------- View Calculator Functions----------------------------------------
         //Return Total PTS of entire Team in Date Range
