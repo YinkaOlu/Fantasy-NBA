@@ -18,14 +18,12 @@
         <br>
         <br>
         <md-input-container>
-            <md-select ng-model="selectedTeam" placeholder="Select a team">
-                <md-option ng-repeat="team in currentTeams | orderBy: 'team_name'" ng-click="selectTeamFunction(currentTeams.indexOf(team))">{{team.team_name}}</md-option>
-            </md-select>
+            <input type="text" ng-model="selectedTeam" placeholder="Select a team" id="teamInput">
+            </input>
+            <md-button ng-click="selectTeamFunction()" id="teamSelect">Select Team</md-button>
         </md-input-container>
         <md-input-container >
-            <md-select ng-model="selectedPlayer" placeholder="Select a player" id="selectPlayer">
-                <md-option ng-repeat="player in roster | orderBy: 'player_last_name'" ng-click="selectPlayerFunction(roster.indexOf(player))">{{player.player_first_name}} {{player.player_last_name}}</md-option>
-            </md-select>
+            <md-input type ='text' ng-model="selectedPlayer" placeholder="Select a player" id="selectPlayer"></md-input>
         </md-input-container>
         <!---->
 
@@ -33,7 +31,7 @@
             <textarea id="CSVArea" ng-model="inputCSV" ng-change='CSVChop()'></textarea>
             <br>
             <br>
-            <md-button ng-click="multipleCSV()">MultiCSV</md-button>
+            <md-button ng-click="multipleCSV()" id="csvButton">MultiCSV</md-button>
         </md-input-container>
 
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id='formContainer' ng-hide='!matchValue'>

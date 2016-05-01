@@ -15,16 +15,21 @@ app.controller('createGameController', ['$scope', '$http',
             $scope.currentTeams = response;
         });
 
-        $scope.selectTeamFunction = function(teamPos) {
-            $scope.selectedTeam = $scope.currentTeams[teamPos];
-            $scope.teamID = $scope.currentTeams[teamPos]._id;
+        $scope.selectTeamFunction = function() {
+            for(var i = 0; i <$scope.currentTeams.length; i++){
+                if($scope.selectedTeam == $scope.currentTeams[i].team_name){
+                    $scope.selectedTeam = $scope.currentTeams[i]
+                }
+            }
+
+            $scope.teamID = $scope.selectedTeam._id;
             console.log($scope.teamID);
             console.log($scope.selectedTeam.team_name);
             var teamURL = '/api/findRoster/' + $scope.teamID;
             $http.get(teamURL).success(function(response) {
                 $scope.roster = response;
+                $scope.player = $scope.roster[0];
             });
-
         };
 
         $scope.selectPlayerFunction = function(playerPos) {
