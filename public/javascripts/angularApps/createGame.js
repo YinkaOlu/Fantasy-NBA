@@ -24,6 +24,7 @@ app.controller('createGameController', ['$scope', '$http',
             $http.get(teamURL).success(function(response) {
                 $scope.roster = response;
             });
+            $scope.showPlayers = true;
 
         };
 
