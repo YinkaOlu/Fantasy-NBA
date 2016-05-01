@@ -18,14 +18,14 @@
         <br>
         <br>
         <md-input-container>
-            <select ng-model="selectedTeam" placeholder="Select a team" ng-click="selectTeamFunction(currentTeams.indexOf(team))">
-                <option ng-repeat="team in currentTeams | orderBy: 'team_name'" ng-click="selectTeamFunction(currentTeams.indexOf(team))">{{team.team_name}}</option>
-            </select>
+            <md-select ng-model="selectedTeam" placeholder="Select a team">
+                <md-option ng-repeat="team in currentTeams | orderBy: 'team_name'" ng-click="selectTeamFunction(currentTeams.indexOf(team))">{{team.team_name}}</md-option>
+            </md-select>
         </md-input-container>
-        <md-input-container ng-show='showPlayers'>
-            <select ng-model="selectedPlayer" placeholder="Select a player">
-                <option ng-repeat="player in roster | orderBy: 'player_last_name'" ng-click="selectPlayerFunction(roster.indexOf(player))">{{player.player_first_name}} {{player.player_last_name}}</option>
-            </select>
+        <md-input-container ng-show='roster'>
+            <md-select ng-model="selectedPlayer" placeholder="Select a player">
+                <md-option ng-repeat="player in roster | orderBy: 'player_last_name'" ng-click="selectPlayerFunction(roster.indexOf(player))">{{player.player_first_name}} {{player.player_last_name}}</md-option>
+            </md-select>
         </md-input-container>
         <!---->
 
