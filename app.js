@@ -80,8 +80,13 @@ app.use('/api', api);
 
 app.use('/userProfile', userProfile);
 
+<<<<<<< HEAD
 //-----------------------------
 app.user('/calculate', calculateRoute);
+=======
+//*---------------------------------
+app.use('/calculate', calculateRoute);
+>>>>>>> Calculate-RESTFULApi
 
 
 

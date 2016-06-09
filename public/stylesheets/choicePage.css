@@ -29,8 +29,9 @@
 
 
 #fantasyTeamImg{
-    background-color: #830037;
-    background-image: url("../images/backgroundImages/rightBackground.png");
+    /*background-color: #830037;*/
+    background-color: #34495e;
+    background-image: url("../images/backgroundImages/leftBackground.png");
     background-size: auto 100%;
     background-repeat: no-repeat;
     background-position: center;
@@ -45,8 +46,9 @@
 }
 
 #statCheck{
-    background-color: #34495e;
-    background-image: url("../images/backgroundImages/leftBackground.png");
+    /*background-color: #34495e;*/
+    background-color: #830037;
+    background-image: url("../images/backgroundImages/rightBackground.png");
     background-size: auto 100%;
     background-position: center;
     background-repeat: no-repeat;

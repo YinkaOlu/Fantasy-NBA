@@ -124,7 +124,6 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
             $scope.player = $scope.roster[playerPos];
             $scope.playerID = $scope.player._id;
             $scope.displayResults();
-            $scope.displayResults();
             $scope.hideRoster = true;
         };
 
@@ -134,119 +133,71 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
         };
 
         $scope.displayResults = function(){
+            //Display Results
+            $scope.hideResults = false;
+            //Get Player Stats
+            var statsURL = '/calculate/findGames/' + $scope.playerID;
+            $http.get(statsURL).success(function(response) {
+                console.log(response);
+                $scope.PPG = response.PPG;
+                $scope.APG = response.APG;
+                $scope.RPG = response.RPG;
+                $scope.TOV = response.TOV;
+                $scope.Fouls = response.Fouls;
+                $scope.BPG = response.BPG;
+                $scope.plusMinus = response.plusMinus;
+                $scope.MPG = response.MPG;
+                $scope.Steals = response.Steals;
+
+                $scope.FGPer = response.FGPer;
+                $scope.threePPer = response.threePPer;
+                $scope.FTPer = response.FTPer;
+            })
 
             //Get All Games played by player
-            var playerURL = '/api/findGames/' + $scope.playerID;
-            $http.get(playerURL).success(function(response) {
+            var gamesURL = '/api/findGames/' + $scope.playerID;
+            $http.get(gamesURL).success(function(response) {
                 $scope.gamesPlayed = response;
+                console.log('Another One:');
+                console.log(response);
 
-                //Calculate Season Stats
-                $scope.seasonStats();
-
-                // Build Points Charts
-                $scope.pointsGraph();
-
-                // Build FG Chart
-                $scope.FGGraph();
-
-                // Three Point Chart
-                $scope.ThreePGraph();
-
-                // Free Throw Chart
-                $scope.FTGraph();
-
-                // Assistd Chart
-                $scope.AssistGraph();
-
-                // Rebounds Chart
-                $scope.ReboundsGraph();
-
-                // Blocks Chart
-                $scope.BlockGraph();
-
-                // Steals Chart
-                $scope.StealGraph();
-
-                // TOV Chart
-                $scope.TOVGraph();
-
-                //Fouls Chart
-                $scope.FoulGraph();
-
-                //Display Results
-                $scope.hideResults = false;
+                $scope.buildAllGraphs();
             });
 
         };
 
-        $scope.seasonStats = function(){
-            $scope.PPG = 0;
-            $scope.APG = 0;
-            $scope.FGPer = 0;
-            $scope.BPG = 0;
-            $scope.threePPer = 0;
-            $scope.FTPer = 0;
-            $scope.RPG = 0;
-            $scope.TOV = 0;
-            $scope.Fouls = 0;
-            $scope.plusMinus = 0;
-            $scope.MPG = 0;
-            $scope.Steals = 0;
+        $scope.buildAllGraphs = function(){
+            // Build Points Charts
+            $scope.pointsGraph();
 
-            $scope.FGM = 0;
-            $scope.FGA = 0;
+            // Build FG Chart
+            $scope.FGGraph();
 
-            $scope.TPA = 0;
-            $scope.TPM = 0;
+            // Three Point Chart
+            $scope.ThreePGraph();
 
-            $scope.FTA = 0;
-            $scope.FTM = 0;
+            // Free Throw Chart
+            $scope.FTGraph();
 
+            // Assistd Chart
+            $scope.AssistGraph();
 
-            var gamesPlayed = $scope.gamesPlayed.length;
+            // Rebounds Chart
+            $scope.ReboundsGraph();
 
-            console.log(gamesPlayed);
+            // Blocks Chart
+            $scope.BlockGraph();
 
-            for (var i = 0; i < gamesPlayed; i++){
-                $scope.PPG += $scope.gamesPlayed[i].PTS;
-                $scope.APG += $scope.gamesPlayed[i].AST;
-                $scope.RPG += ($scope.gamesPlayed[i].ORB + $scope.gamesPlayed[i].DRB);
-                $scope.TOV += ($scope.gamesPlayed[i].TOV);
-                $scope.Fouls += $scope.gamesPlayed[i].Fouls;
-                $scope.BPG += $scope.gamesPlayed[i].BLK;
-                $scope.plusMinus += $scope.gamesPlayed[i].plusMinus;
-                $scope.MPG += $scope.gamesPlayed[i].minutes_played;
-                $scope.Steals += $scope.gamesPlayed[i].STL;
+            // Steals Chart
+            $scope.StealGraph();
 
+            // TOV Chart
+            $scope.TOVGraph();
 
-                    $scope.FGM += ($scope.gamesPlayed[i].FGM);
-                    $scope.FGA += ($scope.gamesPlayed[i].FGA);
+            //Fouls Chart
+            $scope.FoulGraph();
+        }
 
-                    $scope.TPA += ($scope.gamesPlayed[i].threes_attempted);
-                    $scope.TPM += ($scope.gamesPlayed[i].threes_made);
-
-
-                    $scope.FTA += ($scope.gamesPlayed[i].FTA);
-                    $scope.FTM += ($scope.gamesPlayed[i].FTM);
-
-
-            }
-
-            $scope.PPG = ($scope.PPG / gamesPlayed);
-            $scope.APG = ($scope.APG / gamesPlayed);
-            $scope.RPG = ($scope.RPG / gamesPlayed);
-            $scope.TOV = ($scope.TOV / gamesPlayed);
-            $scope.Fouls = ($scope.Fouls / gamesPlayed);
-            $scope.BPG = ($scope.BPG / gamesPlayed);
-            $scope.plusMinus = ($scope.plusMinus / gamesPlayed);
-            $scope.MPG = ($scope.MPG / gamesPlayed);
-            $scope.Steals = ($scope.Steals / gamesPlayed);
-
-            $scope.FGPer = ($scope.FGM / $scope.FGA);
-            $scope.threePPer = ($scope.TPM / $scope.TPA);
-            $scope.FTPer = ($scope.FTM / $scope.FTA);
-
-        };
 
         $scope.pointsGraph = function(){
             var amountOfGames = $scope.gamesPlayed.length;
