@@ -5,58 +5,59 @@ var app = angular.module('playerStatApp',['ngMaterial']);
 
 app.controller('playerStatCtrl', ['$scope', '$http','$interval',
     function($scope, $http, $interval){
-
-        $scope.hideResultsLoading = true;
-        //----------------------------------------------
-        //---------------------------------------------
-        var self = this, j= 0, counter = 0;
-        self.mode = 'query';
-        self.activated = true;
-        self.determinateValue = 30;
-        self.determinateValue2 = 30;
-        self.modes = [ ];
-        /**
-         * Turn off or on the 5 themed loaders
+        /*=====================================================
+                    UI Controller Scope Variables
+         =====================================================
          */
-        self.toggleActivation = function() {
-            if ( !self.activated ) self.modes = [ ];
-            if (  self.activated ) {
-                j = counter = 0;
-                self.determinateValue = 30;
-                self.determinateValue2 = 30;
-            }
-        };
-        $interval(function() {
-            self.determinateValue += 1;
-            self.determinateValue2 += 1.5;
-            if (self.determinateValue > 100) self.determinateValue = 30;
-            if (self.determinateValue2 > 100) self.determinateValue2 = 30;
-            // Incrementally start animation the five (5) Indeterminate,
-            // themed progress circular bars
-            if ( (j < 2) && !self.modes[j] && self.activated ) {
-                self.modes[j] = (j==0) ? 'buffer' : 'query';
-            }
-            if ( counter++ % 4 == 0 ) j++;
-            // Show the indicator in the "Used within Containers" after 200ms delay
-            if ( j == 2 ) self.contained = "indeterminate";
-        }, 100, 0, true);
-        $interval(function() {
-            self.mode = (self.mode == 'query' ? 'determinate' : 'query');
-        }, 7200, 0, true);
-        //----------------------------------------------
-        //----------------------------------------------
 
+        /**
+         * @description Variable that will determine if Results will show
+         * @type {boolean}
+         */
+        $scope.hideResultsLoading = true;
+
+        /**
+         * @description Variable that will determine if NBA team list will show
+         * @type {boolean}
+         */
         $scope.hideTeams = false;
+        /**
+         * @description Variable that will determine if Roster of selected team will show
+         * @type {boolean}
+         */
         $scope.hideRoster = true;
 
         $scope.hidePersonalView = true;
+
+        /**
+         * @description HTTP Get request to recieve all NBA Teams, stored in $scope.currentTeams
+         */
+
+        /*=====================================================
+                        List of NBA Teams
+         =====================================================
+         */
+
         $http.get('/api/team').success(function(response){
             //Store DB as variable $scope.currentTeams
             $scope.currentTeams = response;
         });
-
+        /**
+         * @description Variable that will determine if Results of Query will show
+         * @type {boolean}
+         */
         $scope.hideResults = true;
 
+        /**
+         * @description Assigns a Selected team to $scope.selectedTeam
+         * Long. teamPos is the position of the team in the NBA list. When function is run, selected team's id will be extracted & an HTTP Get call will be made to retrieve selected team's roster.
+         * @param teamPos
+         */
+
+        /*=====================================================
+                        Select Team from NBA List
+         =====================================================
+         */
         $scope.selectTeamFunction = function(teamPos) {
             $scope.selectedTeam = $scope.currentTeams[teamPos];
             $scope.teamID = $scope.currentTeams[teamPos]._id;
@@ -74,6 +75,15 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
 
         };
 
+        /**
+         * @description Extracted a selected player from selected team view players position in team roster array.
+         * @param playerPos
+         */
+
+        /*=====================================================
+                    Select Player from Team Roster
+         =====================================================
+         */
         $scope.selectPlayerFunction = function(playerPos){
             $scope.player = $scope.roster[playerPos];
             $scope.playerID = $scope.player._id;
@@ -85,12 +95,28 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
             $scope.hideRoster = true;
         };
 
+        /*=====================================================
+                Scope Functions for specific stat display
+         =====================================================
+         */
+
+        /**
+         * @description Converts player height in inches to feet & inches, and return values
+         * @param playerPos
+         * @returns {string}
+         */
         $scope.getHeight = function(playerPos){
             var player = $scope.roster[playerPos];
             var height = ''+Math.floor(player.player_height/12)+' ft '+(player.player_height%12)+' inches';
             return height;
         };
 
+        /**
+         * @description Returns value of player draft year.
+         * Long. If draft year is null or empty will return 'Undrafted'
+         * @param playerPos
+         * @returns {*}
+         */
         $scope.getDraftYear = function(playerPos){
             var player = $scope.roster[playerPos];
             var draftYear;
@@ -102,23 +128,47 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
             return draftYear;
         };
 
+        /**
+         * @description Return players health status
+         * @param playerPos
+         * @returns {*}
+         */
         $scope.getPlayerStatus = function(playerPos){
             var player = $scope.roster[playerPos];
             var status = player.player_status;
             return status;
         };
 
+        /*=====================================================
+                Button Functions to Manage what Displays
+         =====================================================
+         */
+        /**
+         * @description Hides Roster, Shows NBA team list
+         */
         $scope.backToTeams = function(){
             $scope.hideTeams = false;
             $scope.hideRoster = true;
         };
 
+        /**
+         * @description Hides Loading Animation, Results but shows Roster. NBA team list still hidden
+         */
         $scope.backToRoster = function(){
             $scope.hideResultsLoading = true;
             $scope.hideResults = true;
             $scope.hideRoster = false;
         };
 
+        /*=====================================================
+                        Display Results Functions
+         =====================================================
+         */
+
+        /**
+         * @description Triggered when users clicks on 'Get Season Stats' button. Gets player id, and triggers function displayResults()
+         * @param {number} playerPos The players position in the team roster array
+         */
         $scope.directResults = function(playerPos){
             $scope.hideResultsLoading = false;
             $scope.player = $scope.roster[playerPos];
@@ -127,15 +177,10 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
             $scope.hideRoster = true;
         };
 
-        $scope.dblDisplay = function(){
-            $scope.displayResults();
-            $scope.displayResults();
-        };
-
-        $scope.displayResults = function(){
-            //Display Results
-            $scope.hideResults = false;
-            //Get Player Stats
+        /**
+         * @description HTTP Get request to retrieves season stats of selected player. Assigns stats to scope variables
+         */
+        var getSeasonStats = function(){
             var statsURL = '/calculate/findGames/' + $scope.playerID;
             $http.get(statsURL).success(function(response) {
                 console.log(response);
@@ -153,53 +198,80 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
                 $scope.threePPer = response.threePPer;
                 $scope.FTPer = response.FTPer;
             })
+        };
 
-            //Get All Games played by player
+        /**
+         * @summary Makes HTTP Call to get all season games. Calls buildAllGraphs() to create Charts from season games
+         */
+        var getSeasonGames = function () {
             var gamesURL = '/api/findGames/' + $scope.playerID;
             $http.get(gamesURL).success(function(response) {
                 $scope.gamesPlayed = response;
                 console.log('Another One:');
                 console.log(response);
 
-                $scope.buildAllGraphs();
+                buildAllGraphs();
             });
+        };
+
+        /**
+         * @description Scope Function, triggered when user clicks 'Get Season Stats'. Calls function getSeasonStats() and getSeasonGames(). hideResults variable changed to false
+         */
+        $scope.displayResults = function(){
+            //Display Results
+            $scope.hideResults = false;
+            //Get Player Stats
+            getSeasonStats();
+
+            //Get All Games played by player
+            getSeasonGames();
 
         };
 
-        $scope.buildAllGraphs = function(){
+        /**
+         * @description Builds all Stat Charts by callinng functions that control each stat chart. IE. pointsGraph() or reboundsGraph()
+         */
+        var buildAllGraphs = function(){
             // Build Points Charts
-            $scope.pointsGraph();
+            pointsGraph();
 
             // Build FG Chart
-            $scope.FGGraph();
+            FGGraph();
 
             // Three Point Chart
-            $scope.ThreePGraph();
+            ThreePGraph();
 
             // Free Throw Chart
-            $scope.FTGraph();
+            FTGraph();
 
             // Assistd Chart
-            $scope.AssistGraph();
+            AssistGraph();
 
             // Rebounds Chart
-            $scope.ReboundsGraph();
+            ReboundsGraph();
 
             // Blocks Chart
-            $scope.BlockGraph();
+            BlockGraph();
 
             // Steals Chart
-            $scope.StealGraph();
+            StealGraph();
 
             // TOV Chart
-            $scope.TOVGraph();
+            TOVGraph();
 
             //Fouls Chart
-            $scope.FoulGraph();
-        }
+            FoulGraph();
+        };
 
 
-        $scope.pointsGraph = function(){
+        /*=====================================================
+                        Chart Building Functions
+          =====================================================
+        */
+        /**
+         * @description Builds Points Graph. Assigns Graph to HTML div with ID PointsChart
+         */
+        var pointsGraph = function(){
             var amountOfGames = $scope.gamesPlayed.length;
         //Points Chart
                     var data = new google.visualization.DataTable();
@@ -225,7 +297,10 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
                     chart.draw(data, options);
         };
 
-        $scope.FGGraph = function(){
+        /**
+         * @description Builds Field Goal Graph. Assigns Graph to HTML div with ID FGChart
+         */
+        var FGGraph = function(){
             var amountOfGames = $scope.gamesPlayed.length;
             //Points Chart
             var data = new google.visualization.DataTable();
@@ -257,7 +332,10 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
             chart.draw(data, options);
         };
 
-        $scope.ThreePGraph = function(){
+        /**
+         * @description Builds Three Point Graph. Assigns Graph to HTML div with ID threePChart
+         */
+        var ThreePGraph = function(){
             var amountOfGames = $scope.gamesPlayed.length;
             //Points Chart
             var data = new google.visualization.DataTable();
@@ -289,7 +367,10 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
             chart.draw(data, options);
         };
 
-        $scope.FTGraph = function(){
+        /**
+         * @description Builds Free Throw Graph. Assigns Graph to HTML div with ID FTChart
+         */
+        var FTGraph = function(){
             var amountOfGames = $scope.gamesPlayed.length;
             //Points Chart
             var data = new google.visualization.DataTable();
@@ -321,7 +402,10 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
             chart.draw(data, options);
         };
 
-        $scope.AssistGraph = function(){
+        /**
+         * @description Builds Assist Graph. Assigns Graph to HTML div with ID AssistChart
+         */
+        var AssistGraph = function(){
             var amountOfGames = $scope.gamesPlayed.length;
             //Points Chart
             var data = new google.visualization.DataTable();
@@ -347,7 +431,10 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
             chart.draw(data, options);
         };
 
-        $scope.StealGraph = function(){
+        /**
+         * @description Builds Steal Graph. Assigns Graph to HTML div with ID StealChart
+         */
+        var StealGraph = function(){
             var amountOfGames = $scope.gamesPlayed.length;
             //Points Chart
             var data = new google.visualization.DataTable();
@@ -373,7 +460,10 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
             chart.draw(data, options);
         };
 
-        $scope.BlockGraph = function(){
+        /**
+         * @description Builds Block Graph. Assigns Graph to HTML div with ID BlockChart
+         */
+        var BlockGraph = function(){
             var amountOfGames = $scope.gamesPlayed.length;
             //Points Chart
             var data = new google.visualization.DataTable();
@@ -399,7 +489,10 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
             chart.draw(data, options);
         };
 
-        $scope.ReboundsGraph = function(){
+        /**
+         * @description Builds Rebound Graph. Assigns Graph to HTML div with ID TRBChart
+         */
+        var ReboundsGraph = function(){
             var amountOfGames = $scope.gamesPlayed.length;
             //Points Chart
             var data = new google.visualization.DataTable();
@@ -426,7 +519,10 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
             chart.draw(data, options);
         };
 
-        $scope.TOVGraph = function(){
+        /**
+         * @description Builds Turnover Graph. Assigns Graph to HTML div with ID TOVChart
+         */
+        var TOVGraph = function(){
             var amountOfGames = $scope.gamesPlayed.length;
             //Points Chart
             var data = new google.visualization.DataTable();
@@ -452,7 +548,10 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
             chart.draw(data, options);
         };
 
-        $scope.FoulGraph = function(){
+        /**
+         * @description Builds Foul Graph. Assigns Graph to HTML div with ID FoulChart
+         */
+        var FoulGraph = function(){
             var amountOfGames = $scope.gamesPlayed.length;
             //Points Chart
             var data = new google.visualization.DataTable();
@@ -478,24 +577,5 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
             chart.draw(data, options);
             $scope.hideResultsLoading = true;
         };
-
-        $scope.savePlayer = function(player){
-            var playerID = player._id;
-            //HTTP Call to server, Retrieve User Info
-            $http.get('/fantasyTeam/userID').success(function(response){
-                //Store DB as variable $scope.currentTeams
-                $scope.currentUser = response;
-
-                var playerToSave = {};
-                playerToSave.userID = $scope.currentUser;
-                playerToSave.playerID = playerID;
-                $http.post('/api/saveFavPlayer', playerToSave);
-            });
-
-        };
-
-
-
-
 
     }]);
