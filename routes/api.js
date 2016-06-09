@@ -1,11 +1,25 @@
+/*
+================================
+Import Express Router
+===============================
+ */
 var express = require('express');
 var router = express.Router();
 
 
-var MongoClient = require('mongodb').MongoClient;
-
+//var MongoClient = require('mongodb').MongoClient;
+/*
+ ================================
+ Import Mongoose Module
+ ===============================
+ */
 var mongoose = require('mongoose');
 
+/*
+ ================================
+ Import All Mongoose Models
+ ===============================
+ */
 //create advancedSeason model from advancedSeason Schema
 var AdvancedSeasonModel = require('../models/advancedSeason');
 
@@ -36,10 +50,11 @@ var favPlayerModel = require('../models/favPlayer');
 
 
 
+//Test Connection to Router
 router.use(function(req, res, next) {
     // do logging
     console.log('Something is happening.');
-    next(); // make sure we go to the next routes and don't stop here
+    next();
 });
 
 //----------------------------------Query to find Players on Team ------------------------------------

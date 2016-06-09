@@ -1,20 +1,31 @@
 /**
  * Created by yinka_000 on 2015-12-07.
+ * Controls The Create Game Page and functions
  */
 var app = angular.module('createGameEngine', ['ngMaterial']);
 
 app.controller('createGameController', ['$scope', '$http',
     function($scope, $http) {
 
+        /**
+         * @description Empty Object that will eventually hold the created game
+         * @typeOf {Game Object}
+         */
         $scope.game = {};
-        $scope.tempDate = Date.now();
-        $scope.tempDate = new Date($scope.tempDate);
+        var tempDate = Date.now();
+        $scope.tempDate = new Date(tempDate);
 
+        /**
+         * @description Makes HTTP Call to retrieve all NBA Teams. Store List in $scope.currentTeams
+         */
         $http.get('/api/team').success(function(response) {
             //Store DB as variable $scope.currentTeams
             $scope.currentTeams = response;
         });
 
+        /**
+         * @description Makes HTTP Call to retrieve Team roster of team selected by user
+         */
         $scope.selectTeamFunction = function() {
             for(var i = 0; i <$scope.currentTeams.length; i++){
                 if($scope.selectedTeam == $scope.currentTeams[i].team_name){
@@ -32,12 +43,16 @@ app.controller('createGameController', ['$scope', '$http',
             });
         };
 
+        /**
+         * @description Stores selected player and calls checkMatch() for further verification
+         * @param playerPos
+         */
         $scope.selectPlayerFunction = function(playerPos) {
             $scope.player = $scope.roster[playerPos];
             $scope.game.associated_player = $scope.player._id;
             console.log('Selected Player: ' + $scope.player.player_first_name + ' ' + $scope.player.player_last_name);
             //Check if CSV matches Player
-            $scope.checkMatch();
+            checkMatch();
         };
 
         //------------------------------------------------------------
@@ -45,8 +60,10 @@ app.controller('createGameController', ['$scope', '$http',
         //---------------CSV Manipulation-----------------------------
         //-------------------------------------------------------------
 
-        //Check Match Function
-        $scope.checkMatch = function() {
+        /**
+         * @description Verifies that user selected player matches the player from CSV game input
+         */
+        var checkMatch = function() {
             $scope.matchValue = false;
             console.log('[checkMatch Function]Game Player: ' + $scope.game.player_Name);
             console.log('[checkMatch Function]Selected Player: ' + $scope.player.player_first_name + ' ' + $scope.player.player_last_name);
@@ -57,10 +74,19 @@ app.controller('createGameController', ['$scope', '$http',
                 $scope.matchValue = false;
 
             console.log("[checkMatch Function]Match Status: " + $scope.matchValue);
-        }
+        };
 
+        /**
+         * @description Will hold the input CSV
+         * @type {string}
+         */
         $scope.inputCSV = '';
-        $scope.CSVChop = function() {
+
+
+        /**
+         * @description Split CSV by (,) into Array. Each element in array is an stat for particular player. Store Split CSV into choppedCSV
+         */
+        var CSVChop = function() {
             console.log("[CSVChop Function]This is the CSV you entered:\n" + $scope.inputCSV);
             var choppedCSV = $scope.inputCSV;
             choppedCSV = choppedCSV.split(',');
@@ -68,22 +94,23 @@ app.controller('createGameController', ['$scope', '$http',
             console.log('[CSVChop Function]CSV Entered for: ' + choppedCSV[0]);
             //Assign Values to Game Object using CSVFunction
             if (choppedCSV[0] != 'Reserves') {
-                $scope.CSVFunction(choppedCSV);
+                CSVFunction(choppedCSV);
                 //Check if CSV matches Player
-                $scope.checkMatch();
+                checkMatch();
                 console.log('[CSVChop Function]Player from Game: ' + $scope.game.player_Name);
             } else {
                 console.log('*/*/*/ Ran into a Reserve Heading');
             }
-
-
-
-
         };
 
 
         //CSV Function to grab data from text
-        $scope.CSVFunction = function(dividedCSV) {
+        /**
+         *
+         * @param dividedCSV Array Containing row of input CSV
+         * @description Takes a row from the CSV and store each element as attribute
+         */
+        var CSVFunction = function(dividedCSV) {
             var splitCSV = dividedCSV;
             $scope.game.player_Name = splitCSV[0];
             $scope.game.minutes_played = splitCSV[1];
@@ -120,7 +147,10 @@ app.controller('createGameController', ['$scope', '$http',
             console.log('[CSVFunction Function]' + $scope.game.player_Name);
         };
 
-        $scope.createGame = function() {
+        /**
+         * @description Makes HTTP Call to create new Game with $scope.game variable
+         */
+        var createGame = function() {
             console.log('****************Exporting Game*************** ');
             console.log('Exporting Game to: ' + $scope.game.associated_player + ' ' + $scope.game.player_Name);
             $http.post('/api/game', $scope.game);
@@ -128,7 +158,10 @@ app.controller('createGameController', ['$scope', '$http',
             $scope.game = {};
         };
 
-        $scope.multipleCSV = function() {
+        /**
+         * @description Used for CSV with more than row. Divides CSV and stores into CSVStorage Array. Each element in array is one row equivalent to stat of one player.
+         */
+        var multipleCSV = function() {
             console.log("[multipleCSV Function] This is the MultiCSV you entered:\n" + $scope.inputCSV);
             var multiCSV = $scope.inputCSV;
             multiCSV = multiCSV.split('\n');
@@ -152,7 +185,7 @@ app.controller('createGameController', ['$scope', '$http',
                 //Store individual CSV into $scope.inputCSV
                 $scope.inputCSV = CSVStorage[j];
                 //Chop the CSV
-                $scope.CSVChop();
+                CSVChop();
 
                 //Check if Player from CSV is in selected Roster
                 for (var m = 0; m < $scope.roster.length; m++) {
@@ -161,14 +194,14 @@ app.controller('createGameController', ['$scope', '$http',
                     console.log('Place in roster: ' + m + '. Player is: ' + $scope.player.player_first_name + ' ' + $scope.player.player_last_name);
                     console.log('Compared with player from CSV: ' + $scope.game.player_Name);
                     //Check if CSV player matches a player in roster
-                    $scope.checkMatch();
+                    checkMatch();
 
                     if ($scope.matchValue) {
                         console.log('******************************* [multipleCSV Function] Added Game to: ' + $scope.game.player_Name);
                         $scope.game.associated_player = $scope.player._id;
                         $scope.game.game_Date = $scope.tempDate;
 
-                        $scope.createGame();
+                        createGame();
                     } else {
                         console.log(' [multipleCSV Function] No game for: ' + $scope.player.player_first_name + ' ' + $scope.player.player_last_name)
                     }

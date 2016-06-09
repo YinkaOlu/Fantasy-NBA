@@ -8,9 +8,7 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var api = require('./routes/api');
 var playerStat = require('./routes/playerStatServer');
-var fantasyTeamRoute = require('./routes/fantasyTeamServer');
 var choicePageRoute = require('./routes/choicePageServer');
-var userProfile = require('./routes/userServer');
 var calculateRoute = require('./routes/calculateRoute');
 
 var passport = require('passport');
@@ -18,9 +16,6 @@ var passport = require('passport');
 var flash    = require('connect-flash');
 var session  = require('express-session');
 
-//We will be creating these two files shortly
-// var config = require('./config.js'), //config file contains all tokens and other private info
-//    funct = require('./functions.js'); //funct file contains our helper functions for our Passport and database work
 
 //Add MongoDB
 var mongo = require('mongodb');
@@ -30,9 +25,6 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://yinkaolu:Olu101!!@ds037395.mongolab.com:37395/nba', function(){
   console.log('connected to database!')
 });
-
-//example of schema import must be after require mongoose
-//var AdvancedSeason = require('./models/AdvancedSeason');
 
 
 var app = express();
@@ -69,20 +61,8 @@ initPassport(passport);
 app.use('/', routes);
 
 app.use('/playerStat', playerStat);
-app.use('/fantasyTeam', fantasyTeamRoute);
 app.use('/choicePage', choicePageRoute);
-
-//---------------------------------------------------------
-
 app.use('/api', api);
-
-//----------------------------------------------------------
-
-app.use('/userProfile', userProfile);
-
-//-----------------------------
-app.use('/calculate', calculateRoute);
-//*---------------------------------
 app.use('/calculate', calculateRoute);
 
 
