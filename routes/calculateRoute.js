@@ -37,7 +37,6 @@ var userModel = require('../models/user');
 
 var favPlayerModel = require('../models/favPlayer');
 
-<<<<<<< HEAD
 //----------------------------------Query to find Games by Player ID ------------------------------------
 //----------------------------------------------------------------------------------------------------
 router.route('/findGames/:player_id').get(function(req, res) {
@@ -50,7 +49,6 @@ router.route('/findGames/:player_id').get(function(req, res) {
 });
 
 module.exports = router;
-=======
 //-----Calculate Season Stats for Individual Player (Player Stat Page -----------
 //--------------------------------------------------------------------------------
 router.route('/findGames/:player_id').get(function(req, res) {
@@ -163,4 +161,3 @@ router.route('/getFantasyStats/:startDate/:endDate/:pointGuardID').get(function(
 });
 
 module.exports = router;
->>>>>>> Calculate-RESTFULApi
