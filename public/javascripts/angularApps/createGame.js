@@ -150,7 +150,7 @@ app.controller('createGameController', ['$scope', '$http',
         /**
          * @description Makes HTTP Call to create new Game with $scope.game variable
          */
-        var createGame = function() {
+        $scope.createGame = function() {
             console.log('****************Exporting Game*************** ');
             console.log('Exporting Game to: ' + $scope.game.associated_player + ' ' + $scope.game.player_Name);
             $http.post('/api/game', $scope.game);
@@ -161,7 +161,7 @@ app.controller('createGameController', ['$scope', '$http',
         /**
          * @description Used for CSV with more than row. Divides CSV and stores into CSVStorage Array. Each element in array is one row equivalent to stat of one player.
          */
-        var multipleCSV = function() {
+        $scope.multipleCSV = function() {
             console.log("[multipleCSV Function] This is the MultiCSV you entered:\n" + $scope.inputCSV);
             var multiCSV = $scope.inputCSV;
             multiCSV = multiCSV.split('\n');
@@ -201,7 +201,7 @@ app.controller('createGameController', ['$scope', '$http',
                         $scope.game.associated_player = $scope.player._id;
                         $scope.game.game_Date = $scope.tempDate;
 
-                        createGame();
+                        $scope.createGame();
                     } else {
                         console.log(' [multipleCSV Function] No game for: ' + $scope.player.player_first_name + ' ' + $scope.player.player_last_name)
                     }
