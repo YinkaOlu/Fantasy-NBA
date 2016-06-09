@@ -1,5 +1,5 @@
 /**
- * @file Angular Javascript file that handles Create Player Interactions.
+ * @file Angular Javascript file that handles Team Deletion
  * @namespace Delete Team Angular App
  * @version 1.0
  */

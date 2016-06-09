@@ -1,5 +1,5 @@
 /**
- * @file Angular Javascript file that handles Create Player Interactions.
+ * @file Angular Javascript file that handles Player Editing/Updates
  * @namespace Update Player Angular App
  * @version 1.0
  */

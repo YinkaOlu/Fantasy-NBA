@@ -1,5 +1,5 @@
 /**
- * @file Angular Javascript file that handles Create Player Interactions.
+ * @file Angular Javascript file that handles Reading Roster
  * @namespace Read Roster(Players) Angular App
  * @version 1.0
  */

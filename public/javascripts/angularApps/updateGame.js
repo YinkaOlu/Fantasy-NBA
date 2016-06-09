@@ -1,5 +1,5 @@
 /**
- * @file Angular Javascript file that handles Game deletion
+ * @file Angular Javascript file that handles Game Editing/Updates
  * @namespace Update Game Angular App
  * @version 1.0
  */

@@ -1,5 +1,7 @@
 /**
- * Created by Yinka on 2015-12-06.
+ * @file Angular Javascript file that handles reading NBA List
+ * @namespace Read Roster(Players) Angular App
+ * @version 1.0
  */
 var app = angular.module('readTeamsEngine', ['ngMaterial']);
 
