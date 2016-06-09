@@ -1,6 +1,7 @@
 /**
- * Created by yinka_000 on 2015-12-07.
- * Controls The Create Game Page and functions
+ * @file Angular Javascript file that handles Create Game Interactions.
+ * @namespace Create Game Angular App
+ * @version 1.0
  */
 var app = angular.module('createGameEngine', ['ngMaterial']);
 
@@ -8,6 +9,7 @@ app.controller('createGameController', ['$scope', '$http',
     function($scope, $http) {
 
         /**
+         * @memberof Create Game Angular App
          * @description Empty Object that will eventually hold the created game
          * @typeOf {Game Object}
          */
@@ -16,6 +18,7 @@ app.controller('createGameController', ['$scope', '$http',
         $scope.tempDate = new Date(tempDate);
 
         /**
+         * @memberof Create Game Angular App
          * @description Makes HTTP Call to retrieve all NBA Teams. Store List in $scope.currentTeams
          */
         $http.get('/api/team').success(function(response) {
@@ -24,6 +27,7 @@ app.controller('createGameController', ['$scope', '$http',
         });
 
         /**
+         * @memberof Create Game Angular App
          * @description Makes HTTP Call to retrieve Team roster of team selected by user
          */
         $scope.selectTeamFunction = function() {
@@ -44,8 +48,9 @@ app.controller('createGameController', ['$scope', '$http',
         };
 
         /**
+         * @memberof Create Game Angular App
          * @description Stores selected player and calls checkMatch() for further verification
-         * @param playerPos
+         * @param playerPos {number} Position of Player in Roster Array
          */
         $scope.selectPlayerFunction = function(playerPos) {
             $scope.player = $scope.roster[playerPos];
@@ -61,6 +66,7 @@ app.controller('createGameController', ['$scope', '$http',
         //-------------------------------------------------------------
 
         /**
+         * @memberof Create Game Angular App
          * @description Verifies that user selected player matches the player from CSV game input
          */
         var checkMatch = function() {
@@ -77,6 +83,7 @@ app.controller('createGameController', ['$scope', '$http',
         };
 
         /**
+         * @memberof Create Game Angular App
          * @description Will hold the input CSV
          * @type {string}
          */
@@ -84,6 +91,7 @@ app.controller('createGameController', ['$scope', '$http',
 
 
         /**
+         * @memberof Create Game Angular App
          * @description Split CSV by (,) into Array. Each element in array is an stat for particular player. Store Split CSV into choppedCSV
          */
         var CSVChop = function() {
@@ -106,8 +114,8 @@ app.controller('createGameController', ['$scope', '$http',
 
         //CSV Function to grab data from text
         /**
-         *
-         * @param dividedCSV Array Containing row of input CSV
+         *@memberof Create Game Angular App
+         * @param {object}dividedCSV Array Containing row of input CSV
          * @description Takes a row from the CSV and store each element as attribute
          */
         var CSVFunction = function(dividedCSV) {
@@ -148,6 +156,7 @@ app.controller('createGameController', ['$scope', '$http',
         };
 
         /**
+         * @memberof Create Game Angular App
          * @description Makes HTTP Call to create new Game with $scope.game variable
          */
         $scope.createGame = function() {
@@ -159,6 +168,7 @@ app.controller('createGameController', ['$scope', '$http',
         };
 
         /**
+         * @memberof Create Game Angular App
          * @description Used for CSV with more than row. Divides CSV and stores into CSVStorage Array. Each element in array is one row equivalent to stat of one player.
          */
         $scope.multipleCSV = function() {

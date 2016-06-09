@@ -1,5 +1,7 @@
 /**
- * Created by yolu on 12/31/2015.
+ * @file Angular Javascript file that handles User interaction with Stat Gathering
+ * @namespace Player Stat Angular App
+ * @version 1.0
  */
 var app = angular.module('playerStatApp',['ngMaterial']);
 
@@ -11,17 +13,20 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
          */
 
         /**
+         * @memberof Player Stat Angular App
          * @description Variable that will determine if Results will show
          * @type {boolean}
          */
         $scope.hideResultsLoading = true;
 
         /**
+         * @memberof Player Stat Angular App
          * @description Variable that will determine if NBA team list will show
          * @type {boolean}
          */
         $scope.hideTeams = false;
         /**
+         * @memberof Player Stat Angular App
          * @description Variable that will determine if Roster of selected team will show
          * @type {boolean}
          */
@@ -30,6 +35,7 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
         $scope.hidePersonalView = true;
 
         /**
+         * @memberof Player Stat Angular App
          * @description HTTP Get request to recieve all NBA Teams, stored in $scope.currentTeams
          */
 
@@ -42,13 +48,13 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
             //Store DB as variable $scope.currentTeams
             $scope.currentTeams = response;
         });
-        /**
+        /**          * @memberof Player Stat Angular App
          * @description Variable that will determine if Results of Query will show
          * @type {boolean}
          */
         $scope.hideResults = true;
 
-        /**
+        /**          * @memberof Player Stat Angular App
          * @description Assigns a Selected team to $scope.selectedTeam
          * Long. teamPos is the position of the team in the NBA list. When function is run, selected team's id will be extracted & an HTTP Get call will be made to retrieve selected team's roster.
          * @param teamPos
@@ -75,7 +81,7 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
 
         };
 
-        /**
+        /**          * @memberof Player Stat Angular App
          * @description Extracted a selected player from selected team view players position in team roster array.
          * @param playerPos
          */
@@ -100,7 +106,7 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
          =====================================================
          */
 
-        /**
+        /**          * @memberof Player Stat Angular App
          * @description Converts player height in inches to feet & inches, and return values
          * @param playerPos
          * @returns {string}
@@ -111,7 +117,7 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
             return height;
         };
 
-        /**
+        /**          * @memberof Player Stat Angular App
          * @description Returns value of player draft year.
          * Long. If draft year is null or empty will return 'Undrafted'
          * @param playerPos
@@ -128,7 +134,7 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
             return draftYear;
         };
 
-        /**
+        /**          * @memberof Player Stat Angular App
          * @description Return players health status
          * @param playerPos
          * @returns {*}
@@ -143,7 +149,7 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
                 Button Functions to Manage what Displays
          =====================================================
          */
-        /**
+        /**          * @memberof Player Stat Angular App
          * @description Hides Roster, Shows NBA team list
          */
         $scope.backToTeams = function(){
@@ -151,7 +157,7 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
             $scope.hideRoster = true;
         };
 
-        /**
+        /**          * @memberof Player Stat Angular App
          * @description Hides Loading Animation, Results but shows Roster. NBA team list still hidden
          */
         $scope.backToRoster = function(){
@@ -165,7 +171,7 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
          =====================================================
          */
 
-        /**
+        /**          * @memberof Player Stat Angular App
          * @description Triggered when users clicks on 'Get Season Stats' button. Gets player id, and triggers function displayResults()
          * @param {number} playerPos The players position in the team roster array
          */
@@ -177,7 +183,7 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
             $scope.hideRoster = true;
         };
 
-        /**
+        /**          * @memberof Player Stat Angular App
          * @description HTTP Get request to retrieves season stats of selected player. Assigns stats to scope variables
          */
         var getSeasonStats = function(){
@@ -200,7 +206,7 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
             })
         };
 
-        /**
+        /**          * @memberof Player Stat Angular App
          * @summary Makes HTTP Call to get all season games. Calls buildAllGraphs() to create Charts from season games
          */
         var getSeasonGames = function () {
@@ -214,7 +220,7 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
             });
         };
 
-        /**
+        /**          * @memberof Player Stat Angular App
          * @description Scope Function, triggered when user clicks 'Get Season Stats'. Calls function getSeasonStats() and getSeasonGames(). hideResults variable changed to false
          */
         $scope.displayResults = function(){
@@ -228,7 +234,7 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
 
         };
 
-        /**
+        /**          * @memberof Player Stat Angular App
          * @description Builds all Stat Charts by callinng functions that control each stat chart. IE. pointsGraph() or reboundsGraph()
          */
         var buildAllGraphs = function(){
@@ -268,7 +274,7 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
                         Chart Building Functions
           =====================================================
         */
-        /**
+        /**          * @memberof Player Stat Angular App
          * @description Builds Points Graph. Assigns Graph to HTML div with ID PointsChart
          */
         var pointsGraph = function(){
@@ -297,7 +303,7 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
                     chart.draw(data, options);
         };
 
-        /**
+        /**          * @memberof Player Stat Angular App
          * @description Builds Field Goal Graph. Assigns Graph to HTML div with ID FGChart
          */
         var FGGraph = function(){
@@ -332,7 +338,7 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
             chart.draw(data, options);
         };
 
-        /**
+        /**          * @memberof Player Stat Angular App
          * @description Builds Three Point Graph. Assigns Graph to HTML div with ID threePChart
          */
         var ThreePGraph = function(){
@@ -367,7 +373,7 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
             chart.draw(data, options);
         };
 
-        /**
+        /**          * @memberof Player Stat Angular App
          * @description Builds Free Throw Graph. Assigns Graph to HTML div with ID FTChart
          */
         var FTGraph = function(){
@@ -402,7 +408,7 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
             chart.draw(data, options);
         };
 
-        /**
+        /**          * @memberof Player Stat Angular App
          * @description Builds Assist Graph. Assigns Graph to HTML div with ID AssistChart
          */
         var AssistGraph = function(){
@@ -431,7 +437,7 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
             chart.draw(data, options);
         };
 
-        /**
+        /**          * @memberof Player Stat Angular App
          * @description Builds Steal Graph. Assigns Graph to HTML div with ID StealChart
          */
         var StealGraph = function(){
@@ -460,7 +466,7 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
             chart.draw(data, options);
         };
 
-        /**
+        /**          * @memberof Player Stat Angular App
          * @description Builds Block Graph. Assigns Graph to HTML div with ID BlockChart
          */
         var BlockGraph = function(){
@@ -489,7 +495,7 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
             chart.draw(data, options);
         };
 
-        /**
+        /**          * @memberof Player Stat Angular App
          * @description Builds Rebound Graph. Assigns Graph to HTML div with ID TRBChart
          */
         var ReboundsGraph = function(){
@@ -519,7 +525,7 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
             chart.draw(data, options);
         };
 
-        /**
+        /**          * @memberof Player Stat Angular App
          * @description Builds Turnover Graph. Assigns Graph to HTML div with ID TOVChart
          */
         var TOVGraph = function(){
@@ -548,7 +554,7 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
             chart.draw(data, options);
         };
 
-        /**
+        /**          * @memberof Player Stat Angular App
          * @description Builds Foul Graph. Assigns Graph to HTML div with ID FoulChart
          */
         var FoulGraph = function(){
