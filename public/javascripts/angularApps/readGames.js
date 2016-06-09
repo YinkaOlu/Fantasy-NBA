@@ -1,6 +1,9 @@
 /**
- * Created by yinka_000 on 2015-12-07.
+ * @file Angular Javascript file that handles Reading Games
+ * @namespace Read Games Angular App
+ * @version 1.0
  */
+
 var app = angular.module('readGamesEngine', ['ngMaterial']);
 
 app.controller('readGamesController', ['$scope', '$http',
@@ -13,6 +16,10 @@ app.controller('readGamesController', ['$scope', '$http',
             $scope.currentTeams = response;
         });
 
+        /**
+         * @memberof Read Games Angular App
+         * @description Makes HTTP Call to retrieve Team roster of team selected by user
+         */
         $scope.selectTeamFunction = function(teamPos) {
             $scope.selectedTeam = $scope.currentTeams[teamPos];
             $scope.teamID = $scope.currentTeams[teamPos]._id;
@@ -25,6 +32,11 @@ app.controller('readGamesController', ['$scope', '$http',
 
         };
 
+        /**
+         * @memberof Read Games Angular App
+         * @description Stores selected player and makes HTTP to get all games played by player
+         * @param playerPos {number} Position of Player in Roster Array
+         */
         $scope.selectPlayerFunction = function(playerPos){
             $scope.player = $scope.roster[playerPos];
             $scope.playerID = $scope.player._id;
@@ -36,6 +48,11 @@ app.controller('readGamesController', ['$scope', '$http',
             })
         };
 
+        /**
+         * @memberof Read Games Angular App
+         * @description Stores selected game
+         * @param GamePos {number} Position of Player in Roster Array
+         */
         $scope.selectGameFunction = function(GamePos){
             $scope.game = $scope.gamesPlayed[GamePos];
         };

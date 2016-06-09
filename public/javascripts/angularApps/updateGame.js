@@ -1,6 +1,9 @@
 /**
- * updated by yinka_000 on 2015-12-07.
+ * @file Angular Javascript file that handles Game deletion
+ * @namespace Update Game Angular App
+ * @version 1.0
  */
+
 var app = angular.module('updateGameEngine', ['ngMaterial']);
 
 app.controller('updateGameController', ['$scope', '$http',
@@ -13,6 +16,10 @@ app.controller('updateGameController', ['$scope', '$http',
             $scope.currentTeams = response;
         });
 
+        /**
+         * @memberof Update Game Angular App
+         * @description Makes HTTP Call to retrieve Team roster of team selected by user
+         */
         $scope.selectTeamFunction = function(teamPos) {
             $scope.selectedTeam = $scope.currentTeams[teamPos];
             $scope.teamID = $scope.currentTeams[teamPos]._id;
@@ -25,6 +32,11 @@ app.controller('updateGameController', ['$scope', '$http',
 
         };
 
+        /**
+         * @memberof Update Game Angular App
+         * @description Stores selected player and makes HTTP to get all games played by player
+         * @param playerPos {number} Position of Player in Roster Array
+         */
         $scope.selectPlayerFunction = function(playerPos){
             $scope.player = $scope.roster[playerPos];
             $scope.playerID = $scope.player._id;
@@ -36,10 +48,19 @@ app.controller('updateGameController', ['$scope', '$http',
             })
         };
 
+        /**
+         * @memberof Update Game Angular App
+         * @description Stores selected game
+         * @param GamePos {number} Position of Player in Roster Array
+         */
         $scope.selectGameFunction = function(GamePos){
             $scope.game = $scope.gamesPlayed[GamePos];
         };
 
+        /**
+         * @memberof Update Game Angular App
+         * @description Makes HTTP call to update game
+         */
         $scope.updateGame = function(){
             confirm('Update Game?');
             var updatePlayerURL = '/api/game/' + $scope.game._id;

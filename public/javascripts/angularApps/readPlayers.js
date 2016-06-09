@@ -1,5 +1,7 @@
 /**
- * Created by Yinka on 2015-12-06.
+ * @file Angular Javascript file that handles Create Player Interactions.
+ * @namespace Read Roster(Players) Angular App
+ * @version 1.0
  */
 var app = angular.module('readPlayersEngine', ['ngMaterial']);
 
@@ -11,7 +13,12 @@ app.controller('readPlayersController', ['$scope', '$http',
                 //Store DB as variable $scope.currentTeams
                 $scope.currentTeams = response;
             });
-			
+
+        /**
+         * @description Assigns selectedTeam variable to team @teamPos index in $scope.currentTeams (NBA Team List)
+         * @memberof Read Roster(Players) Angular App
+         * @param teamPos {number} Position of Team in NBA team list array $scope.currentTeams
+         */
 		$scope.selectTeamFunction = function(teamPos) {
             $scope.selectedTeam = $scope.currentTeams[teamPos];
             $scope.teamID = $scope.currentTeams[teamPos]._id;
