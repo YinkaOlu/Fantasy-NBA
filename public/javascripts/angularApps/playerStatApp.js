@@ -187,8 +187,9 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
          * @description HTTP Get request to retrieves season stats of selected player. Assigns stats to scope variables
          */
         var getSeasonStats = function(){
-            var statsURL = '/calculate/findGames/' + $scope.playerID;
+            var statsURL = '/calculate/seasonStats/' + $scope.playerID;
             $http.get(statsURL).success(function(response) {
+                console.log('These are the Season Stats: ');
                 console.log(response);
                 $scope.PPG = response.PPG;
                 $scope.APG = response.APG;
@@ -203,6 +204,7 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
                 $scope.FGPer = response.FGPer;
                 $scope.threePPer = response.threePPer;
                 $scope.FTPer = response.FTPer;
+                console.log('All Season Scope Variables are now set.');
             })
         };
 
@@ -213,7 +215,7 @@ app.controller('playerStatCtrl', ['$scope', '$http','$interval',
             var gamesURL = '/api/findGames/' + $scope.playerID;
             $http.get(gamesURL).success(function(response) {
                 $scope.gamesPlayed = response;
-                console.log('Another One:');
+                console.log('These are all the games played by selected player:');
                 console.log(response);
 
                 buildAllGraphs();

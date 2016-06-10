@@ -51,11 +51,10 @@ router.route('/findGames/:player_id').get(function(req, res) {
 module.exports = router;
 //-----Calculate Season Stats for Individual Player (Player Stat Page -----------
 //--------------------------------------------------------------------------------
-router.route('/findGames/:player_id').get(function(req, res) {
-    console.log('Finding played games');
+router.route('/seasonStats/:player_id').get(function(req, res) {
+    console.log('Calculating Season Stats...');
     console.log(req.params.player_id);
     gameModel.find({ associated_player:  req.params.player_id}, function (err, games){
-        console.log(games);
 
         //Set Stat Variables to 0
         var PPG = 0;
@@ -82,7 +81,7 @@ router.route('/findGames/:player_id').get(function(req, res) {
 
         //Determine the amount of games the player has played
         var gamesPlayed = games.length;
-        console.log('Calculating Stats for: '+gamesPlayed);
+        console.log('Calculating Stats for '+gamesPlayed+' games');
 
         for (var i = 0; i < gamesPlayed; i++){
             PPG += games[i].PTS;
@@ -123,7 +122,7 @@ router.route('/findGames/:player_id').get(function(req, res) {
         statResults.FGPer = (FGM /FGA);
         statResults.threePPer = (TPM / TPA);
         statResults.FTPer = (FTM / FTA);
-        console.log('Here are they stat results');
+        console.log('Here are the stat results');
         console.log(statResults);
 
         // Send Stats in JSON Format
