@@ -28,7 +28,7 @@ app.controller('createPlayerController', ['$scope', '$http',
         $scope.selectTeamFunction = function(teamPos){
             $scope.team = $scope.currentTeams[teamPos];
             var teamID= $scope.currentTeams[teamPos]._id;
-            $scope.player.player_team = teamID;
+            //$scope.player.player_team = teamID;
         };
 
 
@@ -37,7 +37,7 @@ app.controller('createPlayerController', ['$scope', '$http',
          * @description Assigns temporary player variable equal to selected player. Makes HTTP post request to save new player
          */
         $scope.createPlayer = function(){
-            confirm('Add '+ $scope.player.player_first_name + $scope.player.player_last_name + ' to '+ $scope.team.team_name);
+            // confirm('Add '+ $scope.player.player_first_name + $scope.player.player_last_name + ' to '+ $scope.team.team_name);
             $http.post('/api/player', $scope.player);
             window.location.href=window.location.href;
         };

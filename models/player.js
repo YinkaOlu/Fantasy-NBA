@@ -2,12 +2,6 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var playerSchema = new Schema({
-	//reference to team collection
-	player_team: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Team'
-    },
-	
 	player_first_name:  String,
 	player_last_name:	String,
 	player_number: 	Number,
@@ -28,13 +22,7 @@ var playerSchema = new Schema({
 	player_injured:	{type: Boolean, default: false},
 		player_injury:	String,
 		player_injury_time:	String,
-//If player traded, show previous team		
-		player_traded:	{type: Boolean, default: false},
-		player_previousTeam: {
-			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Team'
-		},
-	
+
 //If been to playoffs, use following data	
 	been_to_playOffs:	{type: Boolean, default: false},
 		playOff_experience: Number,

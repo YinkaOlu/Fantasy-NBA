@@ -57,7 +57,7 @@ router.use(function(req, res, next) {
     next();
 });
 
-//----------------------------------Query to find Players on Team ------------------------------------
+//----------------------------------Query to find Players by name ------------------------------------
 //----------------------------------------------------------------------------------------------------
 router.route('/findRoster/:team_id').get(function(req, res) {
     console.log('Finding roster');
@@ -66,6 +66,22 @@ router.route('/findRoster/:team_id').get(function(req, res) {
         console.log(doc);
         res.json(doc);
     });
+});
+
+//----------------------------------------------------------------------------------
+//----------------------------------Query to find Players ------------------------------------
+//----------------------------------------------------------------------------------------------------
+router.route('/findPlayerByName/:player_firstName/:player_lastName').get(function(req, res) {
+    console.log('Finding Player:');
+    var fullName = req.params.player_firstName + " " + req.params.player_lastName;
+    console.log(fullName);
+    playerModel.find({ player_first_name:  req.params.player_firstName, player_last_name:  req.params.player_lastName},
+
+        function (err, doc){
+            console.log('Document found');
+            console.log(doc);
+            res.json(doc);
+        });
 });
 
 //----------------------------------------------------------------------------------
@@ -388,6 +404,7 @@ router.route('/player/:player_id')
     })
     .put(function(req, res) {
         console.log("Got Edit Request for player name");
+        console.log(req.body);
         // use our player model to find the player we want
         playerModel.findById(req.params.player_id, function(err, updatedPlayer) {
 
@@ -471,6 +488,7 @@ router.route('/game')
     // create a game (accessed at POST http://localhost:8080/api/game)
     .post(function(req, res) {
         console.log("Got post request");
+        console.log(req.body);
         var newgame = new gameModel();      // create a new instance of the game model
 
         newgame.player_Name = req.body.player_Name;
@@ -496,9 +514,11 @@ router.route('/game')
         console.log(newgame);
         // save the new game and check for errors
         newgame.save(function(err) {
+            console.log("Saving Game");
             if (err)
                 res.send(err);
 
+            console.log("Saved Game");
             res.json({ message: 'New game created!' });
         });
 

@@ -1,0 +1,84 @@
+<% include ../../templates/headTemp.ejs %>
+<% include ../../templates/navigationTemp.html %>
+
+<!-- Create Team API engine -->
+<script language="javascript" type="text/javascript" src="/javascripts/angularApps/createRoster.js"></script>
+<div id="createTeam" ng-app="createRosterEngine">
+    <div ng-controller="createRosterController">
+
+        <div id="formOneContainer" class="col-md-6 col-sm-6 col-xs-6">
+            <form role="form" id="step1a" name="myForm3">
+                <div class="form-group">
+                    <div class="row">
+                        <label>Select team (select one):</label>
+                    </div>
+                    <select size="9" id="selectedTeamA" class="form-group">
+                        <option ng-repeat="team in currentTeams | orderBy: 'team_name'" value='{{currentTeams.indexOf(team)}}' ng-click="selectTeamFunction(currentTeams.indexOf(team))">{{team.team_name}}</option>
+                    </select>
+                </div>
+            </form>
+            <a href="/teamform"> Back to TEAM CRUD PAGE</a>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <form id="rosterEntryForm">
+                <h2>Season: </h2><input type="text" ng-model="roster.season">
+
+                <h2>Player One: </h2><input type="text" ng-model="playerA"><button ng-click="searchPlayer(playerA, 0)">Search</button>
+                <p><em>Found {{roster.playerOne.player_first_name}} {{roster.playerOne.player_last_name}}</em></p>
+                <br>
+
+                <h2>Player Two: </h2><input type="text" ng-model="playerB"><button ng-click="searchPlayer(playerB, 1)">Search</button>
+                <p><em>Found {{roster.playerTwo.player_first_name}} {{roster.playerTwo.player_last_name}}</em></p>
+                <br>
+
+                <h2>Player Three: </h2><input type="text" ng-model="playerC"><button ng-click="searchPlayer(playerC, 2)">Search</button>
+                <p><em>Found {{roster.playerThree.player_first_name}} {{roster.playerThree.player_last_name}}</em></p>
+                <br>
+
+                <h2>Player Four: </h2><input type="text" ng-model="playerD"><button ng-click="searchPlayer(playerD, 3)">Search</button>
+                <p><em>Found {{roster.playerFour.player_first_name}} {{roster.playerFour.player_last_name}}</em></p>
+                <br>
+
+                <h2>Player Five: </h2><input type="text" ng-model="playerE"><button ng-click="searchPlayer(playerE, 4)">Search</button>
+                <p><em>Found {{roster.playerFive.player_first_name}} {{roster.playerFive.player_last_name}}</em></p>
+                <br>
+
+                <h2>Player Six: </h2><input type="text" ng-model="playerF"><button ng-click="searchPlayer(playerF, 5)">Search</button>
+                <p><em>Found {{roster.playerSix.player_first_name}} {{roster.playerSix.player_last_name}}</em></p>
+                <br>
+
+                <h2>Player Seven: </h2><input type="text" ng-model="playerG"><button ng-click="searchPlayer(playerG, 6)">Search</button>
+                <p><em>Found {{roster.playerSeven.player_first_name}} {{roster.playerSeven.player_last_name}}</em></p>
+                <br>
+
+                <h2>Player Eight: </h2><input type="text" ng-model="playerH"><button ng-click="searchPlayer(playerH, 7)">Search</button>
+                <p><em>Found {{roster.playerEight.player_first_name}} {{roster.playerEight.player_last_name}}</em></p>
+                <br>
+
+                <h2>Player Nine: </h2><input type="text" ng-model="playerI"><button ng-click="searchPlayer(playerI, 8)">Search</button>
+                <p><em>Found {{roster.playerNine.player_first_name}} {{roster.playerNine.player_last_name}}</em></p>
+                <br>
+
+                <h2>Player Ten: </h2><input type="text" ng-model="playerJ"><button ng-click="searchPlayer(playerJ, 9)">Search</button>
+                <p><em>Found {{roster.playerTen.player_first_name}} {{roster.playerTen.player_last_name}}</em></p>
+                <br>
+
+                <h2>Player Eleven: </h2><input type="text" ng-model="playerK"><button ng-click="searchPlayer(playerK, 10)">Search</button>
+                <p><em>Found {{roster.playerEleven.player_first_name}} {{roster.playerEleven.player_last_name}}</em></p>
+                <br>
+
+                <h2>Player Twelve: </h2><input type="text" ng-model="playerL"><button ng-click="searchPlayer(playerL, 11)">Search</button>
+                <p><em>Found {{roster.playerTwelve.player_first_name}} {{roster.playerTwelve.player_last_name}}</em></p>
+                <br>
+
+                <h2>Player Thirteen: </h2><input type="text" ng-model="playerM"><button ng-click="searchPlayer(playerM, 12)">Search</button>
+                <p><em>Found {{roster.playerThirteen.player_first_name}} {{roster.playerThirteen.player_last_name}}</em></p>
+                <br>
+                <button ng-click="createRoster()">Create Roster</button>
+                <br>
+                <a href="/teamform"> Back to TEAM CRUD PAGE</a>
+            </form>
+        </div>
+    </div>
+</div>

@@ -116,6 +116,9 @@ router.get('/deleteGame', function(req, res, next) {
 });
 //--------------------------------------------------------------
 //---------------------------------------------------------------
+router.get('/createRoster', function (req, res, next) {
+    res.render('apiViews/apiRoster/createRoster', { title: 'Roster Page' })
+})
 //--------------------------------------------------------------
 
 
