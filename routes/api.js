@@ -48,6 +48,8 @@ var userModel = require('../models/user');
 
 var favPlayerModel = require('../models/favPlayer');
 
+var rosterModel = require('../models/roster');
+
 
 
 //Test Connection to Router
@@ -57,16 +59,141 @@ router.use(function(req, res, next) {
     next();
 });
 
+//------------------------------- Post Roster ---------------------------------
+router.route('/roster').post(
+    function (req, res) {
+        console.log(" Post for Roster");
+        console.log(req.body);
+        var newRoster = new rosterModel();
+
+        newRoster.season = req.body.season;
+        newRoster.roster_team = req.body.roster_team;
+        newRoster.player_one = req.body.player_one;
+        newRoster.player_two = req.body.player_two;
+        newRoster.player_three = req.body.player_three;
+        newRoster.player_four = req.body.player_four;
+        newRoster.player_five = req.body.player_five;
+        newRoster.player_six = req.body.player_six;
+        newRoster.player_seven = req.body.player_seven;
+        newRoster.player_eight = req.body.player_eight;
+        newRoster.player_nine = req.body.player_nine;
+        newRoster.player_ten = req.body.player_ten;
+        newRoster.player_eleven = req.body.player_eleven;
+        newRoster.player_twelve = req.body.player_twelve;
+        newRoster.player_thirteen = req.body.player_thirteen;
+
+        console.log("Roster Draft: ");
+        console.log(newRoster);
+
+        newRoster.save(function (err) {
+            console.log("Saved Roster");
+            if(err)
+                res.send(err)
+
+            res.json({message: "New Roster Saved"})
+        })
+    }
+);
+
 //----------------------------------Query to find Players by name ------------------------------------
 //----------------------------------------------------------------------------------------------------
+
+function findPlayerFromRoster(playerID, roster) {
+    playerModel.find({_id: playerID},
+        function (err, player) {
+            if (player != null) {
+                roster.push(player[0]);
+            }
+        });
+    return roster;
+}
 router.route('/findRoster/:team_id').get(function(req, res) {
     console.log('Finding roster');
     console.log(req.params.team_id);
-    playerModel.find({ player_team:  req.params.team_id}, function (err, doc){
-        console.log(doc);
-        res.json(doc);
+    rosterModel.find({ roster_team:  req.params.team_id}, function (err, doc){
+        console.log(doc[0]);
+        var roster = doc[0];
+
+        if(roster != null){
+            playerModel.find({
+                "$or":
+                    [{
+                        _id: roster.player_one
+                    },
+                        {
+                            _id: roster.player_two
+                        },
+                        {
+                            _id: roster.player_three
+                        },
+                        {
+                            _id: roster.player_four
+                        },
+                        {
+                            _id: roster.player_five
+                        },
+                        {
+                            _id: roster.player_six
+                        },
+                        {
+                            _id: roster.player_seven
+                        },
+                        {
+                            _id: roster.player_eight
+                        },
+                        {
+                            _id: roster.player_nine
+                        },
+                        {
+                            _id: roster.player_ten
+                        },
+                        {
+                            _id: roster.player_eleven
+                        },
+                        {
+                            _id: roster.player_twelve
+                        },
+                        {
+                            _id: roster.player_thirteen
+                        }]
+            }, function (err, doc) {
+                if(doc != null){
+                    console.log("Found Players");
+                    console.log(doc);
+                    res.json(doc);
+                }
+                else{
+                    res.json([])
+                }
+
+            })
+        }else{
+            res.json([])
+        }
     });
 });
+
+//-------------------------------- Get Team ID --------------------------------
+router.route('/findTeamID/:team_name').get(
+    function (req, res) {
+        console.log("Finding Team ID");
+        console.log(req.params.team_name);
+
+        teamModel.find({
+            team_name:  req.params.team_name
+        },
+        function (err, doc) {
+            if(err){
+                res.json(
+                    err
+                )
+            }
+            console.log(doc[0]);
+            res.json(doc[0])
+        });
+
+    }
+);
 
 //----------------------------------------------------------------------------------
 //----------------------------------Query to find Players ------------------------------------
