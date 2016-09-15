@@ -1,0 +1,19 @@
+<md-card class="playerCard">
+    <md-card-header>
+        <md-card-avatar>
+            <img class ="md-media-sm" ng-src="/images/logos/{{ selectedTeam.team_name }}.png">
+        </md-card-avatar>
+        <md-card-header-text>
+            <span class="md-title">{{ player.player_first_name }} {{ player.player_last_name }}</span>
+            <span class="md-subhead">{{player.player_number}} || {{player.player_position}}</span>
+        </md-card-header-text>
+    </md-card-header>
+    <img class="md-card-image cardProfile" ng-src="/images/profilePics/{{ player.player_first_name }} {{ player.player_last_name }}.png">
+    <p><b>Birth Date:</b> {{ player.player_birthDate | date : 'fullDate'}}</p>
+    <p><b>Height(inches):</b> {{getHeight(roster.indexOf(player))}}</p>
+    <p><b>Draft Year:</b> {{ getDraftYear(roster.indexOf(player)) }}</p>
+    <p><b>Player Status:</b> {{ getPlayerStatus(roster.indexOf(player)) }}</p>
+    <md-button class="md-raised" ng-click="directResults(roster.indexOf(player))">Get Season Stats</md-button>
+    <br>
+    <md-button class="md-raised" ng-click="savePlayer(player)">Save Player</md-button>
+</md-card >
