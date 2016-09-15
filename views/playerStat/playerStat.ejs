@@ -1,13 +1,12 @@
-<% include ../templates/headTemp.ejs %>
+<% include ../templates/head.ejs %>
 <% include ../templates/navigationTemp.html %>
-
-<!-- Player Stat Angular App -->
-<script language="javascript" type="text/javascript" src="/javascripts/angularApps/playerStatApp.js"></script>
 
 <link rel="stylesheet" href='/stylesheets/playerStat.css'>
 
-<div ng-app = 'playerStatApp' class="appContainer">
-    <div ng-controller ='playerStatCtrl' id="controllerHolder">
+<div class="appContainer" ng-controller ="StatCtrl">
+
+    <div  id="controllerHolder">
+
 
 
         <h1  class="row demo1" id="decisionTitle" ng-hide="hideTeams">Choose Team:</h1>
@@ -31,10 +30,9 @@
         <md-button class="md-raised" ng-click="backToTeams()">Back to Teams</md-button>
         <br>
         <h1  class="row" id="decisionTitle" ng-hide="hideRoster">Choose Player:</h1>
-        <div id="teamRoster" ng-hide="hideRoster" ng-style="{'background-color': selectedTeam.teamPrimaryColour}">
+        <div ng-controller ="PlayerCtrl" id="teamRoster" ng-hide="hideRoster" ng-style="{'background-color': selectedTeam.teamPrimaryColour}">
 
             <div id="playerContainer" class="teamRosterHolder" ng-repeat="player in roster | orderBy: 'player_last_name'" ng-style="{'background-color': selectedTeam.teamSecondaryColour}">
-
                 <md-card class="playerCard">
                     <md-card-header>
                         <md-card-avatar>
@@ -62,30 +60,9 @@
         <div name="results" ng-hide="hideResults" ng-style="{'background-color': selectedTeam.teamPrimaryColour}">
             <% include ../templates/currentSeasonStats.html %>
         </div>
-
-
-
     </div>
-
-    <!--
-    </div>
-
-    <div class="row">
-        <p>Fantasy App Tracker</p>
-
-    <div class="row">
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="ca-pub-7625328914292919"
-         data-ad-slot="2711335985"
-         data-ad-format="auto"></ins>
-    <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
 </div>
 
-    -->
-</div>
+<% include ../templates/javascriptFiles.ejs %>
+
 

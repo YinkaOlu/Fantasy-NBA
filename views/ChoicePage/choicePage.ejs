@@ -1,26 +1,21 @@
-<% include ../templates/headTemp.ejs %>
+<% include ../templates/head.ejs %>
+        <link rel="stylesheet" href='/stylesheets/choicePage.css'>
+        <div>
+                <md-tabs md-dynamic-height md-border-bottom>
+                    <md-tab label="Check Player Stats">
+                            <a href="/playerStat" style="color: white">
+                                <div id="statCheck">
+                                    <div class="divOverImage">
+                                        <h1 style=" line-height: 100%; font-size: 15vh">Stat<br />Check</h1>
+                                        <md-button >Begin Now</md-button>
+                                    </div>
+                                </div>
+                            </a>
+                    </md-tab>
+                </md-tabs>
+        </div>
+        <% include ../templates/javascriptFiles.ejs %>
+<% include ../templates/footer.ejs %>
 
 
-<!-- Choice Page Engine -->
-<script language="javascript" type="text/javascript" src="/javascripts/angularApps/choicePage.js"></script>
-
-<link rel="stylesheet" href='/stylesheets/choicePage.css'>
-<div ng-app="choiceApp">
-
-    <div id="choicePageContainer" ng-controller="choiceController">
-        <md-tabs md-dynamic-height md-border-bottom>
-            <md-tab label="Check Player Stats">
-                    <a href="/playerStat" style="color: white">
-                        <div id="statCheck">
-                            <div class="divOverImage">
-                                <h1 style=" line-height: 100%; font-size: 15vh">Stat<br />Check</h1>
-                                <md-button >Begin Now</md-button>
-                            </div>
-                        </div>
-                    </a>
-            </md-tab>
-        </md-tabs>
-    </div>
-
-</div>
 
